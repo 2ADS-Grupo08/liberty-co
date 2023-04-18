@@ -228,7 +228,6 @@
     background-color: #E7E7E7;
     border: none;
     border-radius: 10px;
-    margin-bottom: 30px;
 }
 
 .formularioLogin input {
@@ -241,10 +240,10 @@
 }
 
 .inputLogin {
-    width: 70%;
+    /* width: 70%; */
     gap: 30px;
     display: flex;
-    flex-flow: row wrap;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     overflow: auto;
@@ -264,6 +263,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: auto;
 }
 
 .conteudoLogin p {
