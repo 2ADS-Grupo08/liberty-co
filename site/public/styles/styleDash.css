@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     font-family: Montserrat;
+    overflow: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -249,4 +250,19 @@ label #btn {
     padding: 5px;
     border-radius: 10px;
     margin-inline-end: 20px;
+}
+
+.box-texto {
+    width: 30%;
+    height: 50%;
+    text-align: center;
+    background: #1b1b1b;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0 5px;
+    color: white;
+}
+
+.box-texto h2{
+    font-size: 15px;
 }
