@@ -65,7 +65,7 @@
             <div class="box-container">
                 <div class="box-texto">
                     <h2>Espaço disponível:</h2>
-                        <h3>193,5<b>GB </b></h3>
+                    <h3>193,5<b>GB</b></h3>
                     <!-- <div class="graficos">
                         <canvas id="myChart"></canvas>
                     </div>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="box">
                     <div class="graficos">
-                        <canvas id="myChart2"></canvas>
+                        <canvas id="myChart2" style="width: 25vw;"></canvas style="width: 0%;" >
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
                     </div>
@@ -95,7 +95,7 @@
             </div>
             <div class="box-container2">
                 <div class="box">
-                    <div >
+                    <div>
                         <canvas id="myChart5"></canvas>
                     </div>
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -135,11 +135,15 @@
         new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: ['Domingo', 'Segunda', 'Terça'],
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    label: 'Ideal',
+                    data: [12, 19, 3],
                     borderWidth: 1
+                },{
+                    label: 'dasuidwu', 
+                },{
+                    label: 'dasuidwu', 
                 }]
             },
             options: {
@@ -213,7 +217,7 @@
                     y: {
                         beginAtZero: true
                     }
-                }   
+                }
             }
         });
     </script>
