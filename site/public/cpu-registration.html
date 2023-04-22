@@ -7,16 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/cpu-registration.css">
     <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <script src="js/funcoes.js"></script>
     <script src="js/cpu-registration.js"></script>
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/9763306bd1.js" crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <title>Cadastro de Máquina</title>
 </head>
 
-<body onload="validarSessaoGestor(), listarMaquinas()" id="body">
+<body onload="listarMaquinas()" id="body">
     <div class="content">
         <div class="sidebar">
             <header>
@@ -24,7 +25,8 @@
                     <img src="styles/assets/logo/logo_side.png" alt="LogoLibertyCo">
                 </div>
                 <div class="infos">
-                    <h2 id="b_nome">nome</h2><h2 id="b_ultimoNome">ultimoNome</h2>
+                    <h2 id="b_nome">nome</h2>
+                    <h2 id="b_ultimoNome">ultimoNome</h2>
                     <span id="b_cargo">cargo</span>
                 </div>
             </header>
@@ -63,8 +65,23 @@
                         <div class="computer">
                             <div class="cardHeader">
                                 <div class="actions">
-                                    <ion-icon name="pencil-outline" size="large"></ion-icon>
-                                    <ion-icon name="trash-outline" size="large"></ion-icon>
+                                    <img src="styles/assets/icone/edit-pencil.png" style="cursor: pointer;" onclick="teste()" alt="">
+                                    <img src="styles/assets/icone/icon-trash.png" tyle="cursor: pointer;" onclick="teste()"alt="">
+                                </div>
+                                <div class="activity">
+                                    <small>Ativo</small>
+                                </div>
+                            </div>
+                            <div class="cardFooter">
+                                <img class="monitor" src="styles/assets/icone/!!monitor.png">
+                                <span>Modelo da Máquina</span>
+                            </div>
+                        </div>
+                        <div class="computer">
+                            <div class="cardHeader">
+                                <div class="actions">
+                                    <img src="styles/assets/icone/edit-pencil.png" style="cursor: pointer;" onclick="editarMaquina()" alt="">
+                                    <img src="styles/assets/icone/icon-trash.png" tyle="cursor: pointer;" onclick="teste()"alt="">
                                 </div>
                                 <div class="activity">
                                     <small>Ativo</small>

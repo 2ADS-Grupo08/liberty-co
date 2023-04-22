@@ -74,8 +74,12 @@ function cadastrarEmpresa() {
 
     if (razaoVar == "" || cnpjVar == "" || emailVar == "" || cepVar == "" || logVar == ""
         || bairroVar == "" || numVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
-        alert("Preencha todos os campos");
-        return false;
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
     }
 
     cnpjVar = cnpjVar.replace("-", "");

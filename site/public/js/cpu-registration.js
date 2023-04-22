@@ -1,3 +1,55 @@
+function editarMaquina() {
+    Swal.fire({
+        title: '<strong>Edição de máquina</strong>',
+        html:
+          ` <div class="edit-computer">
+                <div class="container">
+                    <div class="edit-body">
+                        <div class="computer-infos-left">
+                            <div class="input-label">
+                                <label for="">Hostname</label>
+                                <input type="text" name="" id="">
+                            </div>
+                            <div class="input-label">
+                                <label for="">Nome do Arquiteto</label>
+                                <input type="text" name="" id="">
+                            </div>
+                            <div class="input-label">
+                                <label for="">Sobrenome</label>
+                                <input type="text" name="" id="">
+                            </div>
+                            <div class="input-label">
+                                <label for="">Sistema Operacional</label>
+                                <input type="text" name="" id="">
+                            </div>
+                            <div class="input-label">
+                            <label for="">Status</label>
+                                <select name="" id="">
+                                    <option value="Selecione uma opcão" selected disabled>Selecione uma opcão</option>
+                                    <option value="ativo">Ativo</option>
+                                    <option value="inativo">Inativo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="computer-infos-right">
+                            <img class="monitor" src="styles/assets/icone/+monitor.png">
+                            <span>ID da Máquina: </span><span id="idMaquina">idMaquina</span>
+                        </div>
+                    </div>
+                </div>
+            </div>`,
+        width:700,
+        background: '#FFFFFF',
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText:
+          'Finalizar',
+        cancelButtonText:
+          'Cancelar'
+      })
+}
+
 function abrirPopup() {
     document.getElementById('popup_fundo').style.display = 'block';
     inp_host.value = "";
