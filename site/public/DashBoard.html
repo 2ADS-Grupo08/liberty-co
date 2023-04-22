@@ -25,15 +25,15 @@
             </header>
             <a href="#" class="agora">
                 <i class="fas fa-stream"></i>
-                <span>Visão geral </span>
+                <span>Visão geral </span><img src="styles/assets/icone/alerta.png" style="display: none;" alt="">
             </a>
             <a href="#">
                 <i class="fas fa-microchip"></i>
-                <span>CPU</span>
+                <span>CPU</span><img src="styles/assets/icone/alerta.png" alt="">
             </a>
             <a href="#">
                 <i class="fas fa-sliders-h"></i>
-                <span>RAM</span>
+                <span>RAM</span><img src="styles/assets/icone/alerta.png" style="display: none;" alt="">
             </a>
             <a href="#">
                 <i class="fas fa-hard-drive"></i>
@@ -52,6 +52,27 @@
             </div>
         </div>
         <div class="container">
+            <div class="box-legenda">
+                <div class="conteudo-legenda">
+                    <h1>MEDIDAS IDEAIS</h1>
+                    <div class="hardware">
+                        <div class="box-hardware">
+                            <h3>Disco Rígido</h3>
+                            <p>Até: xGB</p>
+                        </div>
+                        <div class="linha-vertical"></div>
+                        <div class="box-hardware">
+                            <h3>Memória RAM</h3>
+                            <p>Até: xGB</p>
+                        </div>
+                        <div class="linha-vertical"></div>
+                        <div class="box-hardware">
+                            <h3>CPU</h3>
+                            <p>Até: xGHz</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="box-container">
                 <div class="box-texto">
                     <h2>Espaço disponível:</h2>
@@ -60,30 +81,63 @@
                 </div>
                 <div class="box">
                     <div class="graficos">
-                        <canvas id="myChart2" style="width: 20vw; height: 8vw;"></canvas>
+                        <canvas id="barras_media3dias" style="width: 20vw; height: 15vh;"></canvas>
                     </div>
                     <div class="legenda">
                         <p>Média de uso da memória RAM dos últimos 3 dias</p>
                     </div>
                 </div>
-                <div class="box">
+                <div class="box-terceiro">
                     <div class="graficos">
-                        <canvas id="myChart3"></canvas>
+                        <canvas id="dought_diasDaSemana" style="width: 20vw; height: 15vh;"></canvas>
+                    </div>
+                    <div class="legenda">
+                        <p>Dias em que a CPU atingiu o limite estipulado<br>
+                            (por semana)</p>
                     </div>
                 </div>
             </div>
-            <div class="box-graficos2">
-                <div class="box-container2">
-                    <div class="box">
-                        <div class="graficos">
-                            <canvas id="myChart4" style="height: 25vh; width: 30vw;"></canvas>
+            <div class="parte2">
+                <div class="box-graficos2">
+                    <div class="box-container2">
+                        <div class="box">
+                            <div class="graficos">
+                                <canvas id="line_mediaRam" style="height: 25vh; width: 30vw;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-container2">
+                        <div class="box">
+                            <div>
+                                <canvas id="line_mediaCpu" style="height: 25vh; width: 30vw;"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="box-container2">
-                    <div class="box">
-                        <div>
-                            <canvas id="myChart5" style="height: 25vh; width: 30vw;"></canvas>
+                <div class="listaDados">
+                    <div class="conteudo">
+                        <div class="titulo">
+                            <h1>INFORMAÇÕES</h1>
+                        </div>
+                        <div class="info_dono">
+                            <p><b>Nome:</b> Fernanda Caramico</p>
+                            <p><b>Cargo:</b> Arquiteto de Edificações</p>
+                        </div>
+                        <div class="info_maquina">
+                            <h1>Máquina</h1>
+                            <p><b>Hostname:</b> FernandaCaramico</p>
+                            <p><b>Marca:</b> Dell</p>
+                            <p><b>Sistema Operacional:</b> Windows</p>
+                        </div>
+                        <div class="info_hardware">
+                            <h1>Hardware</h1>
+                            <h2>- Memória RAM</h2>
+                            <p><b>Total:</b> 16GB</p>
+                            <h2>- CPU</h2>
+                            <p><b>Nome:</b> 10th Gen Intel(R) Core(TM) i7-10700F @ 2.90GHz</p>
+                            <h2>- Disco Rígido</h2>
+                            <p><b>Volume:</b> 1</p>
+                            <p><b>Capacidade Total:</b> 1TB</p>
                         </div>
                     </div>
                 </div>
@@ -103,8 +157,7 @@
     var data_mediaRam3dias = {
         labels: ['Domingo', 'Segunda', 'Terça'],
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3],
+            data: [0, 12.2, 15.58],
             borderWidth: 1
         }]
     };
@@ -129,37 +182,34 @@
     //fim
 </script>
 <script>
-    const ctx3 = document.getElementById('myChart3');
-
-    new Chart(ctx3, {
-        type: 'bar',
+    var cfg_analiseDiasDaSemana = {
+        type: 'doughnut',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: ['Acima', 'Abaixo'],
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
+                label: 'Dias',
+                backgroundColor: ['rgba(255, 51, 70, 0.753)',
+                    'rgba(0, 204, 255, 0.753)'],
+                data: [2, 8],
+                borderWidth: 0.75
             }]
         },
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+            maintainAspectRatio: false,
+            circumference: 180,
+            rotation: -90,
+            cutout: 30
         }
-    });
+    };
 </script>
 <script>
-    const ctx4 = document.getElementById('myChart4');
-
-    new Chart(ctx4, {
+    var cfg_mediaRam = {
         type: 'line',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                label: 'Média de uso da Memória RAM dos dias da semana',
+                data: [12.08, 15.42, 5.07, 5.03, 14.48, 0, 0],
                 borderWidth: 1
             }]
         },
@@ -170,18 +220,16 @@
                 }
             }
         }
-    });
+    };
 </script>
 <script>
-    const ctx5 = document.getElementById('myChart5');
-
-    new Chart(ctx5, {
+    var cfg_mediaCpu = {
         type: 'line',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                label: 'Média de uso da CPU dos dias da semana',
+                data: [2.58, 2.45, 1.07, 1.03, 1.48, 0, 0],
                 borderWidth: 1
             }]
         },
@@ -192,11 +240,26 @@
                 }
             }
         }
-    });
+    };
 </script>
 <script>
     const barra_mediaDiariaRam = new Chart(
-        document.getElementById('myChart2'),
+        document.getElementById('barras_media3dias'),
         cfg_mediaRam3Dias
+    );
+
+    const dought_analiseDiasDaSemana = new Chart(
+        document.getElementById('dought_diasDaSemana'),
+        cfg_analiseDiasDaSemana
+    );
+
+    const line_mediaSemanalRam = new Chart (
+        document.getElementById('line_mediaRam'),
+        cfg_mediaRam
+    );
+
+    const line_mediaSemanalCpu = new Chart (
+        document.getElementById('line_mediaCpu'),
+        cfg_mediaCpu
     );
 </script>
