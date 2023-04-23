@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Share+Tech&display=swap%27');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Share+Tech&display=swap%27');
 
 * {
     margin: 0;
@@ -60,7 +61,7 @@
 .sidebar {
     width: 20%;
     /* border: solid 3px red; */
-    height: auto;
+    height: 150vh;
     background: #1e1e1e;
     transition: all .5s ease;
 }
@@ -207,14 +208,13 @@ label #btn {
 }
 
 .container {
-    /* border: solid 4px purple; */
+    height: 150vh;
+    /* border: #00ccff 2px solid ; */
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: space-evenly; */
     background: #262626;
 }
-
 .box-legenda {
     width: 70vw;
     margin-top: 1%;
@@ -256,40 +256,31 @@ label #btn {
     border-radius: 100px;
     height: 7vh;
 }
-
 .box-container {
     /* border: solid 3px red; */
-    /* margin-top: 2%; */
-    height: 30vh;
+    margin-top: 2%;
+    height: 35vh;
     width: 70vw;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.box-graficos2 {
-    /* border: solid 2px orange; */
-    /* margin-top: 2%; */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    height: 70vh;
-}
 
 .parte2 {
-    width: 88%;
+    /* border: solid 2px rebeccapurple; */
+    width: 91%;
     justify-content: space-between;
     display: flex;
-    /* border: solid 2px rebeccapurple; */
     align-items: center;
 }
 
 .listaDados {
+    margin-top: 7%;
     /* border: solid 2px #00ccff; */
     background-color: #1b1b1b;
     border-radius: 30px;
-    height: 85%;
+    height: 70vh;
     width: 35%;
     display: flex;
     justify-content: center;
@@ -299,13 +290,12 @@ label #btn {
 .listaDados .conteudo {
     /* border: solid 2px lawngreen; */
     width: 70%;
-    height: 110%;
+    height: 85%;
     align-items: center;
     justify-content: center;
 }
 
 .conteudo .titulo h1{
-    margin-top: 10%;
     color: white;
     font-family: 'Montserrat';
     font-size: 25px;
@@ -344,7 +334,7 @@ label #btn {
 
 .box {
     width: 70%;
-    height: 75%;
+    height: 100%;
     background: #1b1b1b;
     margin: 0 5px;
     display: flex;
@@ -355,9 +345,9 @@ label #btn {
     border-radius: 10px;
 }
 
-.box-terceiro {
+.box2 {
     width: 60%;
-    height: 75%;
+    height: 70%;
     background: #1b1b1b;
     margin: 0 5px;
     display: flex;
@@ -398,39 +388,6 @@ label #btn {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.box-texto {
-    width: 30%;
-    height: 75%;
-    text-align: center;
-    background: #1b1b1b;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 0 5px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.box-texto h2 {
-    font-size: 18px;
-    font-family: 'Montserrat';
-    font-weight: 600;
-}
-
-.box-texto h3 {
-    font-family: 'Montserrat';
-    font-size: 40px;
-    font-weight: 800;
-}
-
-.box-texto b {
-    font-size: 18px;
-    padding-left: 5px;
-    font-weight: 600;
-}
-
-.box-texto p {
-    font-family: 'Montserrat';
-    margin-top: 15%;
+.graficos{
+    /* border: white 2px solid; */
 }

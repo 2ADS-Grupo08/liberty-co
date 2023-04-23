@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DashBoard - LibertyCo</title>
+  <link rel="shortcut icon" href="styles/assets/logo/logo.png" type="image/jpg" href="/favicon.jpg" />
+  <link rel="stylesheet" href="styles/dash-ram.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+  <script src="https://kit.fontawesome.com/9763306bd1.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+  <div class="content">
+    <div class="sidebar">
+      <header>
+        <div class="logo">
+          <img src="styles/assets/logo/logo_side.png" alt="LogoLibertyCo">
+        </div>
+      </header>
+      <a href="DashBoard.html">
+        <i class="fas fa-stream"></i>
+        <span>Visão geral </span><img src="styles/assets/icone/alerta.png" style="display: none;" alt="">
+      </a>
+      <a href="dash-cpu.html">
+        <i class="fas fa-microchip"></i>
+        <span>CPU</span><img src="styles/assets/icone/alerta.png" alt="">
+      </a>
+      <a href="dash-ram.html" class="agora">
+        <i class="fas fa-sliders-h"></i>
+        <span>RAM</span><img src="styles/assets/icone/alerta.png" style="display: none;" alt="">
+      </a>
+      <a href="dash-armazenamento.html">
+        <i class="fas fa-hard-drive"></i>
+        <span>Armazenamento</span>
+      </a>
+      <a href="dash-contato.html">
+        <i class="fas fa-envelope"></i>
+        <span>Contato</span>
+
+      </a>
+      <div class="saida">
+        <a href="index.html" onclick="sair()">
+          <i class="fas fa-right-from-bracket"></i>
+          <span>Sair</span>
+        </a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="box-legenda">
+        <div class="conteudo-legenda">
+            <h1>MEDIDAS IDEAIS</h1>
+            <div class="hardware">
+                <div class="box-hardware">
+                    <h3>Disco Rígido</h3>
+                    <p>Até: xGB</p>
+                </div>
+                <div class="linha-vertical"></div>
+                <div class="box-hardware">
+                    <h3>Memória RAM</h3>
+                    <p>Até: xGB</p>
+                </div>
+                <div class="linha-vert ical"></div>
+                <div class="box-hardware">
+                    <h3>CPU</h3>
+                    <p>Até: xGHz</p>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="box-container">
+        <div class="box">
+          <div class="graficos">
+            <div>
+              <canvas id="myChart" style="height: 25vh; width: 35vw;"></canvas>
+            </div>
+
+          </div>
+          <div class="legenda">
+            <p>Média de uso da memória RAM dos últimos 3 dias</p>
+          </div>
+        </div>
+        <div class="box">
+          <div class="graficos">
+            <canvas id="myChart2" style="height: 25vh; width: 35vw;"></canvas>
+          </div>
+          <div class="legenda">
+            <p>Dias em que a CPU atingiu o limite estipulado<br>
+              (por semana)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="parte2">
+        <div class="box2">
+          <div class="graficos">
+            <canvas id="myChart3" style="height: 40vh; width: 40vw;"></canvas>
+          </div>
+        </div>
+
+        <div class="listaDados">
+          <div class="conteudo">
+            <div class="titulo">
+              <h1>INFORMAÇÕES</h1>
+            </div>
+            <div class="info_dono">
+              <p><b>Nome:</b> Fernanda Caramico</p>
+              <p><b>Cargo:</b> Arquiteto de Edificações</p>
+            </div>
+            <div class="info_maquina">
+              <h1>Máquina</h1>
+              <p><b>Hostname:</b> FernandaCaramico</p>
+              <p><b>Marca:</b> Dell</p>
+              <p><b>Sistema Operacional:</b> Windows</p>
+            </div>
+            <div class="info_hardware">
+              <h1>Hardware</h1>
+              <h2>- Memória RAM</h2>
+              <p><b>Total:</b> 16GB</p>
+              <h2>- CPU</h2>
+              <p><b>Nome:</b> 10th Gen Intel(R) Core(TM) i7-10700F @ 2.90GHz</p>
+              <h2>- Disco Rígido</h2>
+              <p><b>Volume:</b> 1</p>
+              <p><b>Capacidade Total:</b> 1TB</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div>
+</body>
+<!-- gráfico 1 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+<!-- gráfico 2 -->
+<script>
+  const ctx2 = document.getElementById('myChart2');
+
+  new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+<!-- grafico 3 -->
+<script>
+  const ctx3 = document.getElementById('myChart3');
+
+  new Chart(ctx3, {
+    type: 'line',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+</html>
