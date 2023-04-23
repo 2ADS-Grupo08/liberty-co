@@ -34,9 +34,9 @@
         <i class="fas fa-sliders-h"></i>
         <span>RAM</span><img src="styles/assets/icone/alerta.png" style="display: none;" alt="">
       </a>
-      <a href="dash-armazenamento.html">
+      <a href="dash-disco.html">
         <i class="fas fa-hard-drive"></i>
-        <span>Armazenamento</span>
+        <span>Disco</span>
       </a>
       <a href="dash-contato.html">
         <i class="fas fa-envelope"></i>
@@ -53,25 +53,25 @@
     <div class="container">
       <div class="box-legenda">
         <div class="conteudo-legenda">
-            <h1>MEDIDAS IDEAIS</h1>
-            <div class="hardware">
-                <div class="box-hardware">
-                    <h3>Disco Rígido</h3>
-                    <p>Até: xGB</p>
-                </div>
-                <div class="linha-vertical"></div>
-                <div class="box-hardware">
-                    <h3>Memória RAM</h3>
-                    <p>Até: xGB</p>
-                </div>
-                <div class="linha-vert ical"></div>
-                <div class="box-hardware">
-                    <h3>CPU</h3>
-                    <p>Até: xGHz</p>
-                </div>
+          <h1>MEDIDAS IDEAIS</h1>
+          <div class="hardware">
+            <div class="box-hardware">
+              <h3>Disco Rígido</h3>
+              <p>Até: xGB</p>
             </div>
+            <div class="linha-vertical"></div>
+            <div class="box-hardware">
+              <h3>Memória RAM</h3>
+              <p>Até: xGB</p>
+            </div>
+            <div class="linha-vert ical"></div>
+            <div class="box-hardware">
+              <h3>CPU</h3>
+              <p>Até: xGHz</p>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
       <div class="box-container">
         <div class="box">
           <div class="graficos">
@@ -81,15 +81,15 @@
 
           </div>
           <div class="legenda">
-            <p>Média de uso da memória RAM dos últimos 3 dias</p>
+            <p>Média de uso da CPU por dia</p>
           </div>
         </div>
         <div class="box">
           <div class="graficos">
-            <canvas id="myChart2" style="height: 25vh; width: 35vw;"></canvas>
+            <canvas id="dought_diasDaSemana" style="width: 20vw; height: 15vh;"></canvas>
           </div>
           <div class="legenda">
-            <p>Dias em que a CPU atingiu o limite estipulado<br>
+            <p>Dias que o uso da CPU ultrapassou o limite<br>
               (por semana)</p>
           </div>
         </div>
@@ -143,10 +143,10 @@
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
       datasets: [{
         label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        data: [12, 10, 3, 5, 9, 3,1],
         borderWidth: 1
       }]
     },
@@ -161,27 +161,32 @@
 </script>
 
 <!-- gráfico 2 -->
-<script>
-  const ctx2 = document.getElementById('myChart2');
 
-  new Chart(ctx2, {
-    type: 'bar',
+<script>
+  var cfg_analiseDiasDaSemana = {
+    type: 'doughnut',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: ['Acima', 'Abaixo'],
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
+        label: 'Dias',
+        backgroundColor: ['rgba(255, 51, 70, 0.753)',
+          'rgba(0, 204, 255, 0.753)'],
+        data: [1, 10],
+        borderWidth: 0.75
       }]
     },
     options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
+      maintainAspectRatio: false,
+      circumference: 180,
+      rotation: -90,
+      cutout: 30
     }
-  });
+  };
+</script>
+<script>      const dought_analiseDiasDaSemana = new Chart(
+    document.getElementById('dought_diasDaSemana'),
+    cfg_analiseDiasDaSemana
+  );
 </script>
 <!-- grafico 3 -->
 <script>
@@ -190,10 +195,10 @@
   new Chart(ctx3, {
     type: 'line',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: ['30seg', '30seg', '30seg', '30seg', '30seg', '30seg'],
       datasets: [{
         label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        data: [1, 6, 3, 1, 8,10],
         borderWidth: 1
       }]
     },

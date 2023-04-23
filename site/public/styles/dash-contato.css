@@ -204,7 +204,7 @@ label #btn {
 
 .container {
     height: 100vh;
-    border: #00ccff 2px solid ;
+    /* border: #00ccff 2px solid; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -225,25 +225,77 @@ label #btn {
     border-radius: 15px;
     color: white;
 }
-.box-contato input{
-    background-color: #1b1b1b;
-    border-bottom: #00ccff;
+
+.box-contato input {
+    background-color: #3a39395b;
     border-radius: 5px;
     font-size: 16px;
     padding: 5px;
     margin-bottom: 5px;
-}
-.input_nome{
-    margin-left: 15px;
-}
-.input_email{
-    margin-left: 15px;
-    
-}
-.input_assunto{
-    margin-left: 15px;
-}
-.input_mensagem{
-    margin-left: 15px;
+    border: 0;
+    border-bottom: rgba(0, 0, 0, 0.784) 2px solid;
+    outline: 0;
+    color: white;
 }
 
+
+.input_nome {
+    margin-left: 30px;
+
+}
+
+.input_email {
+    margin-left: 30px;
+
+}
+
+.input_assunto {
+    margin-left: 30px;
+}
+
+.input_mensagem {
+    margin-left: 30px;
+}
+
+.contato-logo {
+    margin-bottom: 10%;
+    display: flex;
+    justify-content: center;
+}
+
+.botao {
+    display: flex;
+    justify-content: center;
+}
+
+.botao button {
+    font-size: 20px;
+    height: 30px;
+    width: 90px;
+    border-radius: 7px;
+    cursor: pointer;
+    background-color: #3a39395b;
+    color: white;
+    margin-top: 5%;
+}
+
+button:hover {
+    background-color: #756e6e80;
+    transition: 0.3s;
+    
+}
+
+#mensagem{
+    width: 90%;
+    height: 10vh;
+}
+
+#nome {
+    width: 90%;
+}
+#email {
+    width: 90%;   
+}
+#assunto {
+    width: 90%;
+}

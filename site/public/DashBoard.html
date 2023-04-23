@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/styleDash.css">
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-    <link rel="shortcut icon" href="styles/assets/logo/logo.png" type="image/jpg" href="/favicon.jpg"/>
+    <link rel="shortcut icon" href="styles/assets/logo/logo.png" type="image/jpg" href="/favicon.jpg" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11%22%3E"></script>
     <script src="https://kit.fontawesome.com/9763306bd1.js" crossorigin="anonymous"></script>
     <title>DashBoard - LibertyCo</title>
 
@@ -37,9 +37,9 @@
                 <i class="fas fa-sliders-h"></i>
                 <span>RAM</span><img src="styles/assets/icone/alerta.png" style="display: none;" alt="">
             </a>
-            <a href="dash-armazenamento.html">
+            <a href="dash-disco.html">
                 <i class="fas fa-hard-drive"></i>
-                <span>Armazenamento</span>
+                <span>Disco</span>
             </a>
             <a href="dash-contato.html">
                 <i class="fas fa-envelope"></i>
@@ -47,7 +47,7 @@
 
             </a>
             <div class="saida">
-                <a href="index.html" onclick="sair()" >
+                <a onclick="sair()">
                     <i class="fas fa-right-from-bracket"></i>
                     <span>Sair</span>
                 </a>
@@ -156,7 +156,7 @@
 </html>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    
+
     //Média diária do uso da memória ram dos últimos 3 dias    
     var data_mediaRam3dias = {
         labels: ['Domingo', 'Segunda', 'Terça'],
@@ -257,35 +257,35 @@
         cfg_analiseDiasDaSemana
     );
 
-    const line_mediaSemanalRam = new Chart (
+    const line_mediaSemanalRam = new Chart(
         document.getElementById('line_mediaRam'),
         cfg_mediaRam
     );
 
-    const line_mediaSemanalCpu = new Chart (
+    const line_mediaSemanalCpu = new Chart(
         document.getElementById('line_mediaCpu'),
         cfg_mediaCpu
     );
 </script>
 
-<!-- <script>
+<script>
     function sair() {
         Swal.fire({
-  title: 'Are you sure?',
-  text: "You won't be able to revert this!",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes, delete it!'
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire(
-
-    )
-  }
-})
+            title: 'Tem certeza que deseja sair ?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            confirmButtonText: `<a href="index.html" onclick="sair()" >
+                    <i class="fas fa-right-from-bracket"></i>
+                    <span>Sair</span>
+                </a>`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    
+                )
+            }
+        })
 
     }
-    
-</script> -->
+
+</script>
