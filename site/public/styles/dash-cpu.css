@@ -1,0 +1,393 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Share+Tech&display=swap%27');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Share+Tech&display=swap%27');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1B4364;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: black;
+    border-radius: 20px;
+}
+
+.content .container {
+    display: flex;
+    width: 80%;
+}
+
+.list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: large;
+}
+
+.container {
+    height: 100%;
+    width: 80%;
+    margin: auto;
+}
+
+.logo {
+    padding: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.content {
+    /* border: solid 2px red; */
+    display: flex;
+    height: 1080px;
+}
+
+.sidebar {
+    width: 20%;
+    /* border: solid 3px red; */
+    height: 150vh;
+    background: #1e1e1e;
+    transition: all .5s ease;
+}
+
+.sidebar header {
+    font-size: 28px;
+    color: white;
+    line-height: 70px;
+    text-align: center;
+    background: #1b1b1b;
+    user-select: none;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.sidebar a {
+    display: block;
+    height: 65px;
+    width: 100%;
+    color: white;
+    line-height: 65px;
+    padding-left: 30px;
+    box-sizing: border-box;
+    text-decoration: none;
+    border-bottom: black 1px solid;
+    border-top: rgba(255, 255, 255, .1) 1px solid;
+    border-left: transparent 5px solid;
+    font-family: 'Open Sans', sans-serif;
+    transition: all .5s ease;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+    border-left: #00ccff 5px solid;
+    color: #00ccffc0;
+}
+
+.sidebar .agora {
+    border-left: #00ccff 5px solid;
+    color: #00ccff;
+}
+
+.sidebar a i {
+    font-size: 23px;
+    margin-right: 16px;
+}
+
+.sidebar a span {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.sidebar label #btn {
+    position: absolute;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    border: #262626 1px solid;
+    margin: 15px 30px;
+    font-size: 28px;
+    background: #262626;
+    height: 45px;
+    width: 45px;
+    text-align: center;
+    line-height: 45px;
+    transition: all .5s ease;
+}
+
+.sidebar a img {
+    width: 40px;
+    display: block;
+    display: flex;
+    padding: 12px;
+    margin: 0px 0px 0px 250px;
+    animation: animate 1s linear infinite;
+}
+
+/* Isso anima o alerta */
+@keyframes animate {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+label #btn {
+    margin-left: 245px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+@media(max-width: 860px) {
+    .sidebar {
+        height: auto;
+        width: 70px;
+        left: 0;
+        margin: 100px 0;
+
+    }
+
+    header,
+    #btn {
+        display: none;
+    }
+
+    .sidebar span {
+        position: absolute;
+        margin-left: 23px;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .sidebar a {
+        height: 60px;
+    }
+
+    .sidebar a i {
+        margin-left: -10px;
+    }
+
+    .sidebar a:hover {
+        width: 200px;
+        background: inherit;
+    }
+
+    .sidebar a:hover span {
+        opacity: 1;
+        visibility: visible;
+    }
+
+}
+
+
+.saida {
+    position: relative;
+    /* bottom: -25%; */
+}
+
+.container {
+    height: 150vh;
+    /* border: #00ccff 2px solid ; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #262626;
+}
+.box-legenda {
+    width: 70vw;
+    margin-top: 1%;
+    background-color: #1b1b1b;
+    border-radius: 30px;
+    font-family: 'Montserrat';
+    color: white;
+}
+
+.box-legenda h1 {
+    text-align: center;
+    margin-top: 1%;
+}
+
+.conteudo-legenda {
+    /* border: solid 2px greenyellow; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.conteudo-legenda .hardware {
+    display: flex;
+    justify-content: space-around;
+    /* border: solid 2px khaki; */
+    width: 100%;
+    align-items: center;
+}
+
+.hardware .box-hardware {
+    width: 100%;
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.linha-vertical {
+    border: solid 1px white;
+    border-radius: 100px;
+    height: 7vh;
+}
+.box-container {
+    /* border: solid 3px red; */
+    margin-top: 2%;
+    height: 35vh;
+    width: 70vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.parte2 {
+    /* border: solid 2px rebeccapurple; */
+    width: 91%;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+.listaDados {
+    margin-top: 7%;
+    /* border: solid 2px #00ccff; */
+    background-color: #1b1b1b;
+    border-radius: 30px;
+    height: 70vh;
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.listaDados .conteudo {
+    /* border: solid 2px lawngreen; */
+    width: 70%;
+    height: 85%;
+    align-items: center;
+    justify-content: center;
+}
+
+.conteudo .titulo h1{
+    color: white;
+    font-family: 'Montserrat';
+    font-size: 25px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.conteudo .info_dono {
+    color: white;
+    font-family: 'Montserrat';
+    margin-top: 25px;
+}
+
+.conteudo .info_maquina {
+    font-family: 'Montserrat';
+    color: white;
+    margin-top: 25px;
+}
+
+.conteudo h1 {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.conteudo .info_hardware {
+    font-family: 'Montserrat';
+    color: white;
+    margin-top: 25px;
+}
+
+.info_hardware h2{
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+.box {
+    width: 70%;
+    height: 100%;
+    background: #1b1b1b;
+    margin: 0 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.box2 {
+    width: 60%;
+    height: 70%;
+    background: #1b1b1b;
+    margin: 0 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.box-container .box,
+.box-texto, .box-terceiro, .listaDados {
+    border: #1b1b1be5 2px solid;
+    background: #1b1b1b;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+}
+
+.box-container .box p, .box-terceiro p {
+    color: white;
+    font-family: 'Montserrat';
+    text-align: center;
+    margin-top: 4%;
+}
+
+
+.box-container2 .box {
+    border: #1b1b1be5 2px solid;
+    /* margin-bottom: 5%; */
+    width: 40vw;
+    height: 25vh;
+    background: #1b1b1b;
+    margin: 1 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.graficos{
+    /* border: white 2px solid; */
+}
