@@ -55,3 +55,47 @@ INSERT INTO Instituicao VALUES (null, 'Marcelo', 66666666666666, 'leor', 0821045
 INSERT INTO Gestor VALUES (null, 'Leo', 'Junior', 'sim', 'dasdsa', 'dadsa', 1);
 INSERT INTO Gestor VALUES (null, 'Marcelo', 'Junior', 'sim', 'obvio', '1234', null);
 INSERT INTO Maquina VALUES (null, 'abc', 'abc', 'abc', 'abc', 0 , 1);
+
+
+-- AZURE
+
+CREATE TABLE Instituicao (
+	idInstituicao INT PRIMARY KEY IDENTITY(1,1),
+    razaoSoc VARCHAR(120),
+    cnpj VARCHAR(14),
+    email VARCHAR(100),
+    cep VARCHAR(8),
+    numero INT,
+    complemento VARCHAR(10),
+    token VARCHAR(6),
+    senha VARCHAR(45)
+);
+
+CREATE TABLE Gestor (
+	idGestor INT PRIMARY KEY IDENTITY(1,1),
+    nome VARCHAR(45),
+    ultimoNome VARCHAR (45),
+    cargo VARCHAR(25),
+    email VARCHAR(45),
+    senha VARCHAR(45),
+    fkInstituicao INT FOREIGN KEY REFERENCES Instituicao(idInstituicao)
+);
+
+CREATE TABLE Telefone (
+	idTelefone INT PRIMARY KEY IDENTITY(1,1),
+    numTelefone CHAR(14),
+    numCelular CHAR(15),
+    senha VARCHAR(45),
+    fkInstituicao INT FOREIGN KEY REFERENCES Instituicao(idInstituicao),
+    fkGestor INT FOREIGN KEY REFERENCES Gestor(idGestor)
+);
+
+CREATE TABLE Maquina (
+	idMaquina INT PRIMARY KEY IDENTITY(1,1),
+    hostName VARCHAR(45),
+    nomeArq VARCHAR(45),
+    ultimoNomeArq VARCHAR(45),
+    SO VARCHAR(45),
+    status BOOLEAN,	
+    fkGestor INT FOREIGN KEY REFERENCES Gestor(idGestor)
+);

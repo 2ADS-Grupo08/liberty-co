@@ -3,9 +3,9 @@ var sql = require('mssql');
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
-    server: "SEU_SERVIDOR",
-    database: "SEU_BANCO_DE_DADOS",
-    user: "SEU_USUARIO",
+    server: "liberty-company.database.windows.net",
+    database: "LibertyCompany",
+    user: "admin-liberty-co",
     password: "SUA_SENHA",
     pool: {
         max: 10,
