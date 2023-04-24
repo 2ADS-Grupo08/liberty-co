@@ -59,7 +59,9 @@
 }
 
 .sidebar a {
-    display: block;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
     height: 65px;
     width: 100%;
     color: white;

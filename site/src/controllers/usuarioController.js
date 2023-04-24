@@ -28,20 +28,22 @@ function listarGestores(req, res) {
 function entrar(req, res) {
     var cnpj = req.body.cnpjServer;
     var email = req.body.emailServer;
-    var token = req.body.tokenServer;
+    // var token = req.body.tokenServer;
     var senha = req.body.senhaServer;
 
     if (cnpj == undefined) {
         res.status(400).send("Seu cnpj está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
-    } else if (token == undefined) {
-        res.status(400).send("Seu token está undefined!");
-    } else if (senha == undefined) {
+    } 
+    // else if (token == undefined) {
+    //     res.status(400).send("Seu token está undefined!");
+    // } 
+    else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
 
-        usuarioModel.entrar(cnpj, email, token, senha)
+        usuarioModel.entrar(cnpj, email, senha)
             .then(
                 function (resultado) {
                     console.log(`\nResultados encontrados: ${resultado.length}`);

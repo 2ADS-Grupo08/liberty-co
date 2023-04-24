@@ -16,7 +16,7 @@
 .list .container .computers {
     height: 80vh;
     width: 100%;
-    padding: 1%;
+    padding: 10px;
     gap: 30px;
     display: flex;
     flex-flow: row wrap;
@@ -27,7 +27,7 @@
 
 .list .container .computers .computer {
     box-shadow: #041727 0px 0px 5px 0px;
-    padding: 1%;
+    padding: 10px;
     gap: 10px;
     width: 20vw;
     background-color: #D7E6F2;
@@ -36,23 +36,37 @@
     align-items: center;
 }
 
+.list .container .computers .cardHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 0px 5px 0px;
+    align-items: center;
+    border-bottom: solid 1px black;
+}
+
 .list .container .computers .actions {
     display: flex;
     gap: 10px;
 }
 
 .list .container .computers .actions img {
-    width: 32px;
+    width: 26px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.list .container .computers .actions .edit-pencil {
+    background: teal;
+}
+
+.list .container .computers .actions .trash {
+    background: firebrick;
 }
 
 .list .container .computers .activity {
     color: #019710;
-}
-
-.list .container .computers .cardHeader {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
 }
 
 .list .container .computers .cardFooter {

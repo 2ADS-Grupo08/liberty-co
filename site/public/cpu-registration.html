@@ -31,11 +31,11 @@
                 </div>
             </header>
             <a href="#" id="popup_botao" onclick="abrirPopup()">
-                <i class="fa-solid fa-display-medical" style="color: #ffffff;"></i>
-                <span>Cadastrar Máquina</span>
+                <i class="fa-solid fa-plus"></i>
+                <span>Cadastrar Máq.</span>
             </a>
             <a href="#" onclick="limparSessao()">
-                <i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i>
+                <i class="fa-solid fa-right-from-bracket"></i>
                 <span>Sair</span>
             </a>
         </div>
@@ -52,7 +52,7 @@
                                     <input type="text" id="inp_nomeArq" placeholder="Nome do Arquiteto">
                                     <input type="text" id="inp_ultimo_nome_arq" placeholder="Ultimo Nome do Arquiteto">
                                     <input type="text" id="inp_SO" placeholder="Sistema Operacional">
-                                    <button class="botaoCadastrar" onclick="cadastrarMaquina()">CADASTRAR</button>
+                                    <button class="botaoCadastrar" onclick="encerrarExecutaveis()">CADASTRAR</button>
                                 </div>
                             </div>
                         </div>
@@ -64,12 +64,14 @@
                     <div class="computers" id="computers">
                         <div class="computer">
                             <div class="cardHeader">
-                                <div class="actions">
-                                    <img src="styles/assets/icone/edit-pencil.png" style="cursor: pointer;" onclick="teste()" alt="">
-                                    <img src="styles/assets/icone/icon-trash.png" tyle="cursor: pointer;" onclick="teste()"alt="">
-                                </div>
                                 <div class="activity">
                                     <small>Ativo</small>
+                                </div>
+                                <div class="actions">
+                                    <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil"
+                                        onclick="editarMaquina()" alt="">
+                                    <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="teste()"
+                                        alt="">
                                 </div>
                             </div>
                             <div class="cardFooter">
@@ -80,8 +82,10 @@
                         <div class="computer">
                             <div class="cardHeader">
                                 <div class="actions">
-                                    <img src="styles/assets/icone/edit-pencil.png" style="cursor: pointer;" onclick="editarMaquina()" alt="">
-                                    <img src="styles/assets/icone/icon-trash.png" tyle="cursor: pointer;" onclick="teste()"alt="">
+                                    <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil"
+                                        onclick="editarMaquina()" alt="">
+                                    <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="teste()"
+                                        alt="">
                                 </div>
                                 <div class="activity">
                                     <small>Ativo</small>

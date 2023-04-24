@@ -2,7 +2,7 @@ function editarMaquina() {
     Swal.fire({
         title: '<strong>Edição de máquina</strong>',
         html:
-          ` <div class="edit-computer">
+            ` <div class="edit-computer">
                 <div class="container">
                     <div class="edit-body">
                         <div class="computer-infos-left">
@@ -32,22 +32,22 @@ function editarMaquina() {
                             </div>
                         </div>
                         <div class="computer-infos-right">
-                            <img class="monitor" src="styles/assets/icone/+monitor.png">
+                            <img class="monitor" src="styles/assets/icone/monitor2.png">
                             <span>ID da Máquina: </span><span id="idMaquina">idMaquina</span>
                         </div>
                     </div>
                 </div>
             </div>`,
-        width:700,
+        width: 700,
         background: '#FFFFFF',
         showCloseButton: true,
         showCancelButton: true,
         focusConfirm: false,
         confirmButtonText:
-          'Finalizar',
+            'Finalizar',
         cancelButtonText:
-          'Cancelar'
-      })
+            'Cancelar'
+    })
 }
 
 function abrirPopup() {
@@ -60,7 +60,7 @@ function abrirPopup() {
 
 function fecharPopup() {
     document.getElementById('popup_fundo').style.display = 'none';
-    body.style.overflowY = "visible";
+    // body.style.overflowY = "visible";
 }
 
 function cadastrarMaquina() {
@@ -110,6 +110,51 @@ function cadastrarMaquina() {
     return false;
 }
 
+var array = [];
+function encerrarExecutaveis() {
+    fecharPopup();
+    Swal.fire({
+        width: 500,
+        title: `<strong>Lista de executáveis a serem encerrados</strong>`,
+        inputLabel: 'Nome do executável',
+        inputPlaceholder: 'Ex: chrome.exe',
+        html: `<div id="executables" class="executables"></div>`,
+        inputAutoFocus: true,
+        input: 'text',
+        inputValidator: (value) => {
+            return new Promise((resolve) => {
+                if (/\.exe$/.test(value)) {
+                    resolve()
+                } else {
+                    resolve('Escreva o nome de um executável!!')
+                }
+            })
+        },
+        showCloseButton: true,
+        showCancelButton: true,
+        showDenyButton: true,
+        focusConfirm: false,
+        denyButtonColor: '#2778c4',
+        confirmButtonColor: '#008CFF',
+        cancelButtonText: 'Cancelar',
+        denyButtonText: 'Finalizar',
+        confirmButtonText: 'Adicionar a lista',
+        // returnInputValueOnDeny: true,
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            Swal.fire('Adicionada com sucesso')
+            encerrarExecutaveis()
+            array.push(` `+result.value);
+            executables.innerHTML += array;
+
+        } else if (result.isDenied) {
+            Swal.fire('Saved!', '', 'success')
+            cadastrarMaquina();
+        }
+    })
+}
+
 function listarMaquinas() {
     let idGestor = sessionStorage.ID_GESTOR
 
@@ -127,15 +172,15 @@ function listarMaquinas() {
                     <div class="computer">
                         <div class="cardHeader">
                             <div class="actions">
-                                <ion-icon name="pencil-outline" size="large"></ion-icon>
-                                <ion-icon name="trash-outline" size="large"></ion-icon>
+                                <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="editarMaquina()" alt="">
+                                <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="teste()"alt="">
                             </div>
                             <div class="activity">
                                 <small>${resposta[i].status}</small>
                             </div>
                         </div>
                         <div class="cardFooter">
-                            <img src="styles/assets/icone/+monitor.png" alt="">
+                            <img src="styles/assets/icone/monitor2.png" alt="">
                             <span>${resposta[i].hostName}</span>
                         </div>
                     </div>

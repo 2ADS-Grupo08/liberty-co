@@ -85,8 +85,8 @@ function atualizarFeed() {
                                         <td>${resposta[i].nome}</td>
                                         <td>${resposta[i].cargo}</td>
                                         <td class="actions">
-                                            <ion-icon name="pencil-outline" size="large"></ion-icon>
-                                            <ion-icon name="trash-outline" size="large"></ion-icon>
+                                            <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="editarMaquina()" alt="">
+                                            <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="teste()" alt="">
                                         </td>
                                     </tr>
                                 </tbody>

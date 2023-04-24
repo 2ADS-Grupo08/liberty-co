@@ -42,6 +42,8 @@ function abrirLoginEmpresaGestor(value) {
     if(value == 'selEmpresa') {
         document.getElementById('inputLogin').style.display = 'flex';
         document.getElementById('inputLoginGestor').style.display = 'none';
+        document.getElementById('optEmpresa').selected = true;
+        document.getElementById('optGestor').selected = false;
         inp_cnpj1.value = "";
         inp_email1.value = "";
         inp_token1.value = "";
@@ -49,6 +51,8 @@ function abrirLoginEmpresaGestor(value) {
     } else if(value == 'selGestor') {
         document.getElementById('inputLogin').style.display = 'none';
         document.getElementById('inputLoginGestor').style.display = 'flex';
+        document.getElementById('optGestor2').selected = true;
+        document.getElementById('optEmpresa2').selected = false;
         inp_cnpj1.value = "";
         inp_email1.value = "";
         inp_token1.value = "";
@@ -77,8 +81,7 @@ function cadastrarEmpresa() {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Something went wrong!',
-                footer: '<a href="">Why do I have this issue?</a>'
+                text: 'Preencha todos os campos!',
               })
     }
 
@@ -130,10 +133,10 @@ function entrar() {
 
     var cnpjVar = inp_cnpj1.value;
     var emailVar = inp_email1.value;
-    var tokenVar = inp_token1.value;
+    // var tokenVar = inp_token1.value;
     var senhaVar = inp_senha1.value;
 
-    if (cnpjVar == "" || tokenVar == "" || emailVar == "" || senhaVar == "") {
+    if (cnpjVar == "" || emailVar == "" || senhaVar == "") {
         alert("Preencha todos os campos");
         return false;
     }
@@ -154,7 +157,7 @@ function entrar() {
         body: JSON.stringify({
             cnpjServer: cnpjVar,
             emailServer: emailVar,
-            tokenServer: tokenVar,
+            // tokenServer: tokenVar,
             senhaServer: senhaVar
         })
     }).then(function (resposta) {
