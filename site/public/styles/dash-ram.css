@@ -356,6 +356,8 @@ label #btn {
     align-items: center;
     padding: 5px;
     border-radius: 10px;
+        font-family: 'Montserrat';
+    color: white;
 }
 
 .box-container .box,
@@ -363,7 +365,6 @@ label #btn {
     border: #1b1b1be5 2px solid;
     background: #1b1b1b;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
 }
 
 .box-container .box p, .box-terceiro p {
@@ -388,6 +389,23 @@ label #btn {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.graficos{
+.box-analytics{
     /* border: white 2px solid; */
+    border-radius: 3px;
+    margin-top: 2%;
+    margin-left: 42%;
+    width:3vw;
+    height:2vh;
+}
+ #green {
+    background-color: green;
+}
+ #blue {
+    background-color: blue;
+}
+ #yellow {
+    background-color: yellow;
+}
+ #red {
+    background-color: red;
 }
