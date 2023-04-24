@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DashBoard - LibertyCo</title>
   <link rel="shortcut icon" href="styles/assets/logo/logo.png" type="image/jpg" href="/favicon.jpg" />
-  <link rel="stylesheet" href="styles/dash-disco.css">
+  <link rel="stylesheet" href="styles/dash-armazenamento.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
   <script src="https://kit.fontawesome.com/9763306bd1.js" crossorigin="anonymous"></script>
@@ -34,9 +34,9 @@
         <i class="fas fa-sliders-h"></i>
         <span>RAM</span><img src="styles/assets/icone/alerta.png" style="display: none;" alt="">
       </a>
-      <a href="dash-disco.html" class="agora">
+      <a href="dash-armazenamento.html" class="agora">
         <i class="fas fa-hard-drive"></i>
-        <span>Disco</span>
+        <span>Armazenamento</span>
       </a>
       <a href="dash-contato.html">
         <i class="fas fa-envelope"></i>
@@ -53,25 +53,34 @@
     <div class="container">
       <div class="box-legenda">
         <div class="conteudo-legenda">
-            <h1>MEDIDAS IDEAIS</h1>
-            <div class="hardware">
-                <div class="box-hardware">
-                    <h3>Disco Rígido</h3>
-                    <p>Até: xGB</p>
-                </div>
-                <div class="linha-vertical"></div>
-                <div class="box-hardware">
-                    <h3>Memória RAM</h3>
-                    <p>Até: xGB</p>
-                </div>
-                <div class="linha-vert ical"></div>
-                <div class="box-hardware">
-                    <h3>CPU</h3>
-                    <p>Até: xGHz</p>
-                </div>
+          <h1>ANÁLISE</h1>
+          <div class="hardware">
+            <div class="box-hardware">
+              <h3>Perfeito</h3>
+              <p>Até: X</p>
+              <div class="box-analytics" id="green"></div>
             </div>
+            <div class="linha-vertical"></div>
+            <div class="box-hardware">
+              <h3>Ideal</h3>
+              <p>Até: X</p>
+              <div class="box-analytics" id="blue"></div>
+            </div>
+            <div class="linha-vertical"></div>
+            <div class="box-hardware">
+              <h3>Emergência</h3>
+              <p>Até: X</p>
+              <div class="box-analytics" id="yellow"></div>
+            </div>
+            <div class="linha-vertical"></div>
+            <div class="box-hardware">
+              <h3>Crítico</h3>
+              <p>Até: X</p>
+              <div class="box-analytics" id="red"></div>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
       <div class="box-container">
         <div class="box">
           <div class="graficos">
@@ -89,7 +98,7 @@
             <canvas id="myChart2" style="height: 25vh; width: 35vw;"></canvas>
           </div>
           <div class="legenda">
-            <p>Dias em que a CPU atingiu o limite estipulado<br>
+            <p>Dias em que o Disco quase  atingiu o limite estipulado<br>
               (por semana)</p>
           </div>
         </div>
@@ -143,11 +152,13 @@
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: ['Domingo', 'Segunda', 'Terça'],
       datasets: [{
         label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
+        data: [7, 2, 4, 6],
+        borderWidth: 1,
+        backgroundColor: ['#FFD700',
+          '#008000','#0000FF'],
       }]
     },
     options: {
@@ -167,11 +178,13 @@
   new Chart(ctx2, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
       datasets: [{
         label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
+        data: [12, 15, 3, 5, 2, 7, 4],
+        borderWidth: 1,
+        backgroundColor: ['#FFD700','rgba(255, 51, 70, 0.753)',
+        '#008000','#0000FF','#008000','#0000FF', '#008000' ],
       }]
     },
     options: {
@@ -190,13 +203,25 @@
   new Chart(ctx3, {
     type: 'line',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
+      labels: ['30seg', '30seg', '30seg', '30seg', '30seg', '30seg'],
+      datasets: [
+        {
+          label: 'Leitura',
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1,
+          borderColor: 'red',
+          backgroundColor: 'red',
+        },
+        {
+          label: 'Escrita',
+          data: [5, 15, 20, 10, 15, 16],
+          borderColor: 'blue',
+          borderWidth: 1,
+          backgroundColor: 'blue',
+        }
+      ]
     },
+
     options: {
       scales: {
         y: {

@@ -34,9 +34,9 @@
         <i class="fas fa-sliders-h"></i>
         <span>RAM</span><img src="styles/assets/icone/alerta.png" style="display: none;" alt="">
       </a>
-      <a href="dash-disco.html">
+      <a href="dash-armazenamento.html">
         <i class="fas fa-hard-drive"></i>
-        <span>Disco</span>
+        <span>Armazenamento</span>
       </a>
       <a href="dash-contato.html">
         <i class="fas fa-envelope"></i>
@@ -53,21 +53,30 @@
     <div class="container">
       <div class="box-legenda">
         <div class="conteudo-legenda">
-          <h1>MEDIDAS IDEAIS</h1>
+          <h1>ANÁLISE</h1>
           <div class="hardware">
             <div class="box-hardware">
-              <h3>Disco Rígido</h3>
-              <p>Até: xGB</p>
+              <h3>Perfeito</h3>
+              <p>Até: X</p>
+              <div class="box-analytics" id="green"></div>
             </div>
             <div class="linha-vertical"></div>
             <div class="box-hardware">
-              <h3>Memória RAM</h3>
-              <p>Até: xGB</p>
+              <h3>Ideal</h3>
+              <p>Até: X</p>
+              <div class="box-analytics" id="blue"></div>
             </div>
-            <div class="linha-vert ical"></div>
+            <div class="linha-vertical"></div>
             <div class="box-hardware">
-              <h3>CPU</h3>
-              <p>Até: xGHz</p>
+              <h3>Emergência</h3>
+              <p>Até: X</p>
+              <div class="box-analytics" id="yellow"></div>
+            </div>
+            <div class="linha-vertical"></div>
+            <div class="box-hardware">
+              <h3>Crítico</h3>
+              <p>Até: X</p>
+              <div class="box-analytics" id="red"></div>
             </div>
           </div>
         </div>
@@ -147,7 +156,9 @@
       datasets: [{
         label: '# of Votes',
         data: [12, 10, 3, 5, 9, 3,1],
-        borderWidth: 1
+        borderWidth: 1,
+        backgroundColor: ['rgba(255, 51, 70, 0.753)','#FFD700',
+        '#008000','#0000FF','#FFD700','#008000', '#008000' ],
       }]
     },
     options: {
@@ -166,12 +177,12 @@
   var cfg_analiseDiasDaSemana = {
     type: 'doughnut',
     data: {
-      labels: ['Acima', 'Abaixo'],
+      labels: ['Acima', 'Média','Perfeito' ],
       datasets: [{
         label: 'Dias',
         backgroundColor: ['rgba(255, 51, 70, 0.753)',
-          'rgba(0, 204, 255, 0.753)'],
-        data: [1, 10],
+          '#0000FF','#008000'],
+        data: [1, 10, 3],
         borderWidth: 0.75
       }]
     },

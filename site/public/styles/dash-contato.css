@@ -224,6 +224,8 @@ label #btn {
     background: #1e1e1e;
     border-radius: 15px;
     color: white;
+    padding: 0.5em;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .box-contato input {
@@ -237,7 +239,6 @@ label #btn {
     outline: 0;
     color: white;
 }
-
 
 .input_nome {
     margin-left: 30px;
@@ -282,7 +283,6 @@ label #btn {
 button:hover {
     background-color: #756e6e80;
     transition: 0.3s;
-    
 }
 
 #mensagem{

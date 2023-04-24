@@ -391,3 +391,23 @@ label #btn {
 .graficos{
     /* border: white 2px solid; */
 }
+.box-analytics{
+    /* border: white 2px solid; */
+    border-radius: 3px;
+    margin-top: 2%;
+    margin-left: 42%;
+    width:3vw;
+    height:2vh;
+}
+ #green {
+    background-color: green;
+}
+ #blue {
+    background-color: blue;
+}
+ #yellow {
+    background-color: yellow;
+}
+ #red {
+    background-color: red;
+}
