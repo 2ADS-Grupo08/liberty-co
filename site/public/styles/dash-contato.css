@@ -213,8 +213,8 @@ label #btn {
 }
 
 .box-contato {
-    height: 65vh;
-    width: 20vw;
+    height: 70vh;
+    width: 30vw;
     border: #1e1e1e 2px solid;
     display: flex;
     justify-content: center;
@@ -265,19 +265,21 @@ label #btn {
 }
 
 .botao {
+    font-family: 'Montserrat';
     display: flex;
     justify-content: center;
 }
 
 .botao button {
     font-size: 20px;
-    height: 30px;
-    width: 90px;
+    height: 45px;
+    width: 125px;
     border-radius: 7px;
     cursor: pointer;
     background-color: #3a39395b;
     color: white;
     margin-top: 5%;
+    font-size: 17px;
 }
 
 button:hover {
@@ -287,7 +289,7 @@ button:hover {
 
 #mensagem{
     width: 90%;
-    height: 10vh;
+    height: 15vh;
 }
 
 #nome {
@@ -298,4 +300,19 @@ button:hover {
 }
 #assunto {
     width: 90%;
+}
+
+.formulario {
+    font-family: 'Montserrat';
+    font-weight: 300;
+    font-size: 20px;
+}
+
+.formulario input{
+    margin-top: 5px;
+    height: 25px;
+}
+
+.formulario div {
+    margin-top: 5px;
 }

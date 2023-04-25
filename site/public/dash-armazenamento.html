@@ -103,9 +103,9 @@
           <div class="graficos">
             <canvas id="myChart3" style="height: 40vh; width: 40vw;"></canvas>
           </div>
-          <div class="legenda">
+          <!-- <div class="legenda">
             <p>Leitura e escrita do disco tempo real</p>
-          </div>
+          </div> -->
         </div>
 
         <div class="listaDados">
@@ -161,6 +161,11 @@
       }]
     },
     options: {
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
       scales: {
         y: {
           beginAtZero: true
@@ -196,6 +201,21 @@
     },
 
     options: {
+      plugins: {
+        title: {
+          display: true,
+          position: 'bottom',
+          text: 'Leitura e escrita do disco em tempo real (a cada 30s)',
+          color: 'white',
+          padding: {
+            top: 40
+          },
+          font: {
+            weight: 'normal',
+            size: 18
+          }
+        }
+      },
       scales: {
         y: {
           beginAtZero: true
