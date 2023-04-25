@@ -215,6 +215,7 @@ label #btn {
     align-items: center;
     background: #262626;
 }
+
 .box-legenda {
     width: 70vw;
     margin-top: 1%;
@@ -373,6 +374,20 @@ label #btn {
     margin-top: 4%;
 }
 
+.box-texto {
+    width: 30%;
+    height: 75%;
+    text-align: center;
+    background: #1b1b1b;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0 5px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Montserrat';
+}
 
 .box-container2 .box {
     border: #1b1b1be5 2px solid;
@@ -396,15 +411,20 @@ label #btn {
     width:3vw;
     height:2vh;
 }
- #green {
-    background-color: green;
-}
+
  #blue {
-    background-color: blue;
+    background-color: rgba(0, 204, 255, 0.753);
 }
  #yellow {
-    background-color: yellow;
+    background-color:rgba(241, 232, 70, 0.8);
 }
  #red {
-    background-color: red;
+    background-color: rgba(255, 51, 70, 0.753);
+}
+.parte2 .legenda{
+    font-family: 'Montserrat';
+    color: white;
+    margin-top: 4%;
+    text-align: center;
+    font-weight: 150;
 }

@@ -55,12 +55,7 @@
         <div class="conteudo-legenda">
           <h1>ANÁLISE</h1>
           <div class="hardware">
-            <div class="box-hardware">
-              <h3>Perfeito</h3>
-              <p>Até: X</p>
-              <div class="box-analytics" id="green"></div>
-            </div>
-            <div class="linha-vertical"></div>
+
             <div class="box-hardware">
               <h3>Ideal</h3>
               <p>Até: X</p>
@@ -68,37 +63,36 @@
             </div>
             <div class="linha-vertical"></div>
             <div class="box-hardware">
-              <h3>Emergência</h3>
-              <p>Até: X</p>
+              <h3>Urgência</h3>
+              <p>De: X - Até: X</p>
               <div class="box-analytics" id="yellow"></div>
             </div>
             <div class="linha-vertical"></div>
             <div class="box-hardware">
               <h3>Crítico</h3>
-              <p>Até: X</p>
+              <p>De: X - Até: X</p>
               <div class="box-analytics" id="red"></div>
             </div>
           </div>
         </div>
       </div>
       <div class="box-container">
-        <div class="box">
-          <div class="graficos">
-            <div>
-              <canvas id="myChart" style="height: 25vh; width: 35vw;"></canvas>
-            </div>
 
-          </div>
-          <div class="legenda">
-            <p>Média de uso da memória RAM dos últimos 3 dias</p>
-          </div>
+
+        <div class="box-texto">
+          <h1>Volume Total: 1</h1>
+          <br>
+          <h2>Espaço disponível:</h2>
+          <h3>193,5<b>GB</b></h3>
+          <p>Informação do Disco</p>
         </div>
+
         <div class="box">
           <div class="graficos">
             <canvas id="myChart2" style="height: 25vh; width: 35vw;"></canvas>
           </div>
           <div class="legenda">
-            <p>Dias em que o Disco quase  atingiu o limite estipulado<br>
+            <p>Dias em que o Disco quase atingiu o limite estipulado<br>
               (por semana)</p>
           </div>
         </div>
@@ -108,6 +102,9 @@
         <div class="box2">
           <div class="graficos">
             <canvas id="myChart3" style="height: 40vh; width: 40vw;"></canvas>
+          </div>
+          <div class="legenda">
+            <p>Leitura e escrita do disco tempo real</p>
           </div>
         </div>
 
@@ -146,30 +143,6 @@
 </body>
 <!-- gráfico 1 -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Domingo', 'Segunda', 'Terça'],
-      datasets: [{
-        label: '# of Votes',
-        data: [7, 2, 4, 6],
-        borderWidth: 1,
-        backgroundColor: ['#FFD700',
-          '#008000','#0000FF'],
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
 
 <!-- gráfico 2 -->
 <script>
@@ -180,11 +153,11 @@
     data: {
       labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
       datasets: [{
-        label: '# of Votes',
+        label: '',
         data: [12, 15, 3, 5, 2, 7, 4],
         borderWidth: 1,
-        backgroundColor: ['#FFD700','rgba(255, 51, 70, 0.753)',
-        '#008000','#0000FF','#008000','#0000FF', '#008000' ],
+        backgroundColor: ['rgba(241, 232, 70, 0.8)', 'rgba(255, 51, 70, 0.753)',
+          'rgba(0, 204, 255, 0.753)', 'rgba(0, 204, 255, 0.753)', 'rgba(0, 204, 255, 0.753)', 'rgba(0, 204, 255, 0.753)', 'rgba(0, 204, 255, 0.753)'],
       }]
     },
     options: {
@@ -203,21 +176,21 @@
   new Chart(ctx3, {
     type: 'line',
     data: {
-      labels: ['30seg', '30seg', '30seg', '30seg', '30seg', '30seg'],
+      labels: ['12:21:00', '12:21:30', '12:22:00', '12:22:30', '12:23:00', '12:23:30'],
       datasets: [
         {
           label: 'Leitura',
           data: [12, 19, 3, 5, 2, 3],
           borderWidth: 1,
-          borderColor: 'red',
-          backgroundColor: 'red',
+          borderColor: 'rgba(255, 51, 70, 0.753)',
+          backgroundColor: 'rgba(255, 51, 70, 0.753)',
         },
         {
           label: 'Escrita',
           data: [5, 15, 20, 10, 15, 16],
-          borderColor: 'blue',
+          borderColor: 'rgba(0, 204, 255, 0.753)',
           borderWidth: 1,
-          backgroundColor: 'blue',
+          backgroundColor: 'rgba(0, 204, 255, 0.753)',
         }
       ]
     },

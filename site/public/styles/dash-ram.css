@@ -397,15 +397,13 @@ label #btn {
     width:3vw;
     height:2vh;
 }
- #green {
-    background-color: green;
-}
- #blue {
-    background-color: blue;
+
+#blue {
+    background-color: rgba(0, 204, 255, 0.753);
 }
  #yellow {
-    background-color: yellow;
+    background-color:rgba(241, 232, 70, 0.8);
 }
  #red {
-    background-color: red;
+    background-color: rgba(255, 51, 70, 0.753);
 }
