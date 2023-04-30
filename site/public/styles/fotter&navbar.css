@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Share+Tech&display=swap%27');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Share+Tech&display=swap');
+
 
 ::-webkit-scrollbar {
     width: 5px;
@@ -20,14 +21,13 @@ ul {
     list-style: none;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 a{
     text-decoration: none;
     color: white;
-
-}
-
-.logo img {
-    height: 50px;
 }
 
 .navbar {
@@ -36,8 +36,13 @@ a{
     justify-content: center;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 100%);
     display: flex;
-    height: 86px;
-    font-family: 'Share Tech';
+    height: 13vh;
+}
+
+.logo img {
+    /* height: 50px; */
+    height: 7vh;
+    cursor: pointer;
 }
 
 .container {
@@ -46,14 +51,20 @@ a{
 }
 
 .items{
-    font-size: 1rem;
+    font-size: 1.2rem;
     cursor: pointer;
-    margin: 0;
-    padding: 0;
-    width: 450px;
+    width: 30vw;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    font-family: 'Share Tech';
+    height: 50px;
+    /* border: solid 2px blueviolet; */
+}
+
+.items a:hover {
+    color: #00ccffc0;
+    transition: 0.25s;
 }
 
 .navbar .container{
@@ -62,9 +73,31 @@ a{
     justify-content: space-between;
 }
 
-.exit_container img{
-    height: 25px;
+.exit_container {
     cursor: pointer;
+    /* border: solid 2px green; */
+    display: flex;
+    font-size: 1.2rem;
+    width: 9vw;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.barra_vertical {
+    border: solid 1.2px white;
+    height: 2vh;
+}
+
+.exit_container button {
+    border: none;
+    font-size: 1.2rem;
+    font-family: 'Share Tech';
+    font-weight: 500;
+}
+
+.exit_container button:hover {
+    color: rgba(0, 204, 255, 0.753);
+    transition: 0.25s;
 }
 
 .footer{
@@ -95,6 +128,7 @@ a{
     flex-direction: row;
     align-items: center;
     gap: 20px;
+    cursor: pointer;
 }
 
 .footer .container .bottom {

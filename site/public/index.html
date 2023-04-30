@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="styles/fotter&navbar.css">
     <link rel="stylesheet" href="styles/response.css">
     <link rel="stylesheet" href="styles/popup_estilo.css">
+    <link rel="shortcut icon" href="styles/assets/logo/logo.png" type="image/jpg" href="/favicon.jpg" />
     <script src="js/funcoes.js"></script>
     <script src="js/login&cadastro.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -17,12 +18,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
 </head>
+
 <body id="body">
     <div class="banner">
         <div class="navbar">
             <div class="container">
                 <div class="logo">
-                    <img src="styles/assets/logo/logo_side.png" alt="LogoLibertyCo">
+                    <a href="index.html">
+                        <img src="styles/assets/logo/logo_side.png" alt="LogoLibertyCo">
+                    </a>
                 </div>
                 <ul class="items">
                     <a href="index.html">
@@ -36,8 +40,9 @@
                     </a>
                 </ul>
                 <div class="exit_container">
-                    <button id="popup_botao_login" class="botao" onclick="abrirLogin()">Login</button>
-                    <button id="popup_botao" class="botao" onclick="abrirPopup()">Cadastro</button>
+                    <button id="popup_botao_login" class="botao" onclick="abrirLogin()">LOGIN</button>
+                    <div class="barra_vertical"></div>
+                    <button id="popup_botao" class="botao" onclick="abrirPopup()">CADASTRO</button>
                 </div>
             </div>
         </div>
@@ -47,7 +52,7 @@
                     <span class="title">TODA SUA EMPRESA EM APENAS UM CLIQUE</span>
                     <span class="phrase">Oferecemos a melhor tecnologia para o que sua empresa precisa!
                         Com transparência, facilidade e segurança.</span>
-                    <button>CONHEÇA JÁ</button>
+                    <button class="bt_banner">CONHEÇA JÁ</button>
                 </div>
             </div>
         </div>
@@ -141,8 +146,8 @@
                         </div>
                         <div class="slide slide2">
                             <div class="content">
-                                <p>Prezar pela mesma qualidade e intensidade de cursos presenciais.</p>
-                                <a style="color: rgb(38, 151, 221); margin-top: 10px;" href="">Saiba mais</a>
+                                <p>Prezar pela qualidade e eficiência das máquinas dos colaboradores.</p>
+                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;" href="">Saiba mais</a>
                             </div>
                         </div>
                     </div>
@@ -160,8 +165,8 @@
                         </div>
                         <div class="slide slide2">
                             <div class="content">
-                                <p>Crescimento exponencial da tecnologia nos últimos anos.</p>
-                                <a style="color: rgb(38, 151, 221); margin-top: 10px;" href="">Saiba mais</a>
+                                <p>Melhorias contínuas para ser a melhor solução do seu negócio.</p>
+                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;" href="">Saiba mais</a>
                             </div>
                         </div>
                     </div>
@@ -179,9 +184,8 @@
                         </div>
                         <div class="slide slide2">
                             <div class="content">
-                                <p>Ter professores qualificados que tenham formação da aprendizagem e metodologias de
-                                    ensino a distância.</p>
-                                <a style="color: rgb(38, 151, 221); margin-top: 10px;" href="">Saiba mais</a>
+                                <p>Facilidade em visualizar o desempenho das máquinas.</p>
+                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;" href="">Saiba mais</a>
                             </div>
                         </div>
                     </div>
@@ -219,4 +223,5 @@
         </div>
     </div>
 </body>
+
 </html>
