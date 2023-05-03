@@ -93,6 +93,9 @@ a{
     font-size: 1.2rem;
     font-family: 'Share Tech';
     font-weight: 500;
+    color: white;
+    background-color: transparent;
+    margin: auto;
 }
 
 .exit_container button:hover {

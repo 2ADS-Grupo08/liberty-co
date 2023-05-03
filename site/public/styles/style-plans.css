@@ -159,68 +159,31 @@
     border-radius: 40px;
     border: none;
     color: #041727;
+    transition: 0.25s;
 }
 
-.card2 {
-    height: 600px;
-    width: 300px;
-    margin-right: 60px;
-    background-color: #0a253b;
-    -webkit-border-radius: 19px;
-    -webkit-border-bottom-right-radius: 25px;
-    -webkit-border-bottom-left-radius: 25px;
-    -moz-border-radius: 19px;
-    -moz-border-radius-bottomright: 25px;
-    -moz-border-radius-bottomleft: 25px;
-    border-radius: 19px;
-    border-bottom-right-radius: 25px;
-    border-bottom-left-radius: 25px;
-
+.bt_assine_aqui:hover {
+    background-color: #6b6b6b;
+    transition: 0.25s;
 }
 
-.botao2 {
-    height: 55px;
-    width: 140px;
-    margin: 20px 0 0 60px;
+.bt_assine_aqui.maior {
     background-color: #00FFFF;
-    font-size: 15px;
-    font-weight: 700;
-    -webkit-border-radius: 40px;
-    -moz-border-radius: 40px;
-    border-radius: 40px;
+    transition: 0.25s;
 }
 
-.card3 {
-    height: 550px;
-    margin-right: 60px;
-    width: 300px;
-    background-color: #1c578815;
-    justify-self: center;
-    -webkit-border-radius: 19px;
-    -webkit-border-bottom-right-radius: 25px;
-    -webkit-border-bottom-left-radius: 25px;
-    -moz-border-radius: 19px;
-    -moz-border-radius-bottomright: 25px;
-    -moz-border-radius-bottomleft: 25px;
-    border-radius: 19px;
-    border-bottom-right-radius: 25px;
-    border-bottom-left-radius: 25px;
+.bt_assine_aqui.maior:hover {
+    background-color: #00c0c0;
+    transition: 0.25s;
 }
 
-.botao3 {
-    height: 55px;
-    width: 140px;
-    margin: 20px 0 0 60px;
-    background-color: whitesmoke;
-    font-size: 15px;
-    font-weight: 700;
-    -webkit-border-radius: 40px;
-    -moz-border-radius: 40px;
-    border-radius: 40px;
+.card .topico {
+    margin-top: 30px;
+    /* border: solid 2px gold; */
 }
 
-.cards u {
-    font-weight: 400;
+.card .topico p {
+    margin-top: 15px;
 }
 
 .coroa {

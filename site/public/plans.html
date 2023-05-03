@@ -11,10 +11,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liberty CO</title>
-    <link rel="stylesheet" href="styles/plans.css">
-    <link rel="stylesheet" href="styles/fotter&navbar.css">
+    <link rel="stylesheet" href="styles/style-plans.css">
+    <link rel="stylesheet" href="styles/style-fotter&navbar.css">
     <link rel="stylesheet" href="styles/plansresponse.css">
-    <link rel="stylesheet" href="styles/popup_estilo.css">
+    <link rel="stylesheet" href="styles/style-modal.css">
     <link rel="shortcut icon" href="styles/assets/logo/logo.png" type="image/jpg" href="/favicon.jpg" />
     <script src="js/login&cadastro.js"></script>
     <script src="https://kit.fontawesome.com/d4c883c854.js" crossorigin="anonymous"></script>
@@ -37,13 +37,14 @@
                         <a href="solution.html">
                             <li>SOLUÇÃO</li>
                         </a>
-                        <a href="./Planos.html">
+                        <a href="plans.html">
                             <li>PLANOS</li>
                         </a>
                     </ul>
                     <div class="exit_container">
-                        <button id="popup_botao_login" class="fefe" onclick="abrirLogin()">Login</button>
-                        <button id="popup_botao" class="fefe" onclick="abrirPopup()">Cadastro</button>
+                        <button id="popup_botao_login" class="botao" onclick="abrirLogin()">LOGIN</button>
+                        <div class="barra_vertical"></div>
+                        <button id="popup_botao" class="botao" onclick="abrirPopup()">CADASTRO</button>
                     </div>
                 </div>
             </div>
@@ -127,9 +128,12 @@
                         <div class="bt">
                             <button href="" class="bt_assine_aqui">ASSINE AQUI</button>
                         </div>
-                        ✓ Assine para até 5 gestores <br> <br> <br>
-                        ✓ 10 computadores p/ gestor <br> <br> <br>
-                        ✓ Suporte em até 12h
+                        <div class="topico">
+                            <p>✓ Assine para até 5 gestores</p>
+                            <p>✓ 10 computadores p/ gestor</p>
+                            <p>✓ Suporte em até 12h</p>
+                        </div>
+
                     </div>
                 </div>
                 <div class="card maior">
@@ -140,12 +144,19 @@
                             <p class="valor_plano">88,00</p>
                             <p class="mes">/mês</p>
                         </div>
-                        <button class="botao2">Assine Aqui</button> <br><br>
-                        ✓ Acesso ilimitado por gestor <br> <br> <br>
-                        ✓ 25 computadores p/ gestor <br> <br> <br>
-                        ✓ Suporte prioritário <br> <br> <br>
-                        ✓ Suporte em até 2h <br> <br> <br>
-                        ✓ Notifações de dicas e melhorias
+                        <div class="brl">
+                            <p class="moeda_brl">BRL</p>
+                        </div>
+                        <div class="bt">
+                            <button href="" class="bt_assine_aqui maior">ASSINE AQUI</button>
+                        </div>
+                        <div class="topico">
+                            <p>✓ Acesso ilimitado por gestor</p>
+                            <p>✓ 25 computadores p/ gestor</p>
+                            <p>✓ Suporte prioritário</p>
+                            <p>✓ Suporte em até 2h</p>
+                            <p>✓ Notifações de dicas e melhorias</p>
+                        </div>
                     </div>
                 </div>
                 <div class="card">
@@ -156,12 +167,19 @@
                             <p class="valor_plano">118,00</p>
                             <p class="mes">/mês</p>
                         </div>
-                        <button class="botao3">Assine Aqui</button> <br> <br>
-                        ✓ Acesso ilimitado por gestor <br> <br>
-                        ✓ Quantidade ilimitada de computadores <br> <br>
-                        ✓ Suporte prioritário <br> <br>
-                        ✓ Suporte em até 2h <br> <br>
-                        ✓ Notificações de dicas de melhorias
+                        <div class="brl">
+                            <p class="moeda_brl">BRL</p>
+                        </div>
+                        <div class="bt">
+                            <button href="" class="bt_assine_aqui">ASSINE AQUI</button>
+                        </div>
+                        <div class="topico">
+                            <p>✓ Acesso ilimitado por gestor</p>
+                            <p>✓ Quantidade ilimitada de computadores</p>
+                            <p>✓ Suporte prioritário</p>
+                            <p>✓ Suporte em até 2h</p>
+                            <p>✓ Notificações de dicas de melhorias</p>
+                        </div>
                     </div>
                 </div>
             </div>
