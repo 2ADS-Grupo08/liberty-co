@@ -6,7 +6,6 @@
 .background {
     background: linear-gradient(101.7deg, #1D476A 0%, #041727 100%);
     background-size: 100vw;
-
 }
 
 .slogan {
@@ -188,6 +187,7 @@
 
 .coroa {
     position: absolute;
-    top: 840px;
-    height: 100px;
+    top: 540px;
+    /* right: 60%; */
+    left: 47.8%;
 }
