@@ -9,7 +9,7 @@
 }
 
 body {
-    overflow-x: hidden;   
+    overflow-x: hidden;
     font-family: 'Montserrat';
 }
 
@@ -24,9 +24,17 @@ body {
     font-weight: 700;
 }
 
-.phrase {
+.containerSlogan .phrase {
     width: 70%;
     font-size: 1.5rem;
+    font-family: 'Montserrat';
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    width: 100%;
+    /* border: solid 2px crimson; */
+
 }
 
 .botao {
@@ -39,7 +47,7 @@ body {
 }
 
 .banner {
-    height: 100vh;
+    height: 90vh;
     background-image: url(../styles/assets/background/man-bg.png);
     background-size: cover;
     background-position-x: center;
@@ -49,7 +57,8 @@ body {
 }
 
 .containerSlogan {
-    height: 80vh;
+    /* border: #000 solid 2px; */
+    height: 70vh;
     display: flex;
     justify-content: center;
 }
@@ -70,7 +79,8 @@ body {
     gap: 1rem;
 }
 
-.slogan .container button {
+.bt_banner {
+    margin-top: 10px;
     box-sizing: border-box;
     font-size: 1.125rem;
     width: 180px;
@@ -81,16 +91,24 @@ body {
     font-family: 'Montserrat';
     cursor: pointer;
     border-radius: 10px;
+    transition: 0.25s;
 }
 
-.topics{
+.bt_banner:hover {
+    background-color: #00ffff23;
+    border: 1px solid #00c7c7;
+    transition: 0.25s;
+    box-shadow: 3px 3px 10px #003030
+}
+
+.topics {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.topics .container{
+.topics .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -113,7 +131,8 @@ body {
     text-align: right;
 }
 
-.topics .odd, .even {
+.topics .odd,
+.even {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -127,22 +146,24 @@ body {
     color: #073D8E;
 }
 
-.topics .odd .number, .even .number {
+.topics .odd .number,
+.even .number {
     font-size: xxx-large;
     font-weight: 700;
 }
 
-.topics .column.one .number{
+.topics .column.one .number {
     margin-right: 5%;
 }
 
-.topics .column.three .number{
+.topics .column.three .number {
     margin-left: 5%;
 }
 
-
 .cards {
-    height: 80vh;
+    height: 70vh;
+    /* border: solid 2px gold; */
+    background-color: #C9E6FF;
 }
 
 .container-cards {
@@ -152,6 +173,11 @@ body {
     height: 100%;
 }
 
+.topics .phrase {
+    font-size: 1.25rem;
+    /* border: #003030 2px solid; */
+    width: 20vw;
+}
 
 .container-card .card .icon {
     border-radius: 4px;
@@ -170,7 +196,7 @@ body {
 }
 
 .icon img {
-    height: 20vh;
+    height: 70%;
 }
 
 .content {
@@ -220,7 +246,8 @@ body {
     box-sizing: border-box;
     transition: .8s;
     transform: translateY(-100px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    background-color: white;
 }
 
 .card:hover .slide.slide2 {

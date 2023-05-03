@@ -15,12 +15,13 @@
     <link rel="stylesheet" href="styles/fotter&navbar.css">
     <link rel="stylesheet" href="styles/plansresponse.css">
     <link rel="stylesheet" href="styles/popup_estilo.css">
-    <script src="js/funcoes.js"></script>
+    <link rel="shortcut icon" href="styles/assets/logo/logo.png" type="image/jpg" href="/favicon.jpg" />
     <script src="js/login&cadastro.js"></script>
     <script src="https://kit.fontawesome.com/d4c883c854.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
 </head>
+
 <body id="body">
     <div class="background">
         <div class="bannerPlanos">
@@ -41,8 +42,8 @@
                         </a>
                     </ul>
                     <div class="exit_container">
-                        <button id="popup_botao_login" class="botao" onclick="abrirLogin()">Login</button>
-                        <button id="popup_botao" class="botao" onclick="abrirPopup()">Cadastro</button>
+                        <button id="popup_botao_login" class="fefe" onclick="abrirLogin()">Login</button>
+                        <button id="popup_botao" class="fefe" onclick="abrirPopup()">Cadastro</button>
                     </div>
                 </div>
             </div>
@@ -103,58 +104,65 @@
                 </div>
             </div>
         </div>
-        <div class="Texto">
-            <p class="p">CONHEÇA NOSSOS PLANOS</p> <br> <br>
-            <p class="p1">Somos a alternativa e a solução para as instituições que visam o reconhecimento pela qualidade de ensino</p>
-        </div>
-
-        <div class="circle">
-            <div class="texto"></div>
-            <p class="p">POR MAIS</p> <br>
-            <p class="p1"> R$
-            <p class="p3"> 50,00</p>
-            </p> <br>
-            <p class="p4"> Garanta uma VM</p>
-        </div>
-        <div class="cards">
-            <div class="card1">
-                <div class="topcard1"></div>
-                <div class="textcard1">
-                    <p class="pabsoluto1"> R$ </p>
-                    <p class="p">58,00</p>/mês
-                    <br>
-                    <button class="botao1">Assine Aqui</button> <br><br>
-                    ✓ Assine para até 5 gestores <br> <br> <br>
-                    ✓ 10 computadores p/ gestor <br> <br> <br>
-                    ✓ Suporte em até 12h
-                </div>
+        <div class="slogan">
+            <div class="texto">
+                <p class="p">CONHEÇA NOSSOS PLANOS</p> <br> <br>
+                <p class="p1">Somos a alternativa e a solução para as instituições que visam pela qualidade, desempenho
+                    e eficiência!</p>
             </div>
-            <div class="card2">
-                <div class="topcard2"></div>
-                <div class="textcard2">
-                    <p class="pabsoluto2"> R$ </p>
-                    <p class="p">88,00</p>/mês
-                    <br>
-                    <button class="botao2">Assine Aqui</button> <br><br>
-                    ✓ Acesso ilimitado por gestor <br> <br> <br>
-                    ✓ 25 computadores p/ gestor <br> <br> <br>
-                    ✓ Suporte prioritário <br> <br> <br>
-                    ✓ Suporte em até 2h <br> <br> <br>
-                    ✓ Notifações de dicas e melhorias
+        </div>
+        <div class="content">
+            <div class="planos">
+                <div class="card">
+                    <div class="topcard"></div>
+                    <div class="textcard">
+                        <div class="valor">
+                            <p class="moeda">R$</p>
+                            <p class="valor_plano">58,00</p>
+                            <p class="mes">/mês</p>
+                        </div>
+                        <div class="brl">
+                            <p class="moeda_brl">BRL</p>
+                        </div>
+                        <div class="bt">
+                            <button href="" class="bt_assine_aqui">ASSINE AQUI</button>
+                        </div>
+                        ✓ Assine para até 5 gestores <br> <br> <br>
+                        ✓ 10 computadores p/ gestor <br> <br> <br>
+                        ✓ Suporte em até 12h
+                    </div>
                 </div>
-            </div>
-            <div class="card3">
-                <div class="topcard3"></div>
-                <div class="textcard3">
-                    <p class="pabsoluto3"> R$ </p>
-                    <p class="p">118,00</p>/mês
-                    <br>
-                    <button class="botao3">Assine Aqui</button> <br> <br>
-                    ✓ Acesso ilimitado por gestor <br> <br>
-                    ✓ Quantidade ilimitada de computadores <br> <br>
-                    ✓ Suporte prioritário <br> <br>
-                    ✓ Suporte em até 2h <br> <br>
-                    ✓ Notificações de dicas de melhorias
+                <div class="card maior">
+                    <div class="topcard maior"></div>
+                    <div class="textcard">
+                        <div class="valor">
+                            <p class="moeda">R$</p>
+                            <p class="valor_plano">88,00</p>
+                            <p class="mes">/mês</p>
+                        </div>
+                        <button class="botao2">Assine Aqui</button> <br><br>
+                        ✓ Acesso ilimitado por gestor <br> <br> <br>
+                        ✓ 25 computadores p/ gestor <br> <br> <br>
+                        ✓ Suporte prioritário <br> <br> <br>
+                        ✓ Suporte em até 2h <br> <br> <br>
+                        ✓ Notifações de dicas e melhorias
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="topcard"></div>
+                    <div class="textcard">
+                        <div class="valor">
+                            <p class="moeda">R$</p>
+                            <p class="valor_plano">118,00</p>
+                            <p class="mes">/mês</p>
+                        </div>
+                        <button class="botao3">Assine Aqui</button> <br> <br>
+                        ✓ Acesso ilimitado por gestor <br> <br>
+                        ✓ Quantidade ilimitada de computadores <br> <br>
+                        ✓ Suporte prioritário <br> <br>
+                        ✓ Suporte em até 2h <br> <br>
+                        ✓ Notificações de dicas de melhorias
+                    </div>
                 </div>
             </div>
         </div>
@@ -189,4 +197,5 @@
         </div>
     </div>
 </body>
+
 </html>
