@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="styles/style-fotter&navbar.css">
     <link rel="stylesheet" href="styles/style-responsive.css">
     <link rel="stylesheet" href="styles/style-modal.css">
-    <link rel="shortcut icon" href="styles/assets/logo/logo.png" type="image/jpg" href="/favicon.jpg"/>
+    <link rel="shortcut icon" href="styles/assets/logo/logo.png" type="image/jpg" href="/favicon.jpg" />
 
     <script src="js/funcoes.js"></script>
     <script src="js/login&cadastro.js"></script>
@@ -69,17 +69,22 @@
                     <div class="conteudoCadastro">
                         <h1>CADASTRO</h1>
                         <div class="inputCadastro">
-                            <input type="text" id="inp_razao" placeholder="Razão Social">
-                            <input type="text" id="inp_cnpj" placeholder="CNPJ">
-                            <input type="text" id="inp_email" placeholder="E-mail">
-                            <input type="text" id="inp_cep" placeholder="CEP" onblur="pesquisaCep(this.value)">
-                            <input type="text" id="inp_logradouro" placeholder="Logradouro">
-                            <input type="text" id="inp_bairro" placeholder="Bairro">
-                            <input type="text" id="inp_numero" placeholder="Numero">
-                            <input type="text" id="inp_complemento" placeholder="Complemento">
-                            <!-- <input type="text" id="inp_token" placeholder="Token"> -->
-                            <input type="password" id="inp_senha" placeholder="Senha">
-                            <input type="password" id="inp_confirmacao" placeholder="Confirmação de Senha">
+                            <div class="cadastro">
+                                <div class="coluna">
+                                    <input type="text" id="inp_razao" placeholder="Razão Social">
+                                    <input type="text" id="inp_email" placeholder="E-mail">
+                                    <input type="text" id="inp_logradouro" placeholder="Logradouro">
+                                    <input type="text" id="inp_numero" placeholder="Numero">
+                                    <input type="password" id="inp_senha" placeholder="Senha">
+                                </div>
+                                <div class="coluna">
+                                    <input type="text" id="inp_cnpj" placeholder="CNPJ">
+                                    <input type="text" id="inp_cep" placeholder="CEP" onblur="pesquisaCep(this.value)">                                
+                                    <input type="text" id="inp_bairro" placeholder="Bairro">                                
+                                    <input type="text" id="inp_complemento" placeholder="Complemento">
+                                    <input type="password" id="inp_confirmacao" placeholder="Confirmação de Senha">
+                                </div>
+                            </div>
                             <button class="botaoCadastrar" onclick="cadastrarEmpresa()">CADASTRAR</button>
                         </div>
                         <p>Já tem uma conta? <b><a onclick="abrirLogin()" id="popup_botao"><u>Clique
@@ -104,8 +109,9 @@
                                 <option class="option" value="selGestor" id="optGestor">Gestor</option>
                             </select>
                             <input type="text" id="inp_cnpj1" placeholder="CNPJ">
+                            <p class="opcional">OU</p>
                             <input type="text" id="inp_email1" placeholder="E-mail">
-                            <!-- <input type="text" id="inp_token1" placeholder="Token"> -->
+                            <div class="linha_horizontal"></div>
                             <input type="password" placeholder="Senha" id="inp_senha1">
                             <button class="botaoEntrar" onclick="entrar()">Entrar</button>
                         </div>
@@ -118,8 +124,7 @@
                             <input type="text" id="inp_senhaGestor" placeholder="Senha">
                             <button class="botaoEntrar" onclick="entrarGestor()">Entrar</button>
                         </div>
-                        <p>Não tem uma conta? <b><a onclick="abrirCadastro()" id="popup_botao"><u>Clique
-                                        aqui</u></a></b> para Cadastrar</p>
+                        <p>Não tem uma conta? <b><a onclick="abrirCadastro()" id="popup_botao"><u>Clique aqui</u></a></b> para Cadastrar</p>
                     </div>
                 </div>
             </div>
@@ -150,7 +155,8 @@
                         <div class="slide slide2">
                             <div class="content">
                                 <p>Prezar pela qualidade e eficiência das máquinas dos colaboradores.</p>
-                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;" href="solution.html">Saiba mais</a>
+                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;"
+                                    href="solution.html">Saiba mais</a>
                             </div>
                         </div>
                     </div>
@@ -169,7 +175,8 @@
                         <div class="slide slide2">
                             <div class="content">
                                 <p>Melhorias contínuas para ser a melhor solução do seu negócio.</p>
-                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;" href="solution.html">Saiba mais</a>
+                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;"
+                                    href="solution.html">Saiba mais</a>
                             </div>
                         </div>
                     </div>
@@ -188,7 +195,8 @@
                         <div class="slide slide2">
                             <div class="content">
                                 <p>Facilidade em visualizar o desempenho das máquinas.</p>
-                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;" href="solution.html">Saiba mais</a>
+                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;"
+                                    href="solution.html">Saiba mais</a>
                             </div>
                         </div>
                     </div>
