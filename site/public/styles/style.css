@@ -123,6 +123,7 @@
 .cards {
     height: 70vh;
     /* border: solid 2px gold; */
+    background-color: #C9E6FF;
 }
 
 .container-cards {
@@ -140,7 +141,7 @@
     left: 0;
     width: 20vw;
     height: 100%;
-    background: #073D8E;
+    background: #fff;
 }
 
 .icon {
@@ -150,7 +151,8 @@
 }
 
 .icon img {
-    height: 20vh;
+    height: 70%;
+    /* border: #00c7c7 solid 2px; */
 }
 
 .content {
@@ -200,7 +202,8 @@
     box-sizing: border-box;
     transition: .8s;
     transform: translateY(-100px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    background-color: white;
 }
 
 .card:hover .slide.slide2 {
