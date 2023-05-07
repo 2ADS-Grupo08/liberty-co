@@ -11,4 +11,12 @@ router.post("/cadastrarMaquina/:idGestor", function (req, res) {
     maquinaController.cadastrarMaquina(req, res);
 })
 
+router.get("/getDadosMaquina/:idMaquina", function (req, res) {
+    maquinaController.getDadosMaquina(req, res);
+});
+
+router.put("/editarMaquina/:idMaquina", function (req, res) {
+    maquinaController.editarMaquina(req, res);
+});
+
 module.exports = router;

@@ -104,21 +104,21 @@
                     <div class="conteudoLogin">
                         <h1>LOGIN</h1>
                         <div class="inputLogin" id="inputLogin">
-                            <select id="select" class="select" onchange="abrirLoginEmpresaGestor(this.value)">
-                                <option class="option" value="selEmpresa" id="optEmpresa">Empresa</option>
-                                <option class="option" value="selGestor" id="optGestor">Gestor</option>
+                            <select id="select" class="select"  onchange="abrirLoginEmpresaGestor(this.value)">
+                                <option class="option" value="optEmpresa" id="optEmpresa">Empresa</option>
+                                <option class="option" value="optGestor" id="optGestor">Gestor</option>
                             </select>
                             <input type="text" id="inp_cnpj1" placeholder="CNPJ">
                             <p class="opcional">OU</p>
-                            <input type="text" id="inp_email1" placeholder="E-mail">
+                            <input type="text" id="inp_email1" placeholder="E-mail" value="aaaaa">
                             <div class="linha_horizontal"></div>
                             <input type="password" placeholder="Senha" id="inp_senha1">
                             <button class="botaoEntrar" onclick="entrar()">Entrar</button>
                         </div>
                         <div class="inputLoginGestor" id="inputLoginGestor">
                             <select id="select" class="select" onchange="abrirLoginEmpresaGestor(this.value)">
-                                <option class="option" value="selGestor" id="optGestor2">Gestor</option>
-                                <option class="option" value="selEmpresa" id="optEmpresa2">Empresa</option>
+                                <option class="option" value="optEmpresa" id="optEmpresa2">Empresa</option>
+                                <option class="option" value="optGestor" id="optGestor2">Gestor</option>
                             </select>
                             <input type="text" id="inp_emailGestor" placeholder="E-mail">
                             <input type="text" id="inp_senhaGestor" placeholder="Senha">

@@ -31,6 +31,29 @@
     overflow: auto;
 }
 
+.list .actions {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.list .actions img {
+    width: 26px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.list .actions .edit-pencil {
+    background: teal;
+}
+
+.list .actions .trash {
+    background: firebrick;
+}
+
 .popup {
     font-family: 'Montserrat';
     display: none;

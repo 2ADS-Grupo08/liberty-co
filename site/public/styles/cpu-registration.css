@@ -85,6 +85,10 @@
     top: -18vh;
 }
 
+.computer small {
+    font-weight: 700;
+}
+
 .popup {
     font-family: 'Montserrat';
     display: none;

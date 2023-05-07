@@ -46,7 +46,7 @@ CREATE TABLE Maquina (
 SELECT * FROM Instituicao;
 SELECT * FROM Maquina;
 SELECT * FROM Gestor;
-/*TRUNCATE TABLE Gestor;*/
+TRUNCATE TABLE Instituicao;
 
 UPDATE Instituicao SET token = 1234 WHERE idInstituicao = 1;
 
@@ -55,6 +55,7 @@ INSERT INTO Instituicao VALUES (null, 'Marcelo', 66666666666666, 'leor', 0821045
 INSERT INTO Gestor VALUES (null, 'Leo', 'Junior', 'sim', 'dasdsa', 'dadsa', 1);
 INSERT INTO Gestor VALUES (null, 'Marcelo', 'Junior', 'sim', 'obvio', '1234', null);
 INSERT INTO Maquina VALUES (null, 'abc', 'abc', 'abc', 'abc', 0 , 1);
+DELETE FROM Instituicao WHERE idInstituicao = 3;
 
 
 -- AZURE

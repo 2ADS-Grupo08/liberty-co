@@ -1,55 +1,3 @@
-function editarMaquina() {
-    Swal.fire({
-        title: '<strong>Edição de máquina</strong>',
-        html:
-            ` <div class="edit-computer">
-                <div class="container">
-                    <div class="edit-body">
-                        <div class="computer-infos-left">
-                            <div class="input-label">
-                                <label for="">Hostname</label>
-                                <input type="text" name="" id="">
-                            </div>
-                            <div class="input-label">
-                                <label for="">Nome do Arquiteto</label>
-                                <input type="text" name="" id="">
-                            </div>
-                            <div class="input-label">
-                                <label for="">Sobrenome</label>
-                                <input type="text" name="" id="">
-                            </div>
-                            <div class="input-label">
-                                <label for="">Sistema Operacional</label>
-                                <input type="text" name="" id="">
-                            </div>
-                            <div class="input-label">
-                            <label for="">Status</label>
-                                <select name="" id="">
-                                    <option value="Selecione uma opcão" selected disabled>Selecione uma opcão</option>
-                                    <option value="ativo">Ativo</option>
-                                    <option value="inativo">Inativo</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="computer-infos-right">
-                            <img class="monitor" src="styles/assets/icone/monitor2.png">
-                            <span>ID da Máquina: </span><span id="idMaquina">idMaquina</span>
-                        </div>
-                    </div>
-                </div>
-            </div>`,
-        width: 700,
-        background: '#FFFFFF',
-        showCloseButton: true,
-        showCancelButton: true,
-        focusConfirm: false,
-        confirmButtonText:
-            'Finalizar',
-        cancelButtonText:
-            'Cancelar'
-    })
-}
-
 function abrirPopup() {
     document.getElementById('popup_fundo').style.display = 'block';
     inp_host.value = "";
@@ -110,6 +58,186 @@ function cadastrarMaquina() {
     return false;
 }
 
+function listarMaquinas() {
+    let idGestor = sessionStorage.ID_GESTOR
+
+    //aguardar();
+    fetch(`/maquinas/listarMaquinas/${idGestor}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                throw "Nenhum resultado encontrado!!";
+            }
+            resposta.json().then(function (resposta) {
+                // console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                let atividade = null;
+                for (let i = 0; i < resposta.length; i++) {
+                    if (resposta[i].status == 1) {
+                        atividade = "Ativo"
+                        computers.innerHTML += `
+                            <div class="computer" id="computer">
+                                <div class="cardHeader">
+                                    <div class="actions">
+                                        <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
+                                        <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="teste()"alt="">
+                                    </div>
+                                    <div class="activity" id="activity" style="color: green;">
+                                        <small>${atividade}</small>
+                                    </div>
+                                </div>
+                                <div class="cardFooter">
+                                    <img src="styles/assets/icone/monitor2.png" alt="">
+                                    <span>${resposta[i].hostName}</span>
+                                </div>
+                            </div>
+                            `;
+                    } else if (resposta[i].status == 0) {
+                        atividade = "Inativo"
+                        computers.innerHTML += `
+                            <div class="computer" id="computer">
+                                <div class="cardHeader">
+                                    <div class="actions">
+                                        <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
+                                        <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="teste()"alt="">
+                                    </div>
+                                    <div class="activity" id="activity" style="color: firebrick;">
+                                        <small>${atividade}</small>
+                                    </div>
+                                </div>
+                                <div class="cardFooter">
+                                    <img src="styles/assets/icone/monitor2.png" alt="">
+                                    <span>${resposta[i].hostName}</span>
+                                </div>
+                            </div>
+                            `;
+                    }
+                }
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+}
+
+function getDadosMaquina(idMaquina) {
+    console.log(idMaquina)
+
+    fetch(`/maquinas/getDadosMaquina/${idMaquina}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                throw "Nenhum resultado encontrado!!";
+            }
+            resposta.json().then(function (resposta) {
+                // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                let atividade = null;
+                if (resposta[0].status == 1) {
+                    atividade = "Ativo"
+                } else if (resposta[0].status == 0) {
+                    atividade = "Inativo"
+                }
+                Swal.fire({
+                    title: '<strong>Edição de máquina</strong>',
+                    html:
+                        ` <div class="edit-computer">
+                            <div class="container">
+                                <div class="edit-body">
+                                    <div class="computer-infos-left">
+                                        <div class="input-label">
+                                            <label for="">Hostname</label>
+                                            <input type="text" name="" id="hostName" value="${resposta[0].hostName}">
+                                        </div>
+                                        <div class="input-label">
+                                            <label for="">Nome do Arquiteto</label>
+                                            <input type="text" name="" id="nomeArq" value="${resposta[0].nomeArq}">
+                                        </div>
+                                        <div class="input-label">
+                                            <label for="">Último Nome</label>
+                                            <input type="text" name="" id="ultimoNomeArq" value="${resposta[0].ultimoNomeArq}">
+                                        </div>
+                                        <div class="input-label">
+                                            <label for="">Sistema Operacional</label>
+                                            <input type="text" name="" id="SO" value="${resposta[0].SO}">
+                                        </div>
+                                        <div class="input-label">
+                                        <label for="">Status</label>
+                                            <select name="" id="status">
+                                                <option selected disabled>Situação: ${atividade}</option>
+                                                <option value="ativo">Ativo</option>
+                                                <option value="inativo">Inativo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="computer-infos-right">
+                                        <img class="monitor" src="styles/assets/icone/monitor2.png">
+                                        <span>ID da Máquina: </span><span id="idMaquina">${resposta[0].idMaquina}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`,
+                    width: 700,
+                    background: '#FFFFFF',
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    focusConfirm: false,
+                    confirmButtonText: 'Finalizar',
+                    cancelButtonText: 'Cancelar',
+                    preConfirm: () => {
+                        hostName = Swal.getPopup().querySelector('#hostName').value;
+                        nomeArq = Swal.getPopup().querySelector('#nomeArq').value;
+                        ultimoNomeArq = Swal.getPopup().querySelector('#ultimoNomeArq').value;
+                        SO = Swal.getPopup().querySelector('#SO').value;
+                        status = Swal.getPopup().querySelector('#status').value;
+
+                        if (!hostName || !nomeArq || !ultimoNomeArq || !SO || !status) {
+                            Swal.showValidationMessage(`Por favor, preencha todos os campos.`)
+                        }
+
+                        return {
+                            hostName: hostName,
+                            nomeArq: nomeArq,
+                            ultimoNomeArq: ultimoNomeArq,
+                            SO: SO,
+                            status: status
+                        }
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        console.log(hostName,
+                            nomeArq,
+                            ultimoNomeArq,
+                            SO,
+                            status)
+                        fetch(`/maquinas/editarMaquina/${idMaquina}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                hostNameServer: hostName,
+                                nomeArqServer: nomeArq,
+                                ultimoNomeArqServer: ultimoNomeArq,
+                                soServer: SO,
+                                statusServer: status
+                            })
+                        })
+                        setTimeout(() => {
+                            computers.innerHTML = "";
+                            listarMaquinas();
+                        }, 5);
+                    }
+                });
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+}
+
 var array = [];
 function encerrarExecutaveis() {
     fecharPopup();
@@ -145,7 +273,7 @@ function encerrarExecutaveis() {
 
             Swal.fire('Adicionada com sucesso')
             encerrarExecutaveis()
-            array.push(` `+result.value);
+            array.push(` ` + result.value);
             executables.innerHTML += array;
 
         } else if (result.isDenied) {
@@ -153,44 +281,4 @@ function encerrarExecutaveis() {
             cadastrarMaquina();
         }
     })
-}
-
-function listarMaquinas() {
-    let idGestor = sessionStorage.ID_GESTOR
-
-    //aguardar();
-    fetch(`/maquinas/listarMaquinas/${idGestor}`).then(function (resposta) {
-        if (resposta.ok) {
-            if (resposta.status == 204) {
-                throw "Nenhum resultado encontrado!!";
-            }
-            resposta.json().then(function (resposta) {
-                console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                for (let i = 0; i < resposta.length; i++) {
-                    computers.innerHTML += `
-                    <div class="computer">
-                        <div class="cardHeader">
-                            <div class="actions">
-                                <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="editarMaquina()" alt="">
-                                <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="teste()"alt="">
-                            </div>
-                            <div class="activity">
-                                <small>${resposta[i].status}</small>
-                            </div>
-                        </div>
-                        <div class="cardFooter">
-                            <img src="styles/assets/icone/monitor2.png" alt="">
-                            <span>${resposta[i].hostName}</span>
-                        </div>
-                    </div>
-                            `;
-                }
-            });
-        } else {
-            throw ('Houve um erro na API!');
-        }
-    }).catch(function (resposta) {
-        console.error(resposta);
-    });
 }

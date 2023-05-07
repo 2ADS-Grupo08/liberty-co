@@ -63,8 +63,53 @@ function cadastrarMaquina(req, res) {
     }
 }
 
+function getDadosMaquina(req, res) {
+    var idMaquina = req.params.idMaquina;
+
+    maquinaModel.getDadosMaquina(idMaquina)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
+function editarMaquina(req, res) {
+    var novoHostName = req.body.hostNameServer
+    var novoNomeArq = req.body.nomeArqServer
+    var novoUltimoNomeArq = req.body.ultimoNomeArqServer
+    var novoSO = req.body.soServer
+    var novoStatus = req.body.statusServer;
+    var idMaquina = req.params.idMaquina;
+
+    maquinaModel.editarMaquina(novoHostName, novoNomeArq, novoUltimoNomeArq, novoSO, novoStatus, idMaquina)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
 module.exports = {
     cadastrarMaquina,
     listarMaquinas,
-    testar
+    getDadosMaquina,
+    editarMaquina
 }

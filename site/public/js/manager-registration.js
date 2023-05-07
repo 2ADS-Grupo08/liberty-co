@@ -86,7 +86,7 @@ function atualizarFeed() {
                                         <td>${resposta[i].cargo}</td>
                                         <td class="actions">
                                             <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="editarMaquina()" alt="">
-                                            <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="teste()" alt="">
+                                            <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="teste()"alt="">
                                         </td>
                                     </tr>
                                 </tbody>

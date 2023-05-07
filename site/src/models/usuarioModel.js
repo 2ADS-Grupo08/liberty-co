@@ -12,7 +12,7 @@ function listarGestores(idEmpresa) {
 function entrar(cnpj, email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", cnpj, email, senha)
     var instrucao = `
-        SELECT * FROM Instituicao WHERE cnpj = '${cnpj}' AND email = '${email}' AND senha = '${senha}';
+        SELECT * FROM Instituicao WHERE cnpj = '${cnpj}' OR email = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

@@ -20,10 +20,16 @@ function abrirLogin() {
     $("#inp_cnpj1").mask("99.999.999/9999-99");
     document.getElementById('popup_fundo').style.display = 'none';
     document.getElementById('popup_fundo_login').style.display = 'block';
+
+    document.getElementById('inputLogin').style.display = 'flex';
+    document.getElementById('inputLoginGestor').style.display = 'none';
+    document.getElementById('optEmpresa').selected = true;
+    document.getElementById('optGestor').selected = false;
+
     body.style.overflowY = "hidden";
     inp_cnpj1.value = "";
     inp_email1.value = "";
-    inp_token1.value = "";
+    // inp_token1.value = "";
     inp_senha1.value = "";
 }
 
@@ -39,23 +45,23 @@ function abrirCadastro() {
 
 function abrirLoginEmpresaGestor(value) {
 
-    if(value == 'selEmpresa') {
+    if(value == 'optEmpresa') {
         document.getElementById('inputLogin').style.display = 'flex';
         document.getElementById('inputLoginGestor').style.display = 'none';
         document.getElementById('optEmpresa').selected = true;
         document.getElementById('optGestor').selected = false;
         inp_cnpj1.value = "";
         inp_email1.value = "";
-        inp_token1.value = "";
+        // inp_token1.value = "";
         inp_senha1.value = "";
-    } else if(value == 'selGestor') {
+    } else if(value == 'optGestor') {
         document.getElementById('inputLogin').style.display = 'none';
         document.getElementById('inputLoginGestor').style.display = 'flex';
         document.getElementById('optGestor2').selected = true;
         document.getElementById('optEmpresa2').selected = false;
         inp_cnpj1.value = "";
         inp_email1.value = "";
-        inp_token1.value = "";
+        // inp_token1.value = "";
     }
 }
 
@@ -130,19 +136,20 @@ function cadastrarEmpresa() {
 }
 
 function entrar() {
-
+    
     var cnpjVar = inp_cnpj1.value;
     var emailVar = inp_email1.value;
     // var tokenVar = inp_token1.value;
     var senhaVar = inp_senha1.value;
 
-    if (cnpjVar == "" || emailVar == "" || senhaVar == "") {
+    if (cnpjVar == "") {
+        console.log("cpnj está nulo");
+    } else if (emailVar == "") {
+        console.log("email está nulo")
+    } else if (cnpjVar == "" && emailVar == "" || senhaVar == "") {
         alert("Preencha todos os campos");
         return false;
-    }
-
-    console.log("FORM LOGIN: ", cnpjVar);
-    console.log("FORM SENHA: ", senhaVar);
+    } 
 
     cnpjVar = cnpjVar.replace("-", "");
     cnpjVar = cnpjVar.replace("/", "");
