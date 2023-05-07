@@ -70,19 +70,19 @@ function listarMaquinas() {
             resposta.json().then(function (resposta) {
                 // console.log("Dados recebidos: ", JSON.stringify(resposta));
 
-                let atividade = null;
+                let situacao = null;
                 for (let i = 0; i < resposta.length; i++) {
                     if (resposta[i].status == 1) {
-                        atividade = "Ativo"
+                        situacao = "Ativo"
                         computers.innerHTML += `
                             <div class="computer" id="computer">
                                 <div class="cardHeader">
                                     <div class="actions">
                                         <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
-                                        <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="teste()"alt="">
+                                        <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="deletarMaquina(${resposta[i].idMaquina})"alt="">
                                     </div>
                                     <div class="activity" id="activity" style="color: green;">
-                                        <small>${atividade}</small>
+                                        <small>${situacao}</small>
                                     </div>
                                 </div>
                                 <div class="cardFooter">
@@ -92,16 +92,16 @@ function listarMaquinas() {
                             </div>
                             `;
                     } else if (resposta[i].status == 0) {
-                        atividade = "Inativo"
+                        situacao = "Inativo"
                         computers.innerHTML += `
                             <div class="computer" id="computer">
                                 <div class="cardHeader">
                                     <div class="actions">
                                         <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
-                                        <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="teste()"alt="">
+                                        <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="deletarMaquina(${resposta[i].idMaquina})"alt="">
                                     </div>
                                     <div class="activity" id="activity" style="color: firebrick;">
-                                        <small>${atividade}</small>
+                                        <small>${situacao}</small>
                                     </div>
                                 </div>
                                 <div class="cardFooter">
@@ -132,11 +132,13 @@ function getDadosMaquina(idMaquina) {
             resposta.json().then(function (resposta) {
                 // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-                let atividade = null;
+                let situacao = null;
                 if (resposta[0].status == 1) {
-                    atividade = "Ativo"
+                    situacao = "Ativo"
+                    valor = "ativo"
                 } else if (resposta[0].status == 0) {
-                    atividade = "Inativo"
+                    situacao = "Inativo"
+                    valor = "inativo"
                 }
                 Swal.fire({
                     title: '<strong>Edição de máquina</strong>',
@@ -162,9 +164,9 @@ function getDadosMaquina(idMaquina) {
                                             <input type="text" name="" id="SO" value="${resposta[0].SO}">
                                         </div>
                                         <div class="input-label">
-                                        <label for="">Status</label>
+                                        <label for="">Status do monitoramento</label>
                                             <select name="" id="status">
-                                                <option selected disabled>Situação: ${atividade}</option>
+                                                <option selected disabled value="${valor}">Situação: ${situacao}</option>
                                                 <option value="ativo">Ativo</option>
                                                 <option value="inativo">Inativo</option>
                                             </select>
@@ -205,28 +207,7 @@ function getDadosMaquina(idMaquina) {
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        console.log(hostName,
-                            nomeArq,
-                            ultimoNomeArq,
-                            SO,
-                            status)
-                        fetch(`/maquinas/editarMaquina/${idMaquina}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({
-                                hostNameServer: hostName,
-                                nomeArqServer: nomeArq,
-                                ultimoNomeArqServer: ultimoNomeArq,
-                                soServer: SO,
-                                statusServer: status
-                            })
-                        })
-                        setTimeout(() => {
-                            computers.innerHTML = "";
-                            listarMaquinas();
-                        }, 5);
+                        editarMaquina(idMaquina, hostName, nomeArq, ultimoNomeArq, SO, status);
                     }
                 });
             });
@@ -235,6 +216,54 @@ function getDadosMaquina(idMaquina) {
         }
     }).catch(function (resposta) {
         console.error(resposta);
+    });
+}
+
+function editarMaquina(idMaquina, hostName, nomeArq, ultimoNomeArq, SO, status) {
+    console.log(hostName,
+        nomeArq,
+        ultimoNomeArq,
+        SO,
+        status)
+    fetch(`/maquinas/editarMaquina/${idMaquina}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            hostNameServer: hostName,
+            nomeArqServer: nomeArq,
+            ultimoNomeArqServer: ultimoNomeArq,
+            soServer: SO,
+            statusServer: status
+        })
+    })
+    setTimeout(() => {
+        computers.innerHTML = "";
+        listarMaquinas();
+    }, 10);
+}
+
+function deletarMaquina(idMaquina) {
+    fetch(`/maquinas/deletarMaquina/${idMaquina}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            window.alert("Post deletado com sucesso !");
+            setTimeout(() => {
+                computers.innerHTML = "";
+                listarMaquinas();
+            }, 5);
+        } else if (resposta.status == 404) {
+            window.alert("Deu 404!");
+        } else {
+            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
     });
 }
 

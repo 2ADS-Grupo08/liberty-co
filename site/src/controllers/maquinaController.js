@@ -107,9 +107,27 @@ function editarMaquina(req, res) {
 
 }
 
+function deletarMaquina(req, res) {
+    var idMaquina = req.params.idMaquina;
+
+    maquinaModel.deletarMaquina(idMaquina)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 module.exports = {
     cadastrarMaquina,
     listarMaquinas,
     getDadosMaquina,
-    editarMaquina
+    editarMaquina,
+    deletarMaquina
 }
