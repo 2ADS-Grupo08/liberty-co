@@ -226,6 +226,18 @@
     }
 }
 
+.executables {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    padding: 20px;
+}
+
+.executables .executable {
+    border-bottom: solid 1px black;
+    width: 100%;
+}
+
 .edit-computer .edit-body {
     display: flex;
     justify-content: space-around;

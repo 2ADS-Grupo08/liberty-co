@@ -183,9 +183,12 @@ function getDadosMaquina(idMaquina) {
                         </div>`,
                     width: 700,
                     background: '#FFFFFF',
+                    denyButtonColor: '#2778c4',
                     showCloseButton: true,
+                    showDenyButton: true,
                     showCancelButton: true,
                     focusConfirm: false,
+                    denyButtonText: 'Editar janelas',
                     confirmButtonText: 'Finalizar',
                     cancelButtonText: 'Cancelar',
                     preConfirm: () => {
@@ -206,6 +209,9 @@ function getDadosMaquina(idMaquina) {
                             SO: SO,
                             status: status
                         }
+                    },
+                    preDeny: () => {
+                        Swal.fire('Any fool can use a computer')
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -270,14 +276,16 @@ function deletarMaquina(idMaquina) {
 }
 
 var array = [];
-function encerrarExecutaveis() {
+function encerrarExecutaveis(idMaquina) {
     fecharPopup();
     Swal.fire({
         width: 500,
         title: `<strong>Lista de executáveis a serem encerrados</strong>`,
         inputLabel: 'Nome do executável',
         inputPlaceholder: 'Ex: chrome.exe',
-        html: `<div id="executables" class="executables"></div>`,
+        html: `<ul id="executables" class="executables">
+        
+               </ul>`,
         inputAutoFocus: true,
         input: 'text',
         inputValidator: (value) => {
@@ -296,20 +304,24 @@ function encerrarExecutaveis() {
         denyButtonColor: '#2778c4',
         confirmButtonColor: '#008CFF',
         cancelButtonText: 'Cancelar',
-        denyButtonText: 'Finalizar',
-        confirmButtonText: 'Adicionar a lista',
-        // returnInputValueOnDeny: true,
+        denyButtonText: 'Adicionar a lista',
+        confirmButtonText: 'Finalizar',
+        returnInputValueOnDeny: true,
     }).then((result) => {
         if (result.isConfirmed) {
-
+            Swal.fire('Any fool can use a computer')
+        } else if (result.isDenied) {
             Swal.fire('Adicionada com sucesso')
             encerrarExecutaveis()
             array.push(` ` + result.value);
-            executables.innerHTML += array;
-
-        } else if (result.isDenied) {
-            Swal.fire('Saved!', '', 'success')
-            cadastrarMaquina();
+            for (let index = 0; index < array.length; index++) {
+                executables.innerHTML +=`
+                <li id="executable" class="executable">
+                    ${array[index]}
+                    <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" alt="">
+                    <img src="styles/assets/icone/icon-trash.png" class="trash" alt="">
+                </li>` ;
+            }
         }
     })
 }
