@@ -107,8 +107,8 @@
                         <h1>LOGIN</h1>
                         <div class="inputLogin" id="inputLogin">
                             <select id="select" class="select" onchange="abrirLoginEmpresaGestor(this.value)">
-                                <option class="option" value="selEmpresa" id="optEmpresa">Empresa</option>
-                                <option class="option" value="selGestor" id="optGestor">Gestor</option>
+                                <option class="option" value="optEmpresa" id="optEmpresa">Empresa</option>
+                                <option class="option" value="optGestor" id="optGestor">Gestor</option>
                             </select>
                             <input type="text" id="inp_cnpj1" placeholder="CNPJ">
                             <p class="opcional">OU</p>
@@ -119,11 +119,11 @@
                         </div>
                         <div class="inputLoginGestor" id="inputLoginGestor" style="display: none;">
                             <select id="select" class="select" onchange="abrirLoginEmpresaGestor(this.value)">
-                                <option class="option" value="selGestor" id="optGestor2">Gestor</option>
-                                <option class="option" value="selEmpresa" id="optEmpresa2">Empresa</option>
+                                <option class="option" value="optGestor" id="optGestor2">Gestor</option>
+                                <option class="option" value="optEmpresa" id="optEmpresa2">Empresa</option>
                             </select>
                             <input type="text" id="inp_emailGestor" placeholder="E-mail">
-                            <input type="text" id="inp_senhaGestor" placeholder="Senha">
+                            <input type="password" id="inp_senhaGestor" placeholder="Senha">
                             <button class="botaoEntrar" onclick="entrarGestor()">Entrar</button>
                         </div>
                         <p>Não tem uma conta? <b><a onclick="abrirCadastro()" id="popup_botao"><u>Clique aqui</u></a></b> para Cadastrar</p>

@@ -44,7 +44,6 @@ function abrirCadastro() {
 }
 
 function abrirLoginEmpresaGestor(value) {
-
     if(value == 'optEmpresa') {
         document.getElementById('inputLogin').style.display = 'flex';
         document.getElementById('inputLoginGestor').style.display = 'none';

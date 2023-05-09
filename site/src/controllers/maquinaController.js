@@ -32,6 +32,7 @@ function cadastrarMaquina(req, res) {
     var nomeArq = req.body.nomeArqServer;
     var ultimoNomeArq = req.body.ultimoNomeArqServer;
     var SO = req.body.soServer;
+    var status = req.body.statusServer;
 
     // Faça as validações dos valores
     if (hostName == undefined) {
@@ -45,7 +46,7 @@ function cadastrarMaquina(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo maquinaModel.js
-        maquinaModel.cadastrarMaquina(hostName, nomeArq, ultimoNomeArq, SO, idGestor)
+        maquinaModel.cadastrarMaquina(hostName, nomeArq, ultimoNomeArq, SO, status, idGestor)
             .then(
                 function (resultado) {
                     res.json(resultado);

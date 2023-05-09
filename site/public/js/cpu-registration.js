@@ -18,6 +18,7 @@ function cadastrarMaquina() {
     var hostName = inp_host.value;
     var nomeArq = inp_nomeArq.value;
     var ultimoNomeArq = inp_ultimo_nome_arq.value;
+    var status = 1;
     var SO = inp_SO.value;
 
     if (hostName == "" || nomeArq == "" || ultimoNomeArq == "" || SO == "") {
@@ -38,6 +39,7 @@ function cadastrarMaquina() {
             nomeArqServer: nomeArq,
             ultimoNomeArqServer: ultimoNomeArq,
             soServer: SO,
+            statusServer: status
         })
     }).then(function (resposta) {
 
