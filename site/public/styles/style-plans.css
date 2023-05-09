@@ -64,7 +64,7 @@
 }
 
 .card {
-    width: 350px;
+    width: 20vw;
     height: fit-content;
     padding-bottom: 50px;
     border-radius: 20px;
@@ -75,7 +75,7 @@
 }
 
 .card.maior {
-    width: 400px;
+    width: 23vw;
     background-color: #041727;
 }
 
@@ -183,11 +183,4 @@
 
 .card .topico p {
     margin-top: 15px;
-}
-
-.coroa {
-    position: absolute;
-    top: 540px;
-    /* right: 60%; */
-    left: 47.8%;
 }

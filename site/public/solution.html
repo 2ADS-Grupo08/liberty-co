@@ -25,7 +25,9 @@
         <div class="navbar">
             <div class="container">
                 <div class="logo">
-                    <img src="styles/assets/logo/logo_side.png" alt="LogoLibertyCo">
+                    <a href="index.html">
+                        <img src="styles/assets/logo/logo_side.png" alt="LogoLibertyCo">
+                    </a>
                 </div>
                 <ul class="items">
                     <a href="index.html">
@@ -92,6 +94,7 @@
             </div>
         </div>
     </div>
+    <!-- fim do cadastro -->
     <div id="popup_fundo_login" class="popupLogin">
         <div class="popup_conteudo_login">
             <div class="telaLogin">
@@ -103,8 +106,8 @@
                         <h1>LOGIN</h1>
                         <div class="inputLogin" id="inputLogin">
                             <select id="select" class="select" onchange="abrirLoginEmpresaGestor(this.value)">
-                                <option class="option" value="optEmpresa" id="optEmpresa">Empresa</option>
-                                <option class="option" value="optGestor" id="optGestor">Gestor</option>
+                                <option class="option" value="selEmpresa" id="optEmpresa">Empresa</option>
+                                <option class="option" value="selGestor" id="optGestor">Gestor</option>
                             </select>
                             <input type="text" id="inp_cnpj1" placeholder="CNPJ">
                             <p class="opcional">OU</p>
@@ -113,10 +116,10 @@
                             <input type="password" placeholder="Senha" id="inp_senha1">
                             <button class="botaoEntrar" onclick="entrar()">Entrar</button>
                         </div>
-                        <div class="inputLoginGestor" id="inputLoginGestor">
+                        <div class="inputLoginGestor" id="inputLoginGestor" style="display: none;">
                             <select id="select" class="select" onchange="abrirLoginEmpresaGestor(this.value)">
-                                <option class="option" value="optEmpresa" id="optEmpresa2">Empresa</option>
-                                <option class="option" value="optGestor" id="optGestor2">Gestor</option>
+                                <option class="option" value="selGestor" id="optGestor2">Gestor</option>
+                                <option class="option" value="selEmpresa" id="optEmpresa2">Empresa</option>
                             </select>
                             <input type="text" id="inp_emailGestor" placeholder="E-mail">
                             <input type="text" id="inp_senhaGestor" placeholder="Senha">
@@ -128,6 +131,8 @@
             </div>
         </div>
     </div>
+    <!-- fim do modal -->
+
     <div class="topics">
         <!-- <span class="title">BENEFICIOS</span> -->
         <div class="container">

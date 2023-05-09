@@ -1,0 +1,28 @@
+@media screen and (max-width: 768px){
+    .background {
+        background: linear-gradient(101.7deg, #1D476A 0%, #041727 100%);
+        height: 2500px;
+        /* border: solid 2px lemonchiffon; */
+    }
+
+    .content {
+        /* border: solid 2px firebrick; */
+        height: fit-content;
+    }
+
+    .planos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .card {
+        width: 60vw;
+        margin-bottom: 50px;
+    }
+
+    .card.maior {
+        width: 60vw;
+    }
+}

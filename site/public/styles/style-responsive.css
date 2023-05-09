@@ -1,19 +1,5 @@
-/* Desktop */
-@media screen and (min-width: 1440px) {
-    div.footer .container {
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
-    }
-
-    .card .slide {
-        height: 25vh;
-    }
-}
-
-
 /* Laptop */
-@media screen and (max-width: 1024px) {
+/* @media screen and (max-width: 1024px) {
     .title {
         font-size: 3rem;
     }
@@ -21,7 +7,7 @@
     .card .slide {
         height: 29vh;
     }
-}
+} */
 
 /* Tablet */
 @media screen and (max-width: 768px) {
@@ -34,16 +20,80 @@
         width: 250px;
     }
 
+    .phrases .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .phrase{
-        width: 90%;
-        font-size: 1.25rem;
+        width: 100%;
+        font-size: 1.8rem;
+        text-align: center;
     }
 
     .title {
         width: 100%;
-        font-size: 2rem;
+        font-size: 3rem;
+        text-align: center;
     }
     
+    .bt_banner {
+        justify-content: center;
+    }
+
+    .how-works .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .how-works-text .title{
+        text-align: center;
+        width: 100%;
+    }
+
+    .how-works-text .phrase{
+        text-align: center;
+        width: 100%;
+    }
+
+    .how-works .container img {
+        margin-top: 60px;
+    }
+
+    .cards {
+        height: max-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cards .container-cards {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container-card {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container-card .card {
+        width: 100%;
+    }
+
+    .container-card .card .icon {
+        width: 35vw;
+    }
+
+
+
     .formularioLogin input {
         width: 200px;
     }

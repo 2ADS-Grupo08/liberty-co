@@ -37,17 +37,26 @@ a{
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 100%);
     display: flex;
     height: 13vh;
+
+    /* border: solid 2px goldenrod; */
 }
 
 .logo img {
     /* height: 50px; */
     height: 7vh;
     cursor: pointer;
+    display: flex;
+
+    /* border: solid 2px lawngreen; */
 }
 
 .container {
     width: 80%;
     margin: auto;
+    display: flex;
+    justify-content: center;
+
+    /* border: solid 2px magenta; */
 }
 
 .items{
@@ -58,7 +67,7 @@ a{
     align-items: center;
     /* justify-content: space-between; */
     font-family: 'Share Tech';
-    height: 50px;
+    height: 100%;
     /* border: solid 2px blueviolet; */
 }
 
@@ -81,6 +90,7 @@ a{
     width: 9vw;
     align-items: center;
     justify-content: space-between;
+    text-align: center;
 }
 
 .barra_vertical {
@@ -101,6 +111,7 @@ a{
 .exit_container button:hover {
     color: rgba(0, 204, 255, 0.753);
     transition: 0.25s;
+    cursor: pointer;
 }
 
 .footer{
