@@ -25,7 +25,7 @@ html {
     scroll-behavior: smooth;
 }
 
-a{
+a {
     text-decoration: none;
     color: white;
 }
@@ -59,7 +59,11 @@ a{
     /* border: solid 2px magenta; */
 }
 
-.items{
+.containerMenu {
+    display: none;
+}
+
+.items {
     font-size: 1.2rem;
     cursor: pointer;
     width: 30vw;
@@ -76,7 +80,7 @@ a{
     transition: 0.25s;
 }
 
-.navbar .container{
+.navbar .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -114,7 +118,7 @@ a{
     cursor: pointer;
 }
 
-.footer{
+.footer {
     font-family: 'Share Tech';
     height: 30vh;
     width: 100%;
@@ -154,6 +158,123 @@ a{
     font-family: 'Montserrat';
 }
 
-.items{
+.items {
     justify-content: space-around;
+}
+
+.navbar-responsiva {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+
+    *,
+    *:before,
+    *:after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .items, .exit_container {
+        display: none;
+    }
+
+    /* body {
+        background: #81ecec;
+    } */
+
+
+    .navbar-responsiva {
+        display: flex;
+    }
+        
+    .menu {
+        /* background: #fff; */
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        /* position: fixed; */
+        right: 10%;
+        top: 35px;
+        cursor: pointer;
+        transition: transform 0.25s ease-in-out;
+    }
+
+    .menu:hover {
+        transform: scale(1.1);
+    }
+
+    .hamburguer {
+        position: relative;
+        display: block;
+        background: #fff;
+        width: 30px;
+        height: 2px;
+        top: 29px;
+        left: 15px;
+        transition: 0.5s ease-in-out;
+    }
+
+    .hamburguer:before,
+    .hamburguer:after {
+        background: #fff;
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        transition: 0.5s ease-in-out;
+    }
+
+    .hamburguer:before {
+        top: -10px;
+    }
+
+    .hamburguer:after {
+        bottom: -10px;
+    }
+
+    input {
+        display: none;
+    }
+
+    input:checked ~ ul {
+        opacity: 1;
+    }
+
+    input:checked~label .hamburguer {
+        transform: rotate(45deg);
+    }
+
+    input:checked~label .hamburguer:before {
+        transform: rotate(90deg);
+        top: 0;
+    }
+
+    input:checked~label .hamburguer:after {
+        transform: rotate(90deg);
+        bottom: 0;
+    }
+
+    .items-responsiva {
+        position: absolute;
+        top: 20%;
+        right: 7%;
+        transform: translate(-50%, -50%);
+        list-style: none;
+        opacity: 0;
+        transition: .25s ease-in-out;
+    }
+
+    .items-responsiva a {
+        color: white;
+        font-size: 1.25rem;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 15px;
+        font-family: 'Share Tech';
+        text-align: end;
+    }
+
 }

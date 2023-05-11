@@ -35,6 +35,25 @@
                             <img src="styles/assets/logo/logo_side.png" alt="LogoLibertyCo">
                         </a>
                     </div>
+                    <!-- Menu hamburguer -->
+                    <div class="navbar-responsiva">
+                        <input id="menu-hamburguer" type="checkbox" />
+
+                        <label for="menu-hamburguer">
+                            <div class="menu">
+                                <span class="hamburguer"></span>
+                            </div>
+                        </label>
+
+                        <ul class="items-responsiva">
+                            <li><a href="index.html">HOME</a></li>
+                            <li><a href="solution.html">SOLUÇÃO</a></li>
+                            <li><a href="plans.html">PLANOS</a></li>
+                            <li><a href="#" onclick="abrirPopup()">CADASTRO</a></li>
+                            <li><a href="#" onclick="abrirLogin()">LOGIN</a></li>
+                        </ul>
+                    </div>
+                    <!-- Fim do menu hamburguer -->
                     <ul class="items">
                         <a href="index.html">
                             <li>HOME</li>
@@ -73,8 +92,9 @@
                                     </div>
                                     <div class="coluna">
                                         <input type="text" id="inp_cnpj" placeholder="CNPJ">
-                                        <input type="text" id="inp_cep" placeholder="CEP" onblur="pesquisaCep(this.value)">                                
-                                        <input type="text" id="inp_bairro" placeholder="Bairro">                                
+                                        <input type="text" id="inp_cep" placeholder="CEP"
+                                            onblur="pesquisaCep(this.value)">
+                                        <input type="text" id="inp_bairro" placeholder="Bairro">
                                         <input type="text" id="inp_complemento" placeholder="Complemento">
                                         <input type="password" id="inp_confirmacao" placeholder="Confirmação de Senha">
                                     </div>
@@ -118,7 +138,8 @@
                                 <input type="text" id="inp_senhaGestor" placeholder="Senha">
                                 <button class="botaoEntrar" onclick="entrarGestor()">Entrar</button>
                             </div>
-                            <p>Não tem uma conta? <b><a onclick="abrirCadastro()" id="popup_botao"><u>Clique aqui</u></a></b> para Cadastrar</p>
+                            <p>Não tem uma conta? <b><a onclick="abrirCadastro()" id="popup_botao"><u>Clique
+                                            aqui</u></a></b> para Cadastrar</p>
                         </div>
                     </div>
                 </div>

@@ -10,6 +10,18 @@
         height: fit-content;
     }
 
+    .texto .p {
+        width: 100%;
+        font-size: 3rem;
+        text-align: center;
+    }
+
+    .texto .p1 {
+        width: 100%;
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
     .planos {
         display: flex;
         flex-direction: column;

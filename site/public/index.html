@@ -31,6 +31,25 @@
                         <img src="styles/assets/logo/logo_side.png" alt="LogoLibertyCo">
                     </a>
                 </div>
+                <!-- Menu hamburguer -->
+                <div class="navbar-responsiva">
+                    <input id="menu-hamburguer" type="checkbox" />
+
+                    <label for="menu-hamburguer">
+                        <div class="menu">
+                            <span class="hamburguer"></span>
+                        </div>
+                    </label>
+
+                    <ul class="items-responsiva">
+                        <li><a href="index.html">HOME</a></li>
+                        <li><a href="solution.html">SOLUÇÃO</a></li>
+                        <li><a href="plans.html">PLANOS</a></li>
+                        <li><a href="#" onclick="abrirPopup()">CADASTRO</a></li>
+                        <li><a href="#" onclick="abrirLogin()">LOGIN</a></li>
+                    </ul>
+                </div>
+                <!-- Fim do menu hamburguer -->
                 <ul class="items">
                     <a href="index.html">
                         <li>HOME</li>
@@ -55,7 +74,7 @@
                     <span class="title">TODA SUA EMPRESA EM APENAS UM CLIQUE</span>
                     <span class="phrase">Oferecemos a melhor tecnologia para o que sua empresa precisa!
                         Com transparência, facilidade e segurança.</span>
-                    <button class="bt_banner">CONHEÇA JÁ</button>
+                    <button class="bt_banner"><a href="solution.html">CONHEÇA JÁ</a></button>
                 </div>
             </div>
         </div>
@@ -80,8 +99,8 @@
                                 </div>
                                 <div class="coluna">
                                     <input type="text" id="inp_cnpj" placeholder="CNPJ">
-                                    <input type="text" id="inp_cep" placeholder="CEP" onblur="pesquisaCep(this.value)">                                
-                                    <input type="text" id="inp_bairro" placeholder="Bairro">                                
+                                    <input type="text" id="inp_cep" placeholder="CEP" onblur="pesquisaCep(this.value)">
+                                    <input type="text" id="inp_bairro" placeholder="Bairro">
                                     <input type="text" id="inp_complemento" placeholder="Complemento">
                                     <input type="password" id="inp_confirmacao" placeholder="Confirmação de Senha">
                                 </div>
@@ -123,17 +142,18 @@
                                 <option class="option" value="optEmpresa" id="optEmpresa2">Empresa</option>
                             </select>
                             <input type="text" id="inp_emailGestor" placeholder="E-mail">
-                            <input type="password" id="inp_senhaGestor" placeholder="Senha">
+                            <input type="text" id="inp_senhaGestor" placeholder="Senha">
                             <button class="botaoEntrar" onclick="entrarGestor()">Entrar</button>
                         </div>
-                        <p>Não tem uma conta? <b><a onclick="abrirCadastro()" id="popup_botao"><u>Clique aqui</u></a></b> para Cadastrar</p>
+                        <p>Não tem uma conta? <b><a onclick="abrirCadastro()" id="popup_botao"><u>Clique
+                                        aqui</u></a></b> para Cadastrar</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- fim do modal -->
-    
+
     <div class="how-works">
         <div class="container">
             <div class="how-works-text">

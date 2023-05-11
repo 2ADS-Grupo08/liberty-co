@@ -9,6 +9,7 @@
     <title>Liberty CO</title>
 
     <link rel="stylesheet" href="styles/style-solution.css">
+    <link rel="stylesheet" href="styles/style-fotter_navbar.css">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/style-responsive.css">
     <link rel="stylesheet" href="styles/style-modal.css">
@@ -29,6 +30,25 @@
                         <img src="styles/assets/logo/logo_side.png" alt="LogoLibertyCo">
                     </a>
                 </div>
+                <!-- Menu hamburguer -->
+                <div class="navbar-responsiva">
+                    <input id="menu-hamburguer" type="checkbox" />
+
+                    <label for="menu-hamburguer">
+                        <div class="menu">
+                            <span class="hamburguer"></span>
+                        </div>
+                    </label>
+
+                    <ul class="items-responsiva">
+                        <li><a href="index.html">HOME</a></li>
+                        <li><a href="solution.html">SOLUÇÃO</a></li>
+                        <li><a href="plans.html">PLANOS</a></li>
+                        <li><a href="#" onclick="abrirPopup()">CADASTRO</a></li>
+                        <li><a href="#" onclick="abrirLogin()">LOGIN</a></li>
+                    </ul>
+                </div>
+                <!-- Fim do menu hamburguer -->
                 <ul class="items">
                     <a href="index.html">
                         <li>HOME</li>

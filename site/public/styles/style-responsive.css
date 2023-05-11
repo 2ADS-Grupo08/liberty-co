@@ -11,33 +11,24 @@
 
 /* Tablet */
 @media screen and (max-width: 768px) {
-
-    .imgCadastro {
-        display: none;
-    }
-    
-    .items {
-        width: 250px;
-    }
-
     .phrases .container {
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    .phrase{
-        width: 100%;
-        font-size: 1.8rem;
-        text-align: center;
-    }
-
     .title {
         width: 100%;
-        font-size: 3rem;
+        font-size: 2.5rem;
         text-align: center;
     }
     
+    .phrase{
+        width: 100%;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
     .bt_banner {
         justify-content: center;
     }
@@ -67,6 +58,8 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 100px 0;
+        /* border: solid 2px firebrick; */
     }
 
     .cards .container-cards {
@@ -74,6 +67,13 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        width: 35vw;
+        /* border: solid 2px forestgreen; */
+    }
+
+    .cards-hover {
+        /* border: solid 2px fuchsia; */
+        width: 35vw;
     }
 
     .container-card {
@@ -82,17 +82,23 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        width: 35vw;
+        /* border: solid 2px gold; */
     }
 
     .container-card .card {
         width: 100%;
+        width: 35vw;
     }
 
     .container-card .card .icon {
         width: 35vw;
     }
-
-
+    
+    .slide2 {
+        width: 35vw;
+        display: flex;
+    }
 
     .formularioLogin input {
         width: 200px;
@@ -120,7 +126,7 @@
     }
 
     .card .slide {
-        height: 29vh;
+        width: 35vw;
     }
 
     .container-card .card .icon {
