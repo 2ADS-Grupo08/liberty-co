@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -10,9 +10,9 @@
 
     <link rel="stylesheet" href="styles/style-solution.css">
     <link rel="stylesheet" href="styles/style-fotter_navbar.css">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/style-responsive.css">
+    <link rel="stylesheet" href="styles/style-responsive-solution.css">
     <link rel="stylesheet" href="styles/style-modal.css">
+    <link rel="stylesheet" href="styles/style-responsive-modal.css">
     <link rel="shortcut icon" href="styles/assets/logo/logo.png" type="image/jpg" href="/favicon.jpg"/>
     
     <script src="js/funcoes.js"></script>
@@ -75,7 +75,7 @@
                         variedade
                         de planos que cabe no seu bolso, independente se sua empresa está no inicio ou já
                         consolidada.</span>
-                    <button class="bt_banner">CONHEÇA JÁ</button>
+                    <button class="bt_banner"><a href="plans.html">CONHEÇA JÁ</a></button>
                 </div>
             </div>
         </div>
@@ -126,8 +126,8 @@
                         <h1>LOGIN</h1>
                         <div class="inputLogin" id="inputLogin">
                             <select id="select" class="select" onchange="abrirLoginEmpresaGestor(this.value)">
-                                <option class="option" value="selEmpresa" id="optEmpresa">Empresa</option>
-                                <option class="option" value="selGestor" id="optGestor">Gestor</option>
+                                <option class="option" value="optEmpresa" id="optEmpresa">Empresa</option>
+                                <option class="option" value="optGestor" id="optGestor">Gestor</option>
                             </select>
                             <input type="text" id="inp_cnpj1" placeholder="CNPJ">
                             <p class="opcional">OU</p>
@@ -138,8 +138,8 @@
                         </div>
                         <div class="inputLoginGestor" id="inputLoginGestor" style="display: none;">
                             <select id="select" class="select" onchange="abrirLoginEmpresaGestor(this.value)">
-                                <option class="option" value="selGestor" id="optGestor2">Gestor</option>
-                                <option class="option" value="selEmpresa" id="optEmpresa2">Empresa</option>
+                                <option class="option" value="optGestor" id="optGestor2">Gestor</option>
+                                <option class="option" value="optEmpresa" id="optEmpresa2">Empresa</option>
                             </select>
                             <input type="text" id="inp_emailGestor" placeholder="E-mail">
                             <input type="text" id="inp_senhaGestor" placeholder="Senha">
@@ -154,7 +154,6 @@
     <!-- fim do modal -->
 
     <div class="topics">
-        <!-- <span class="title">BENEFICIOS</span> -->
         <div class="container">
             <div class="column one">
                 <div class="odd">
@@ -163,7 +162,7 @@
                 </div>
                 <div class="even">
                     <span class="number">2</span>
-                    <span class="phrase">Avaliam de forma racional todos os riscos que envolvem o negócio</span>
+                    <span class="phrase">Posicionar sua empresa no mercado</span>
                 </div>
                 <div class="odd">
                     <span class="number">3</span>
@@ -179,7 +178,7 @@
                     <span class="number">4</span>
                 </div>
                 <div class="even">
-                    <span class="phrase">Posicionar sua empresa no mercado</span>
+                    <span class="phrase">Avaliam de forma racional todos os riscos que envolvem o negócio</span>
                     <span class="number">5</span>
                 </div>
                 <div class="odd">
@@ -204,7 +203,7 @@
                         <div class="slide slide2">
                             <div class="content">
                                 <p>Monitoramento remoto</p>
-                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;" href="Planos.html">Saiba mais</a>
+                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;" href="plans.html">Saiba mais</a>
                             </div>
                         </div>
                     </div>
@@ -223,7 +222,7 @@
                         <div class="slide slide2">
                             <div class="content">
                                 <p>Modernização Tecnológica.</p>
-                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;" href="Planos.html">Saiba mais</a>
+                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;" href="plans.html">Saiba mais</a>
                             </div>
                         </div>
                     </div>
@@ -242,7 +241,7 @@
                         <div class="slide slide2">
                             <div class="content">
                                 <p>Dados visíveis e pontuais.</p>
-                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;" href="Planos.html">Saiba mais</a>
+                                <a style="color: rgb(38, 151, 221); margin-top: 10px; font-weight: 500;" href="plans.html">Saiba mais</a>
                             </div>
                         </div>
                     </div>
