@@ -20,6 +20,10 @@ router.post("/cadastrarGestor/:idEmpresa", function (req, res) {
     usuarioController.cadastrarGestor(req, res);
 })
 
+router.get("/getDadosGestor/:idGestor", function (req, res) {
+    usuarioController.getDadosGestor(req, res);
+});
+
 router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
 });
@@ -28,5 +32,8 @@ router.post("/autenticarGestor", function (req, res) {
     usuarioController.entrarGestor(req, res);
 });
 
+router.put("/editarGestor/:idGestor", function (req, res) {
+    usuarioController.editarGestor(req, res);
+});
 
 module.exports = router;

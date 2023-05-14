@@ -196,11 +196,58 @@ function cadastrarGestor(req, res) {
     }
 }
 
+function editarGestor(req, res) {
+    var novoNomeGestor = req.body.nomeServer;
+    var novoUltimoNome = req.body.ultimoNomeServer;
+    var novoCargo = req.body.cargoServer;
+    var novoEmail = req.body.emailServer;
+    var novaSenha = req.body.senhaServer;
+    var idGestor = req.params.idGestor;
+
+
+    usuarioModel.editarGestor(novoNomeGestor, novoUltimoNome, novoCargo, novoEmail, novaSenha, idGestor)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
+function getDadosGestor(req, res) {
+    var idGestor = req.params.idGestor;
+
+    usuarioModel.getDadosGestor(idGestor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
 module.exports = {
     entrar,
     entrarGestor,
     cadastrarEmpresa,
     cadastrarGestor,
     listarGestores,
-    testar
+    editarGestor,
+    testar,
+    getDadosGestor
 }

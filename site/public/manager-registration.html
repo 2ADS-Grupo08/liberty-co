@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles/sidebar.css">
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <script src="js/funcoes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/manager-registration.js"></script>
     <script src="https://kit.fontawesome.com/9763306bd1.js" crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -16,7 +17,7 @@
     <title>Cadastro de Gestor</title>
 </head>
 
-<body onload="atualizarFeed()" id="body">
+<body onload="atualizarFeed(), validarSessao()" id="body">
     <div class="content">
         <div class="sidebar">
             <header>
@@ -62,14 +63,6 @@
             <div class="list">
                 <div class="container">
                     <table class="managers" id="managers">
-                        <thead class="manager">
-                            <tr class="infos manager">
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Cargo</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
                     </table>
                 </div>
             </div>

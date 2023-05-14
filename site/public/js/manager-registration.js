@@ -15,7 +15,7 @@ function fecharPopup() {
 
 function cadastrarGestor() {
 
-    let idEmpresa = sessionStorage.ID_EMPRESA
+    var idEmpresa = sessionStorage.ID_EMPRESA
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
     var nomeVar = inp_nome.value;
@@ -25,8 +25,8 @@ function cadastrarGestor() {
     var senhaVar = inp_senha.value;
     var confirmacaoSenhaVar = inp_confirmacao.value;
 
-    if (razaoVar == "" || cnpjVar == "" || emailVar == "" || cepVar == "" || logVar == ""
-        || bairroVar == "" || numVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
+    if (nomeVar == "" || ultimoNomeVar == "" || cargoVar == "" || emailVar == "" || senhaVar == ""
+        || confirmacaoSenhaVar == "") {
         alert("Preencha todos os campos");
         return false;
     }
@@ -51,7 +51,7 @@ function cadastrarGestor() {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-            alert("Cadastro realizado com sucesso!");
+            alert("Cadastro gestor realizado com sucesso!");
 
             setTimeout(function () {
                 window.location.reload();
@@ -77,6 +77,16 @@ function atualizarFeed() {
             resposta.json().then(function (resposta) {
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
 
+                managers.innerHTML = `
+                    <thead class="manager">
+                        <tr class="infos manager">
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Cargo</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    `
                 for (let i = 0; i < resposta.length; i++) {
                     managers.innerHTML += `
                                 <tbody class="manager">
@@ -85,7 +95,7 @@ function atualizarFeed() {
                                         <td>${resposta[i].nome}</td>
                                         <td>${resposta[i].cargo}</td>
                                         <td class="actions">
-                                            <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="editarMaquina()" alt="">
+                                            <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosGestor(${resposta[i].idGestor})" alt="">
                                             <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="teste()"alt="">
                                         </td>
                                     </tr>
@@ -100,3 +110,123 @@ function atualizarFeed() {
         console.error(resposta);
     });
 }
+
+function editarGestor(idGestor, nomeGestor, ultimoNome, cargo, email, senha) {
+    console.log(nomeGestor,
+        ultimoNome,
+        cargo,
+        email,
+        senha)
+
+    fetch(`/usuarios/editarGestor/${idGestor}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nomeServer: nomeGestor,
+            ultimoNomeServer: ultimoNome,
+            cargoServer: cargo,
+            emailServer: email,
+            senhaServer: senha
+        })
+    })
+    setTimeout(() => {
+        managers.innerHTML = "";
+        atualizarFeed();
+    }, 10);
+}
+
+function getDadosGestor(idGestor) {
+    console.log(idGestor)
+
+    fetch(`/usuarios/getDadosGestor/${idGestor}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                throw "Nenhum resultado encontrado!!";
+            }
+            resposta.json().then(function (resposta) {
+                // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+
+                Swal.fire({
+                    title: '<strong>Edição de Gestor</strong>',
+                    html:
+                        ` <div class="edit-gestor">
+                            <div class="container">
+                                <div class="edit-body">
+                                    <div class="gestor-infos-left">
+                                        <div class="input-label">
+                                            <label for="nomeGestor">Primeiro nome</label>
+                                            <input type="text" name="" id="nomeGestor" value="${resposta[0].nome}">
+                                        </div>
+                                        <div class="input-label">
+                                            <label for="ultimoNome">Ultimo nome</label>
+                                            <input type="text" name="" id="ultimoNome" value="${resposta[0].ultimoNome}">
+                                        </div>
+                                        <div class="input-label">
+                                            <label for="cargo">Cargo</label>
+                                            <input type="text" name="" id="cargo" value="${resposta[0].cargo}">
+                                        </div>
+                                        <div class="input-label">
+                                            <label for="Email">Email</label>
+                                            <input type="text" name="" id="email" value="${resposta[0].email}">
+                                        </div>
+                                        <div class="input-label">
+                                            <label for="senha">Senha</label>
+                                            <input type="text" name="" id="senha" value="${resposta[0].senha}">
+                                        </div>
+                                    </div>
+                                    <div class="computer-infos-right">
+                                        <img class="monitor" src="styles/assets/icone/monitor2.png">
+                                        <span>ID do Gestor: </span><span id="idGestor">${resposta[0].idGestor}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`,
+                    width: 700,
+                    background: '#FFFFFF',
+                    denyButtonColor: '#2778c4',
+                    showCloseButton: true,
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    focusConfirm: false,
+                    denyButtonText: 'Editar janelas',
+                    confirmButtonText: 'Finalizar',
+                    cancelButtonText: 'Cancelar',
+                    preConfirm: () => {
+                        nomeGestor = Swal.getPopup().querySelector('#nomeGestor').value;
+                        ultimoNome = Swal.getPopup().querySelector('#ultimoNome').value;
+                        cargo = Swal.getPopup().querySelector('#cargo').value;
+                        email = Swal.getPopup().querySelector('#email').value;
+                        senha = Swal.getPopup().querySelector('#senha').value;
+
+                        if (!nomeGestor || !ultimoNome || !cargo || !email || !senha) {
+                            Swal.showValidationMessage(`Por favor, preencha todos os campos.`)
+                        }
+
+                        return {
+                            nomeGestor: nomeGestor,
+                            ultimoNome: ultimoNome,
+                            cargo: cargo,
+                            email: email,
+                            senha: senha
+                        }
+                    },
+                    preDeny: () => {
+                        Swal.fire('Any fool can use a computer')
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        editarGestor(idGestor, nomeGestor, ultimoNome, cargo, email, senha);
+                    }
+                });
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+}
+
