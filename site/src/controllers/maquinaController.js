@@ -63,7 +63,38 @@ function cadastrarMaquina(req, res) {
             );
     }
 }
+function cadastrarProcessosSeremEncerrados(req, res) {
+    var processo = req.body.processoServer;
+    var idGestor = req.params.idGestor;
+    var idMaquina = req.params.idMaquina;
 
+    // Faça as validações dos valores
+    if (idGestor == undefined) {
+        res.status(400).send("o hostName está undefined!");
+    } else if (idMaquina == undefined) {
+        res.status(400).send("Seu nomeArq está undefined!");
+    } else if (processo == undefined) {
+        res.status(400).send("Seu ultimoNomeArq está undefined!");
+    } else {
+
+        // Passe os valores como parâmetro e vá para o arquivo maquinaModel.js
+        maquinaModel.cadastrarProcessosSeremEncerrados(processo, idGestor, idMaquina)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
 function getIdMaquinaCadastrada(req, res) {
     var idGestor = req.params.idGestor;
 
@@ -147,6 +178,7 @@ function deletarMaquina(req, res) {
 module.exports = {
     getIdMaquinaCadastrada,
     cadastrarMaquina,
+    cadastrarProcessosSeremEncerrados,
     listarMaquinas,
     getDadosMaquina,
     editarMaquina,

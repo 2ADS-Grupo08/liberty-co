@@ -13,6 +13,17 @@ function cadastrarMaquina(hostName, nomeArq, ultimoNomeArq, SO, status, idGestor
     return database.executar(instrucao);
 }
 
+function cadastrarProcessosSeremEncerrados(processo, idGestor, idMaquina, ) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarProcessosSeremEncerrados():", processo, idGestor, idMaquina);
+
+    var instrucao = `
+        INSERT INTO Processo (nomeProcesso, fkGestor, fkMaquina) VALUES (
+        '${processo}', ${idGestor}, ${idMaquina});
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function getIdMaquinaCadastrada(idGestor) {
     console.log("ACESSEI O MAQUINA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function getDadosMaquinaCadastrada()");
     var instrucao = `
@@ -69,6 +80,7 @@ function deletarMaquina(idMaquina) {
 module.exports = {
     getIdMaquinaCadastrada,
     cadastrarMaquina,
+    cadastrarProcessosSeremEncerrados,
     listarMaquinas,
     getDadosMaquina,
     editarMaquina,

@@ -43,16 +43,26 @@ CREATE TABLE Maquina (
     fkGestor INT, FOREIGN KEY (fkGestor) REFERENCES Gestor(idGestor)
 );
 
+CREATE TABLE Processo (
+	idProcesso INT PRIMARY KEY AUTO_INCREMENT,
+    nomeProcesso VARCHAR(45),
+    fkGestor INT, FOREIGN KEY (fkGestor) REFERENCES Gestor(idGestor),
+    fkMaquina INT, FOREIGN KEY (fkMaquina) REFERENCES Maquina(idMaquina)
+);
+
 SELECT * FROM Instituicao;
 SELECT * FROM Maquina;
 SELECT * FROM Gestor;
 TRUNCATE TABLE Instituicao;
 
 INSERT INTO Instituicao VALUES (null, 'Leo', 66666666666666, 'leor', 08210450, 20, 3213, 1234,1234);
-INSERT INTO Gestor VALUES (null, 'Leo', 'Junior', 'sim', '12345', '1234', 1);
+INSERT INTO Gestor VALUES (null, 'Leo', 'Junior', 'sim', 'email', 'senha', 1);
 INSERT INTO Maquina VALUES (null, 'abc', 'abc', 'abc', 'abc', 0 , 1);
-DELETE FROM Instituicao WHERE idInstituicao = 3;
+DELETE FROM Instituicao WHERE idInstituicao = 4;
+DELETE FROM Maquina WHERE idMaquina = 4;
 
+
+SELECT idMaquina FROM Maquina WHERE fkGestor = 1 ORDER BY idMaquina DESC LIMIT 1;
 
 -- AZURE
 

@@ -11,7 +11,7 @@ function fecharPopup() {
     // body.style.overflowY = "visible";
 }
 
-function cadastrarMaquina() {
+function cadastrarMaquina(processos) {
     var idGestor = sessionStorage.ID_GESTOR;
     var hostName = inp_host.value;
     var nomeArq = inp_nomeArq.value;
@@ -44,7 +44,7 @@ function cadastrarMaquina() {
         if (resposta.ok) {
             alert("Cadastro realizado com sucesso!");
 
-            getDadosMaquinaCadastrada(idGestor);
+            getIdMaquinaCadastrada(idGestor, processos);
 
             // setTimeout(function () {
             //     window.location.reload();
@@ -58,7 +58,7 @@ function cadastrarMaquina() {
     return false;
 }
 
-function getIdMaquinaCadastrada(idGestor) {
+function getIdMaquinaCadastrada(idGestor, processos) {
     //aguardar();
     fetch(`/maquinas/getIdMaquinaCadastrada/${idGestor}`).then(function (resposta) {
         if (resposta.ok) {
@@ -66,19 +66,13 @@ function getIdMaquinaCadastrada(idGestor) {
                 throw "Nenhum resultado encontrado!!";
             }
             resposta.json().then(function (resposta) {
-                cadastrarProcessosSeremEncerrados(idGestor, resposta[0].idMaquina)
+                cadastrarProcessosSeremEncerrados(processos, idGestor, resposta[0].idMaquina)
             });
         } else {
             throw ('Houve um erro na API!');
         }
     }).catch(function (resposta) {
         console.error(resposta);
-        computers.innerHTML +=
-            `
-                <div class="title">
-                    <h1>NENHUMA MÁQUINA CADASTRADA</h1>
-                </div>
-            `
     });
 }
 
@@ -238,11 +232,6 @@ function getDadosMaquina(idMaquina) {
 }
 
 function editarMaquina(idMaquina, hostName, nomeArq, ultimoNomeArq, SO, status) {
-    console.log(hostName,
-        nomeArq,
-        ultimoNomeArq,
-        SO,
-        status)
     fetch(`/maquinas/editarMaquina/${idMaquina}`, {
         method: "PUT",
         headers: {
@@ -286,7 +275,6 @@ function deletarMaquina(idMaquina) {
 }
 
 var processos = [];
-let firstRun = true;
 function criarListaProcessosSeremEncerrados() {
     var hostName = inp_host.value;
     var nomeArq = inp_nomeArq.value;
@@ -300,7 +288,8 @@ function criarListaProcessosSeremEncerrados() {
     Swal.fire({
         width: 500,
         title: `<strong>Lista de executáveis a serem encerrados</strong>`,
-        html: `<ul id="executables" class="executables"></ul>`,
+        html: `<small>PSC: Voce poderá editar isso mais tarde</small>
+                <ul id="executables" class="executables"></ul>`,
         inputLabel: 'Nome do executável',
         inputPlaceholder: 'Ex: chrome.exe',
         inputAutoFocus: true,
@@ -325,36 +314,58 @@ function criarListaProcessosSeremEncerrados() {
         confirmButtonText: 'Adicionar a lista',
     }).then((result) => {
         if (result.isConfirmed) {
-            console.log(processos.indexOf(result.value));
-            console.log(processos);
+            // console.log(result.value);
+            // console.log(processos.indexOf(result.value));
+            // console.log(processos);
             criarListaProcessosSeremEncerrados();
-            let found = false;
             for (let index = 0; index <= processos.length; index++) {
-                if (processos.indexOf(result.value) == -1 && found == false) {
+                if (processos.indexOf(result.value) == - 1) {
                     processos.push(result.value);
                     executables.innerHTML += `
-                            <li id="executable" class="executable">
-                                , ${processos}
-                            </li>`;
-                    found = true;
+                        <li id="executable" class="executable">
+                            ${processos}, 
+                        </li>`;
                     break;
                 } else {
                     alert("janela já cadastrada");
-                    executables.innerHTML += `
-                            <li id="executable" class="executable">
-                                , ${processos}
-                            </li>`;
                     break;
                 }
             }
         } else if (result.isDenied) {
-            cadastrarMaquina();
+            cadastrarMaquina(processos);
             processos = [];
         }
     })
 }
 
-function cadastrarProcessosSeremEncerrados(idGestor, idMaquina) {
-
+function cadastrarProcessosSeremEncerrados(processos, idGestor, idMaquina) {
+    for (let i = 0; i < processos.length; i++) {
+        console.log(processos[i])
+        fetch(`/maquinas/cadastrarProcessosSeremEncerrados/${idGestor}/${idMaquina}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                processoServer: processos[i],
+            })
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+    
+            if (resposta.ok) {
+    
+                // setTimeout(function () {
+                //     window.location.reload();
+                // }, 10);
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+        
+    }
+    return false;
 }
-
