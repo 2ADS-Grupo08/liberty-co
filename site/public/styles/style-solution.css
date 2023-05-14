@@ -281,9 +281,3 @@ body {
     text-align: center;
     color: #414141;
 }
-
-@media screen and (max-width: 768px) {
-    .card .slide {
-        width: 25vw;
-    }
-}

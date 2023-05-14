@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,9 +17,11 @@
     <link rel="stylesheet" href="styles/style-fotter_navbar.css">
     <link rel="stylesheet" href="styles/style-responsive-plans.css">
     <link rel="stylesheet" href="styles/style-modal.css">
+    <link rel="stylesheet" href="styles/style-responsive-modal.css">
     <link rel="shortcut icon" href="styles/assets/logo/logo.png" type="image/jpg" href="/favicon.jpg" />
 
-    <script src="js/login.js"></script>
+    <script src="js/funcoes.js"></script>
+    <script src="js/login_cadastro.js"></script>
     <script src="https://kit.fontawesome.com/d4c883c854.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
@@ -108,6 +110,7 @@
                 </div>
             </div>
         </div>
+         <!-- fim do cadastro -->
         <div id="popup_fundo_login" class="popupLogin">
             <div class="popup_conteudo_login">
                 <div class="telaLogin">
@@ -119,8 +122,8 @@
                             <h1>LOGIN</h1>
                             <div class="inputLogin" id="inputLogin">
                                 <select id="select" class="select" onchange="abrirLoginEmpresaGestor(this.value)">
-                                    <option class="option" value="selEmpresa" id="optEmpresa">Empresa</option>
-                                    <option class="option" value="selGestor" id="optGestor">Gestor</option>
+                                    <option class="option" value="optEmpresa" id="optEmpresa">Empresa</option>
+                                    <option class="option" value="optGestor" id="optGestor">Gestor</option>
                                 </select>
                                 <input type="text" id="inp_cnpj1" placeholder="CNPJ">
                                 <p class="opcional">OU</p>
@@ -131,8 +134,8 @@
                             </div>
                             <div class="inputLoginGestor" id="inputLoginGestor" style="display: none;">
                                 <select id="select" class="select" onchange="abrirLoginEmpresaGestor(this.value)">
-                                    <option class="option" value="selGestor" id="optGestor2">Gestor</option>
-                                    <option class="option" value="selEmpresa" id="optEmpresa2">Empresa</option>
+                                    <option class="option" value="optGestor" id="optGestor2">Gestor</option>
+                                    <option class="option" value="optEmpresa" id="optEmpresa2">Empresa</option>
                                 </select>
                                 <input type="text" id="inp_emailGestor" placeholder="E-mail">
                                 <input type="text" id="inp_senhaGestor" placeholder="Senha">

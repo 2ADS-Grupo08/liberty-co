@@ -1,0 +1,40 @@
+@media screen and (max-width: 768px) {
+    .imgCadastro {
+        display: none;
+    }
+
+    .cadastro {
+        /* border: solid 2px rebeccapurple; */
+        width: 100%;
+
+        flex-direction: row;
+    }
+    
+    .formularioCadastro input {
+        display: flex;
+        padding: 15px;
+        width: 100%;
+    }
+
+    .botaoCadastrar {
+        font-size: 15px;
+        width: 150px;
+        height: 40px;
+    }
+
+    .imgLogin {
+        display: none;
+    }
+
+    .formularioLogin input {
+        display: flex;
+        padding: 15px;
+        width: 100%;
+    }
+
+    .botaoEntrar {
+        font-size: 15px;
+        width: 150px;
+        height: 40px;
+    }
+}
