@@ -13,6 +13,15 @@ function cadastrarMaquina(hostName, nomeArq, ultimoNomeArq, SO, status, idGestor
     return database.executar(instrucao);
 }
 
+function getIdMaquinaCadastrada(idGestor) {
+    console.log("ACESSEI O MAQUINA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function getDadosMaquinaCadastrada()");
+    var instrucao = `
+        SELECT idMaquina FROM Maquina WHERE fkGestor = ${idGestor} ORDER BY idMaquina DESC LIMIT 1;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function listarMaquinas(idGestor) {
     console.log("ACESSEI O MAQUINA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucao = `
@@ -58,6 +67,7 @@ function deletarMaquina(idMaquina) {
 }
 
 module.exports = {
+    getIdMaquinaCadastrada,
     cadastrarMaquina,
     listarMaquinas,
     getDadosMaquina,

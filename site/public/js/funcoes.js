@@ -22,7 +22,7 @@ function validarSessao() {
 
 function validarSessaoGestor() {
     // aguardar();
-    var nome = sessionStorage.NOME ;
+    var nome = sessionStorage.NOME;
     var ultimoNome = sessionStorage.ULTIMO_NOME;
     var cargo = sessionStorage.CARGO;
     var empresa = sessionStorage.ID_EMPRESA;

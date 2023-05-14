@@ -11,6 +11,10 @@ router.post("/cadastrarMaquina/:idGestor", function (req, res) {
     maquinaController.cadastrarMaquina(req, res);
 })
 
+router.get("/getIdMaquinaCadastrada/:idGestor", function (req, res) {
+    maquinaController.getIdMaquinaCadastrada(req, res);
+});
+
 router.get("/getDadosMaquina/:idMaquina", function (req, res) {
     maquinaController.getDadosMaquina(req, res);
 });

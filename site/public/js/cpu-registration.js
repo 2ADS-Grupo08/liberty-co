@@ -12,21 +12,18 @@ function fecharPopup() {
 }
 
 function cadastrarMaquina() {
-    var idGestor = sessionStorage.ID_GESTOR
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
+    var idGestor = sessionStorage.ID_GESTOR;
     var hostName = inp_host.value;
     var nomeArq = inp_nomeArq.value;
     var ultimoNomeArq = inp_ultimo_nome_arq.value;
-    var status = 1;
     var SO = inp_SO.value;
+    var status = 1;
 
     if (hostName == "" || nomeArq == "" || ultimoNomeArq == "" || SO == "") {
         alert("Preencha todos os campos");
         return false;
     }
 
-    // Enviando o valor da nova input
     fetch(`/maquinas/cadastrarMaquina/${idGestor}`, {
         method: "POST",
         headers: {
@@ -42,15 +39,16 @@ function cadastrarMaquina() {
             statusServer: status
         })
     }).then(function (resposta) {
-
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
             alert("Cadastro realizado com sucesso!");
 
-            setTimeout(function () {
-                window.location.reload();
-            }, 2000);
+            getDadosMaquinaCadastrada(idGestor);
+
+            // setTimeout(function () {
+            //     window.location.reload();
+            // }, 10);
         } else {
             throw ("Houve um erro ao tentar realizar o cadastro!");
         }
@@ -58,6 +56,30 @@ function cadastrarMaquina() {
         console.log(`#ERRO: ${resposta}`);
     });
     return false;
+}
+
+function getIdMaquinaCadastrada(idGestor) {
+    //aguardar();
+    fetch(`/maquinas/getIdMaquinaCadastrada/${idGestor}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                throw "Nenhum resultado encontrado!!";
+            }
+            resposta.json().then(function (resposta) {
+                cadastrarProcessosSeremEncerrados(idGestor, resposta[0].idMaquina)
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+        computers.innerHTML +=
+            `
+                <div class="title">
+                    <h1>NENHUMA MÁQUINA CADASTRADA</h1>
+                </div>
+            `
+    });
 }
 
 function listarMaquinas() {
@@ -70,49 +92,31 @@ function listarMaquinas() {
                 throw "Nenhum resultado encontrado!!";
             }
             resposta.json().then(function (resposta) {
-                // console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                let situacao = null;
                 for (let i = 0; i < resposta.length; i++) {
                     if (resposta[i].status == 1) {
-                        situacao = "Ativo"
-                        computers.innerHTML += `
-                            <div class="computer" id="computer">
-                                <div class="cardHeader">
-                                    <div class="actions">
-                                        <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
-                                        <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="deletarMaquina(${resposta[i].idMaquina})"alt="">
-                                    </div>
-                                    <div class="activity" id="activity" style="color: green;">
-                                        <small>${situacao}</small>
-                                    </div>
-                                </div>
-                                <div class="cardFooter">
-                                    <img src="styles/assets/icone/monitor2.png" alt="">
-                                    <span>${resposta[i].hostName}</span>
-                                </div>
-                            </div>
-                            `;
-                    } else if (resposta[i].status == 0) {
-                        situacao = "Inativo"
-                        computers.innerHTML += `
-                            <div class="computer" id="computer">
-                                <div class="cardHeader">
-                                    <div class="actions">
-                                        <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
-                                        <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="deletarMaquina(${resposta[i].idMaquina})"alt="">
-                                    </div>
-                                    <div class="activity" id="activity" style="color: firebrick;">
-                                        <small>${situacao}</small>
-                                    </div>
-                                </div>
-                                <div class="cardFooter">
-                                    <img src="styles/assets/icone/monitor2.png" alt="">
-                                    <span>${resposta[i].hostName}</span>
-                                </div>
-                            </div>
-                            `;
+                        var situacao = "Ativo"
+                        var color = "green";
+                    } else {
+                        var situacao = "Inativo"
+                        var color = "red";
                     }
+                    computers.innerHTML += `
+                        <div class="computer" id="computer">
+                            <div class="cardHeader">
+                                <div class="actions">
+                                    <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
+                                    <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="deletarMaquina(${resposta[i].idMaquina})"alt="">
+                                </div>
+                                <div class="activity" id="activity" style="color: ${color};">
+                                    <small>${situacao}</small>
+                                </div>
+                            </div>
+                            <div class="cardFooter">
+                                <img src="styles/assets/icone/monitor2.png" alt="">
+                                <span>${resposta[i].hostName}</span>
+                            </div>
+                        </div>
+                    `;
                 }
             });
         } else {
@@ -120,6 +124,12 @@ function listarMaquinas() {
         }
     }).catch(function (resposta) {
         console.error(resposta);
+        computers.innerHTML +=
+            `
+            <div class="title">
+                <h1>NENHUMA MÁQUINA CADASTRADA</h1>
+            </div>
+        `
     });
 }
 
@@ -150,23 +160,23 @@ function getDadosMaquina(idMaquina) {
                                 <div class="edit-body">
                                     <div class="computer-infos-left">
                                         <div class="input-label">
-                                            <label for="">Hostname</label>
+                                            <label for="hostName">Hostname</label>
                                             <input type="text" name="" id="hostName" value="${resposta[0].hostName}">
                                         </div>
                                         <div class="input-label">
-                                            <label for="">Nome do Arquiteto</label>
+                                            <label for="nomeArq">Nome do Arquiteto</label>
                                             <input type="text" name="" id="nomeArq" value="${resposta[0].nomeArq}">
                                         </div>
                                         <div class="input-label">
-                                            <label for="">Último Nome</label>
+                                            <label for="ultimoNomeArq">Último Nome</label>
                                             <input type="text" name="" id="ultimoNomeArq" value="${resposta[0].ultimoNomeArq}">
                                         </div>
                                         <div class="input-label">
-                                            <label for="">Sistema Operacional</label>
+                                            <label for="SO">Sistema Operacional</label>
                                             <input type="text" name="" id="SO" value="${resposta[0].SO}">
                                         </div>
                                         <div class="input-label">
-                                        <label for="">Status do monitoramento</label>
+                                        <label for="status">Status do monitoramento</label>
                                             <select name="" id="status">
                                                 <option selected disabled value="${valor}">Situação: ${situacao}</option>
                                                 <option value="ativo">Ativo</option>
@@ -275,17 +285,24 @@ function deletarMaquina(idMaquina) {
     });
 }
 
-var array = [];
-function encerrarExecutaveis(idMaquina) {
+var processos = [];
+let firstRun = true;
+function criarListaProcessosSeremEncerrados() {
+    var hostName = inp_host.value;
+    var nomeArq = inp_nomeArq.value;
+    var ultimoNomeArq = inp_ultimo_nome_arq.value;
+    var SO = inp_SO.value;
+    if (hostName == "" || nomeArq == "" || ultimoNomeArq == "" || SO == "") {
+        alert("Preencha todos os campos");
+        return false;
+    }
     fecharPopup();
     Swal.fire({
         width: 500,
         title: `<strong>Lista de executáveis a serem encerrados</strong>`,
+        html: `<ul id="executables" class="executables"></ul>`,
         inputLabel: 'Nome do executável',
         inputPlaceholder: 'Ex: chrome.exe',
-        html: `<ul id="executables" class="executables">
-        
-               </ul>`,
         inputAutoFocus: true,
         input: 'text',
         inputValidator: (value) => {
@@ -301,27 +318,43 @@ function encerrarExecutaveis(idMaquina) {
         showCancelButton: true,
         showDenyButton: true,
         focusConfirm: false,
-        denyButtonColor: '#2778c4',
-        confirmButtonColor: '#008CFF',
+        denyButtonColor: '#008CFF',
+        confirmButtonColor: '#2778c4',
         cancelButtonText: 'Cancelar',
-        denyButtonText: 'Adicionar a lista',
-        confirmButtonText: 'Finalizar',
-        returnInputValueOnDeny: true,
+        denyButtonText: 'Finalizar',
+        confirmButtonText: 'Adicionar a lista',
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire('Any fool can use a computer')
-        } else if (result.isDenied) {
-            Swal.fire('Adicionada com sucesso')
-            encerrarExecutaveis()
-            array.push(` ` + result.value);
-            for (let index = 0; index < array.length; index++) {
-                executables.innerHTML +=`
-                <li id="executable" class="executable">
-                    ${array[index]}
-                    <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" alt="">
-                    <img src="styles/assets/icone/icon-trash.png" class="trash" alt="">
-                </li>` ;
+            console.log(processos.indexOf(result.value));
+            console.log(processos);
+            criarListaProcessosSeremEncerrados();
+            let found = false;
+            for (let index = 0; index <= processos.length; index++) {
+                if (processos.indexOf(result.value) == -1 && found == false) {
+                    processos.push(result.value);
+                    executables.innerHTML += `
+                            <li id="executable" class="executable">
+                                , ${processos}
+                            </li>`;
+                    found = true;
+                    break;
+                } else {
+                    alert("janela já cadastrada");
+                    executables.innerHTML += `
+                            <li id="executable" class="executable">
+                                , ${processos}
+                            </li>`;
+                    break;
+                }
             }
+        } else if (result.isDenied) {
+            cadastrarMaquina();
+            processos = [];
         }
     })
 }
+
+function cadastrarProcessosSeremEncerrados(idGestor, idMaquina) {
+
+}
+

@@ -64,6 +64,25 @@ function cadastrarMaquina(req, res) {
     }
 }
 
+function getIdMaquinaCadastrada(req, res) {
+    var idGestor = req.params.idGestor;
+
+    maquinaModel.getIdMaquinaCadastrada(idGestor)
+    .then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+
 function getDadosMaquina(req, res) {
     var idMaquina = req.params.idMaquina;
 
@@ -126,6 +145,7 @@ function deletarMaquina(req, res) {
         );
 }
 module.exports = {
+    getIdMaquinaCadastrada,
     cadastrarMaquina,
     listarMaquinas,
     getDadosMaquina,
