@@ -21,11 +21,6 @@
     border-radius: 20px;
 }
 
-.content .container {
-    display: flex;
-    width: 80%;
-}
-
 .list {
     width: 100%;
     display: flex;
@@ -36,9 +31,16 @@
 }
 
 .container {
-    height: 100%;
     width: 80%;
     margin: auto;
+    /* border: solid 2px firebrick; */
+    height: 150vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #262626;
+    display: flex;
+    width: 80%;
 }
 
 .logo {
@@ -207,33 +209,20 @@ label #btn {
     /* bottom: -25%; */
 }
 
-.container {
-    height: 150vh;
-    /* border: #00ccff 2px solid ; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #262626;
-}
-.box-legenda {
-    width: 70vw;
-    margin-top: 1%;
-    background-color: #1b1b1b;
-    border-radius: 30px;
-    font-family: 'Montserrat';
-    color: white;
-}
-
-.box-legenda h1 {
+.conteudo-legenda h1 {
     text-align: center;
     margin-top: 1%;
 }
 
 .conteudo-legenda {
-    /* border: solid 2px greenyellow; */
-    width: 100%;
     display: flex;
     flex-direction: column;
+    width: 70vw;
+    margin-top: 1%;
+    background-color: #1b1b1b;
+    border-radius: 10px;
+    font-family: 'Montserrat';
+    color: white;
 }
 
 .conteudo-legenda .hardware {
@@ -262,25 +251,23 @@ label #btn {
     height: 35vh;
     width: 70vw;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
-
 
 .parte2 {
     /* border: solid 2px rebeccapurple; */
-    width: 91%;
+    height: max-content;
+    width: 70vw;
     justify-content: space-between;
     display: flex;
-    align-items: center;
+    margin-top: 2%;
 }
 
 .listaDados {
-    margin-top: 7%;
-    /* border: solid 2px #00ccff; */
     background-color: #1b1b1b;
-    border-radius: 30px;
-    height: 70vh;
+    border-radius: 10px;
+    height: 60vh;
     width: 35%;
     display: flex;
     justify-content: center;
@@ -332,11 +319,17 @@ label #btn {
     margin-top: 15px;
 }
 
+.primeiro-grafico {
+    width: 60%;
+}
+
+.segundo-grafico {
+    width: 35%;
+}
+
 .box {
-    width: 70%;
     height: 100%;
     background: #1b1b1b;
-    margin: 0 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -347,7 +340,7 @@ label #btn {
 
 .box2 {
     width: 60%;
-    height: 70%;
+    height: 60vh;
     background: #1b1b1b;
     margin: 0 5px;
     display: flex;
@@ -358,8 +351,8 @@ label #btn {
     border-radius: 10px;
 }
 
-.box-container .box,
-.box-texto, .box-terceiro, .listaDados {
+.box-container .box, .box2,
+.box-texto, .box-terceiro, .listaDados, .conteudo-legenda  {
     border: #1b1b1be5 2px solid;
     background: #1b1b1b;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

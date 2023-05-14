@@ -215,6 +215,7 @@ label #btn {
     align-items: center;
     background: #262626;
 }
+
 .box-legenda {
     width: 70vw;
     margin-top: 1%;
@@ -262,7 +263,7 @@ label #btn {
     height: 35vh;
     width: 70vw;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -332,11 +333,10 @@ label #btn {
     margin-top: 15px;
 }
 
-.box {
+.box-container .box {
     width: 70%;
     height: 100%;
     background: #1b1b1b;
-    margin: 0 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -356,15 +356,14 @@ label #btn {
     align-items: center;
     padding: 5px;
     border-radius: 10px;
-        font-family: 'Montserrat';
-    color: white;
 }
 
 .box-container .box,
-.box-texto, .box-terceiro, .listaDados {
+.box-texto, .box-terceiro, .listaDados, .conteudo-legenda {
     border: #1b1b1be5 2px solid;
     background: #1b1b1b;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
 }
 
 .box-container .box p, .box-terceiro p {
@@ -374,19 +373,19 @@ label #btn {
     margin-top: 4%;
 }
 
-
-.box-container2 .box {
-    border: #1b1b1be5 2px solid;
-    /* margin-bottom: 5%; */
-    width: 40vw;
-    height: 25vh;
+.box-texto {
+    width: 25%;
+    height: 100%;
+    text-align: center;
     background: #1b1b1b;
-    margin: 1 15px;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0 5px;
+    color: white;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    justify-content: center;
+    font-family: 'Montserrat';
 }
 
 .box-analytics{
@@ -398,7 +397,7 @@ label #btn {
     height:2vh;
 }
 
-#blue {
+ #blue {
     background-color: rgba(0, 204, 255, 0.753);
 }
  #yellow {
@@ -406,4 +405,11 @@ label #btn {
 }
  #red {
     background-color: rgba(255, 51, 70, 0.753);
+}
+.parte2 .legenda{
+    font-family: 'Montserrat';
+    color: white;
+    margin-top: 4%;
+    text-align: center;
+    font-weight: 150;
 }

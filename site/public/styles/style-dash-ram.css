@@ -215,7 +215,6 @@ label #btn {
     align-items: center;
     background: #262626;
 }
-
 .box-legenda {
     width: 70vw;
     margin-top: 1%;
@@ -231,10 +230,10 @@ label #btn {
 }
 
 .conteudo-legenda {
-    /* border: solid 2px greenyellow; */
     width: 100%;
     display: flex;
     flex-direction: column;
+    border-radius: 30px;
 }
 
 .conteudo-legenda .hardware {
@@ -357,14 +356,15 @@ label #btn {
     align-items: center;
     padding: 5px;
     border-radius: 10px;
+        font-family: 'Montserrat';
+    color: white;
 }
 
 .box-container .box,
-.box-texto, .box-terceiro, .listaDados {
+.box-texto, .box-terceiro, .listaDados, .conteudo-legenda  {
     border: #1b1b1be5 2px solid;
     background: #1b1b1b;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
 }
 
 .box-container .box p, .box-terceiro p {
@@ -374,20 +374,6 @@ label #btn {
     margin-top: 4%;
 }
 
-.box-texto {
-    width: 30%;
-    height: 75%;
-    text-align: center;
-    background: #1b1b1b;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 0 5px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-family: 'Montserrat';
-}
 
 .box-container2 .box {
     border: #1b1b1be5 2px solid;
@@ -412,7 +398,7 @@ label #btn {
     height:2vh;
 }
 
- #blue {
+#blue {
     background-color: rgba(0, 204, 255, 0.753);
 }
  #yellow {
@@ -420,11 +406,4 @@ label #btn {
 }
  #red {
     background-color: rgba(255, 51, 70, 0.753);
-}
-.parte2 .legenda{
-    font-family: 'Montserrat';
-    color: white;
-    margin-top: 4%;
-    text-align: center;
-    font-weight: 150;
 }
