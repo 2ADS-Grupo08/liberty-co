@@ -9,7 +9,7 @@
 
         flex-direction: row;
     }
-    
+
     .formularioCadastro input {
         display: flex;
         padding: 15px;
@@ -37,4 +37,15 @@
         width: 150px;
         height: 40px;
     }
+
+    .popup_fechar {
+        top: 5vh;
+        right: 20vw;
+    }
+
+    .popup_fechar_login {
+        top: 7vh;
+        right: 20vw;
+    }
+
 }
