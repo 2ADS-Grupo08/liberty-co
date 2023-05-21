@@ -19,7 +19,7 @@
 
 <body onload="listarMaquinas()" id="body">
     <div class="content">
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
             <header>
                 <div class="logo">
                     <img src="styles/assets/logo/logo_side.png" alt="LogoLibertyCo">
@@ -33,6 +33,14 @@
             <a href="#" id="popup_botao" onclick="abrirPopup()">
                 <i class="fa-solid fa-plus"></i>
                 <span>Cadastrar Máq.</span>
+            </a>
+            <a id="listarMaquinasInativasId" href="#" onclick="listarMaquinasInativas()">
+                <i class="fa-solid fa-stop"></i>
+                <span>Máquinas Inativas</span>
+            </a>
+            <a id="listarMaquinasId" href="#" onclick="listarMaquinas()" style="display: none;">
+                <i class="fa-solid fa-play"></i>
+                <span>Máquinas Ativas</span>
             </a>
             <a href="#" onclick="limparSessao()">
                 <i class="fa-solid fa-right-from-bracket"></i>
@@ -49,10 +57,10 @@
                                 <h1>CADASTRO DE MÁQ.</h1>
                                 <div class="inputCadastro">
                                     <input type="text" id="inp_host" placeholder="Host Name">
-                                    <input type="text" id="inp_nomeArq" placeholder="Nome do Arquiteto">
-                                    <input type="text" id="inp_ultimo_nome_arq" placeholder="Ultimo Nome do Arquiteto">
+                                    <input type="text" id="inp_nome_dono" placeholder="Nome do Dono">
+                                    <input type="text" id="inp_ultimo_nome_dono" placeholder="Ultimo Nome do Dono">
                                     <input type="text" id="inp_SO" placeholder="Sistema Operacional">
-                                    <button class="botaoCadastrar" onclick="encerrarExecutaveis()">CADASTRAR</button>
+                                    <button class="botaoCadastrar" onclick="criarListaProcessosSeremEncerrados()">CADASTRAR</button>
                                 </div>
                             </div>
                         </div>
@@ -62,9 +70,6 @@
             <div class="list">
                 <div class="container">
                     <div class="computers" id="computers">
-                        <!-- <div class="title">
-                            <h1>NENHUMA MÁQUINA CADASTRADA</h1>
-                        </div> -->
                     </div>
                 </div>
             </div>

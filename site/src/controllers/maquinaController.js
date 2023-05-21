@@ -25,28 +25,50 @@ function listarMaquinas(req, res) {
         );
 }
 
+function listarMaquinasInativas(req, res) {
+    idGestor = req.params.idGestor;
+    maquinaModel.listarMaquinasInativas(idGestor)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 function cadastrarMaquina(req, res) {
-    var idGestor = req.params.idGestor;
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var idGestor = req.params.idGestor;
     var hostName = req.body.hostNameServer;
-    var nomeArq = req.body.nomeArqServer;
-    var ultimoNomeArq = req.body.ultimoNomeArqServer;
-    var SO = req.body.soServer;
+    var nomeDono = req.body.nomeDonoServer;
+    var ultimoNomeDono = req.body.ultimoNomeDonoServer;
+    var sistemaOperacional = req.body.sistemaOperacionalServer;
     var status = req.body.statusServer;
 
     // Faça as validações dos valores
     if (hostName == undefined) {
         res.status(400).send("o hostName está undefined!");
-    } else if (nomeArq == undefined) {
-        res.status(400).send("Seu nomeArq está undefined!");
-    } else if (ultimoNomeArq == undefined) {
-        res.status(400).send("Seu ultimoNomeArq está undefined!");
-    } else if (SO == undefined) {
-        res.status(400).send("Seu SO está undefined!");
+    } else if (nomeDono == undefined) {
+        res.status(400).send("Seu nomeDono está undefined!");
+    } else if (ultimoNomeDono == undefined) {
+        res.status(400).send("Seu ultimoNomeDono está undefined!");
+    } else if (sistemaOperacional == undefined) {
+        res.status(400).send("Seu sistemaOperacional está undefined!");
+    } else if (status == undefined) {
+        res.status(400).send("Seu status está undefined!");
+    } else if (idGestor == undefined) {
+        res.status(400).send("Seu idGestor está undefined!");
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo maquinaModel.js
-        maquinaModel.cadastrarMaquina(hostName, nomeArq, ultimoNomeArq, SO, status, idGestor)
+        maquinaModel.cadastrarMaquina(hostName, nomeDono, ultimoNomeDono, sistemaOperacional, status, idGestor)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -63,22 +85,20 @@ function cadastrarMaquina(req, res) {
             );
     }
 }
+
 function cadastrarProcessosSeremEncerrados(req, res) {
     var processo = req.body.processoServer;
-    var idGestor = req.params.idGestor;
     var idMaquina = req.params.idMaquina;
 
     // Faça as validações dos valores
-    if (idGestor == undefined) {
-        res.status(400).send("o hostName está undefined!");
-    } else if (idMaquina == undefined) {
-        res.status(400).send("Seu nomeArq está undefined!");
+    if (idMaquina == undefined) {
+        res.status(400).send("Seu idMaquina está undefined!");
     } else if (processo == undefined) {
-        res.status(400).send("Seu ultimoNomeArq está undefined!");
+        res.status(400).send("Seu processo está undefined!");
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo maquinaModel.js
-        maquinaModel.cadastrarProcessosSeremEncerrados(processo, idGestor, idMaquina)
+        maquinaModel.cadastrarProcessosSeremEncerrados(processo, idMaquina)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -95,6 +115,7 @@ function cadastrarProcessosSeremEncerrados(req, res) {
             );
     }
 }
+
 function getIdMaquinaCadastrada(req, res) {
     var idGestor = req.params.idGestor;
 
@@ -135,14 +156,14 @@ function getDadosMaquina(req, res) {
 }
 
 function editarMaquina(req, res) {
-    var novoHostName = req.body.hostNameServer
-    var novoNomeArq = req.body.nomeArqServer
-    var novoUltimoNomeArq = req.body.ultimoNomeArqServer
-    var novoSO = req.body.soServer
+    var novoHostName = req.body.hostNameServer;
+    var novoNomeDono = req.body.nomeDonoServer;
+    var novoUltimoNomeDono = req.body.ultimoNomeDonoServer;
+    var novoSO = req.body.sistemaOperacionalServer;
     var novoStatus = req.body.statusServer;
     var idMaquina = req.params.idMaquina;
 
-    maquinaModel.editarMaquina(novoHostName, novoNomeArq, novoUltimoNomeArq, novoSO, novoStatus, idMaquina)
+    maquinaModel.editarMaquina(novoHostName, novoNomeDono, novoUltimoNomeDono, novoSO, novoStatus, idMaquina)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -180,6 +201,7 @@ module.exports = {
     cadastrarMaquina,
     cadastrarProcessosSeremEncerrados,
     listarMaquinas,
+    listarMaquinasInativas,
     getDadosMaquina,
     editarMaquina,
     deletarMaquina

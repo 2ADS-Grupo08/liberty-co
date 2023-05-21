@@ -7,11 +7,15 @@ router.get("/listarMaquinas/:idGestor", function (req, res) {
     maquinaController.listarMaquinas(req, res);
 });
 
+router.get("/listarMaquinasInativas/:idGestor", function (req, res) {
+    maquinaController.listarMaquinasInativas(req, res);
+});
+
 router.post("/cadastrarMaquina/:idGestor", function (req, res) {
     maquinaController.cadastrarMaquina(req, res);
 })
 
-router.post("/cadastrarProcessosSeremEncerrados/:idGestor/:idMaquina", function (req, res) {
+router.post("/cadastrarProcessosSeremEncerrados/:idMaquina", function (req, res) {
     maquinaController.cadastrarProcessosSeremEncerrados(req, res);
 });
 

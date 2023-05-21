@@ -1,8 +1,8 @@
 function abrirPopup() {
     document.getElementById('popup_fundo').style.display = 'block';
     inp_host.value = "";
-    inp_nomeArq.value = "";
-    inp_ultimo_nome_arq.value = "";
+    inp_nome_dono.value = "";
+    inp_ultimo_nome_dono.value = "";
     inp_SO.value = "";
 }
 
@@ -14,12 +14,12 @@ function fecharPopup() {
 function cadastrarMaquina(processos) {
     var idGestor = sessionStorage.ID_GESTOR;
     var hostName = inp_host.value;
-    var nomeArq = inp_nomeArq.value;
-    var ultimoNomeArq = inp_ultimo_nome_arq.value;
-    var SO = inp_SO.value;
+    var nomeDono = inp_nome_dono.value;
+    var ultimoNomeDono = inp_ultimo_nome_dono.value;
+    var sistemaOperacional = inp_SO.value;
     var status = 1;
 
-    if (hostName == "" || nomeArq == "" || ultimoNomeArq == "" || SO == "") {
+    if (hostName == "" || nomeDono == "" || ultimoNomeDono == "" || sistemaOperacional == "") {
         alert("Preencha todos os campos");
         return false;
     }
@@ -33,9 +33,9 @@ function cadastrarMaquina(processos) {
             // crie um atributo que recebe o valor recuperado aqui
             // Agora vá para o arquivo routes/usuario.js
             hostNameServer: hostName,
-            nomeArqServer: nomeArq,
-            ultimoNomeArqServer: ultimoNomeArq,
-            soServer: SO,
+            nomeDonoServer: nomeDono,
+            ultimoNomeDonoServer: ultimoNomeDono,
+            sistemaOperacionalServer: sistemaOperacional,
             statusServer: status
         })
     }).then(function (resposta) {
@@ -46,9 +46,9 @@ function cadastrarMaquina(processos) {
 
             getIdMaquinaCadastrada(idGestor, processos);
 
-            // setTimeout(function () {
-            //     window.location.reload();
-            // }, 10);
+            setTimeout(function () {
+                window.location.reload();
+            }, 10);
         } else {
             throw ("Houve um erro ao tentar realizar o cadastro!");
         }
@@ -66,7 +66,7 @@ function getIdMaquinaCadastrada(idGestor, processos) {
                 throw "Nenhum resultado encontrado!!";
             }
             resposta.json().then(function (resposta) {
-                cadastrarProcessosSeremEncerrados(processos, idGestor, resposta[0].idMaquina)
+                cadastrarProcessosSeremEncerrados(processos, resposta[0].idMaquina)
             });
         } else {
             throw ('Houve um erro na API!');
@@ -77,8 +77,12 @@ function getIdMaquinaCadastrada(idGestor, processos) {
 }
 
 function listarMaquinas() {
-    let idGestor = sessionStorage.ID_GESTOR
-
+    computers.innerHTML = "";
+    document.getElementById("listarMaquinasId").style.display = "none";
+    document.getElementById("listarMaquinasInativasId").style.display = "flex";
+    let idGestor = sessionStorage.ID_GESTOR;
+    let situacao = "Ativo";
+    let color = "green";
     //aguardar();
     fetch(`/maquinas/listarMaquinas/${idGestor}`).then(function (resposta) {
         if (resposta.ok) {
@@ -87,19 +91,11 @@ function listarMaquinas() {
             }
             resposta.json().then(function (resposta) {
                 for (let i = 0; i < resposta.length; i++) {
-                    if (resposta[i].status == 1) {
-                        var situacao = "Ativo"
-                        var color = "green";
-                    } else {
-                        var situacao = "Inativo"
-                        var color = "red";
-                    }
                     computers.innerHTML += `
                         <div class="computer" id="computer">
                             <div class="cardHeader">
                                 <div class="actions">
                                     <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
-                                    <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="deletarMaquina(${resposta[i].idMaquina})"alt="">
                                 </div>
                                 <div class="activity" id="activity" style="color: ${color};">
                                     <small>${situacao}</small>
@@ -107,7 +103,8 @@ function listarMaquinas() {
                             </div>
                             <div class="cardFooter">
                                 <img src="styles/assets/icone/monitor2.png" alt="">
-                                <span>${resposta[i].hostName}</span>
+                                <span>ID: ${resposta[i].idMaquina}</span>
+                                <span>hostname: ${resposta[i].hostName}</span>
                             </div>
                         </div>
                     `;
@@ -121,7 +118,57 @@ function listarMaquinas() {
         computers.innerHTML +=
             `
             <div class="title">
-                <h1>NENHUMA MÁQUINA CADASTRADA</h1>
+                <h1>NENHUMA MÁQUINA ATIVA</h1>
+            </div>
+        `
+    });
+}
+
+function listarMaquinasInativas() {
+    computers.innerHTML = "";
+    document.getElementById("listarMaquinasInativasId").style.display = "none";
+    document.getElementById("listarMaquinasId").style.display = "flex";
+    let idGestor = sessionStorage.ID_GESTOR;
+    let situacao = "Inativo";
+    let color = "red";
+
+    fetch(`/maquinas/listarMaquinasInativas/${idGestor}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                throw "Nenhum resultado encontrado!!";
+            }
+            resposta.json().then(function (resposta) {
+                computers.innerHTML = "";
+                for (let i = 0; i < resposta.length; i++) {
+                    computers.innerHTML += `
+                        <div class="computer" id="computer">
+                            <div class="cardHeader">
+                                <div class="actions">
+                                    <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
+                                    <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="deletarMaquina(${resposta[i].idMaquina})"alt="">
+                                </div>
+                                <div class="activity" id="activity" style="color: ${color};">
+                                    <small>${situacao}</small>
+                                </div>
+                            </div>
+                            <div class="cardFooter">
+                                <img src="styles/assets/icone/monitor2.png" alt="">
+                                <span>ID: ${resposta[i].idMaquina}</span>
+                                <span>hostname: ${resposta[i].hostName}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+        computers.innerHTML +=
+            `
+            <div class="title">
+                <h1>NENHUMA MÁQUINA INATIVA</h1>
             </div>
         `
     });
@@ -158,16 +205,16 @@ function getDadosMaquina(idMaquina) {
                                             <input type="text" name="" id="hostName" value="${resposta[0].hostName}">
                                         </div>
                                         <div class="input-label">
-                                            <label for="nomeArq">Nome do Arquiteto</label>
-                                            <input type="text" name="" id="nomeArq" value="${resposta[0].nomeArq}">
+                                            <label for="nomeDono">Nome do Arquiteto</label>
+                                            <input type="text" name="" id="nomeDono" value="${resposta[0].nomeDono}">
                                         </div>
                                         <div class="input-label">
-                                            <label for="ultimoNomeArq">Último Nome</label>
-                                            <input type="text" name="" id="ultimoNomeArq" value="${resposta[0].ultimoNomeArq}">
+                                            <label for="ultimoNomeDono">Último Nome</label>
+                                            <input type="text" name="" id="ultimoNomeDono" value="${resposta[0].ultimoNomeDono}">
                                         </div>
                                         <div class="input-label">
                                             <label for="SO">Sistema Operacional</label>
-                                            <input type="text" name="" id="SO" value="${resposta[0].SO}">
+                                            <input type="text" name="" id="SO" value="${resposta[0].sistemaOperacional}">
                                         </div>
                                         <div class="input-label">
                                         <label for="status">Status do monitoramento</label>
@@ -197,20 +244,20 @@ function getDadosMaquina(idMaquina) {
                     cancelButtonText: 'Cancelar',
                     preConfirm: () => {
                         hostName = Swal.getPopup().querySelector('#hostName').value;
-                        nomeArq = Swal.getPopup().querySelector('#nomeArq').value;
-                        ultimoNomeArq = Swal.getPopup().querySelector('#ultimoNomeArq').value;
-                        SO = Swal.getPopup().querySelector('#SO').value;
+                        nomeDono = Swal.getPopup().querySelector('#nomeDono').value;
+                        ultimoNomeDono = Swal.getPopup().querySelector('#ultimoNomeDono').value;
+                        sistemaOperacional = Swal.getPopup().querySelector('#SO').value;
                         status = Swal.getPopup().querySelector('#status').value;
 
-                        if (!hostName || !nomeArq || !ultimoNomeArq || !SO || !status) {
+                        if (!hostName || !nomeDono || !ultimoNomeDono || !sistemaOperacional || !status) {
                             Swal.showValidationMessage(`Por favor, preencha todos os campos.`)
                         }
 
                         return {
                             hostName: hostName,
-                            nomeArq: nomeArq,
-                            ultimoNomeArq: ultimoNomeArq,
-                            SO: SO,
+                            nomeDono: nomeDono,
+                            ultimoNomeDono: ultimoNomeDono,
+                            sistemaOperacional: sistemaOperacional,
                             status: status
                         }
                     },
@@ -219,7 +266,7 @@ function getDadosMaquina(idMaquina) {
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        editarMaquina(idMaquina, hostName, nomeArq, ultimoNomeArq, SO, status);
+                        editarMaquina(idMaquina, hostName, nomeDono, ultimoNomeDono, sistemaOperacional, status);
                     }
                 });
             });
@@ -231,7 +278,7 @@ function getDadosMaquina(idMaquina) {
     });
 }
 
-function editarMaquina(idMaquina, hostName, nomeArq, ultimoNomeArq, SO, status) {
+function editarMaquina(idMaquina, hostName, nomeDono, ultimoNomeDono, sistemaOperacional, status) {
     fetch(`/maquinas/editarMaquina/${idMaquina}`, {
         method: "PUT",
         headers: {
@@ -239,9 +286,9 @@ function editarMaquina(idMaquina, hostName, nomeArq, ultimoNomeArq, SO, status) 
         },
         body: JSON.stringify({
             hostNameServer: hostName,
-            nomeArqServer: nomeArq,
-            ultimoNomeArqServer: ultimoNomeArq,
-            soServer: SO,
+            nomeDonoServer: nomeDono,
+            ultimoNomeDonoServer: ultimoNomeDono,
+            sistemaOperacionalServer: sistemaOperacional,
             statusServer: status
         })
     })
@@ -252,35 +299,51 @@ function editarMaquina(idMaquina, hostName, nomeArq, ultimoNomeArq, SO, status) 
 }
 
 function deletarMaquina(idMaquina) {
-    fetch(`/maquinas/deletarMaquina/${idMaquina}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
+    Swal.fire({
+        title: 'Tem certeza que quer deletar essa máquina?',
+        text: "Voce não poderá reverter isso!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, eu tenho!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`/maquinas/deletarMaquina/${idMaquina}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    Swal.fire(
+                        'Deletada!',
+                        'Sua Máquina foi deletada com sucesso.',
+                        'success'
+                      )
+                    setTimeout(() => {
+                        listarMaquinasInativas();
+                    }, 5);
+                } else if (resposta.status == 404) {
+                    window.alert("Deu 404!");
+                } else {
+                    throw ("Houve um erro ao tentar deletar a Maquina! Código da resposta: " + resposta.status);
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
         }
-    }).then(function (resposta) {
-        if (resposta.ok) {
-            window.alert("Post deletado com sucesso !");
-            setTimeout(() => {
-                computers.innerHTML = "";
-                listarMaquinas();
-            }, 5);
-        } else if (resposta.status == 404) {
-            window.alert("Deu 404!");
-        } else {
-            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-        }
-    }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-    });
+      })
+
 }
 
 var processos = [];
 function criarListaProcessosSeremEncerrados() {
     var hostName = inp_host.value;
-    var nomeArq = inp_nomeArq.value;
-    var ultimoNomeArq = inp_ultimo_nome_arq.value;
-    var SO = inp_SO.value;
-    if (hostName == "" || nomeArq == "" || ultimoNomeArq == "" || SO == "") {
+    var nomeDono = inp_nome_dono.value;
+    var ultimoNomeDono = inp_ultimo_nome_dono.value;
+    var sistemaOperacional = inp_SO.value;
+    if (hostName == "" || nomeDono == "" || ultimoNomeDono == "" || sistemaOperacional == "") {
         alert("Preencha todos os campos");
         return false;
     }
@@ -314,9 +377,6 @@ function criarListaProcessosSeremEncerrados() {
         confirmButtonText: 'Adicionar a lista',
     }).then((result) => {
         if (result.isConfirmed) {
-            // console.log(result.value);
-            // console.log(processos.indexOf(result.value));
-            // console.log(processos);
             criarListaProcessosSeremEncerrados();
             for (let index = 0; index <= processos.length; index++) {
                 if (processos.indexOf(result.value) == - 1) {
@@ -338,10 +398,10 @@ function criarListaProcessosSeremEncerrados() {
     })
 }
 
-function cadastrarProcessosSeremEncerrados(processos, idGestor, idMaquina) {
+function cadastrarProcessosSeremEncerrados(processos, idMaquina) {
     for (let i = 0; i < processos.length; i++) {
         console.log(processos[i])
-        fetch(`/maquinas/cadastrarProcessosSeremEncerrados/${idGestor}/${idMaquina}`, {
+        fetch(`/maquinas/cadastrarProcessosSeremEncerrados/${idMaquina}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -355,7 +415,7 @@ function cadastrarProcessosSeremEncerrados(processos, idGestor, idMaquina) {
             console.log("resposta: ", resposta);
     
             if (resposta.ok) {
-    
+
                 // setTimeout(function () {
                 //     window.location.reload();
                 // }, 10);
