@@ -2,13 +2,9 @@ var medidaModel = require("../models/medidaModel");
 
 function medidaIdealComponentes(req, res) {
 
-    const limite_linhas = 7;
-
     var idMaquina = req.params.idMaquina;
 
-    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
-
-    medidaModel.buscarUltimasMedidas(idAquario, limite_linhas).then(function (resultado) {
+    medidaModel.medidaIdealComponentes(idMaquina).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -63,7 +59,6 @@ function medidaIdealComponentes(req, res) {
 // }
 
 module.exports = {
-    // buscarUltimasMedidas,
-    // buscarMedidasEmTempoReal
+    medidaIdealComponentes
 
 }

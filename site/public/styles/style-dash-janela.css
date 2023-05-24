@@ -236,12 +236,15 @@ label #btn {
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* justify-content: space-evenly; */
     background: #262626;
 }
 
 .box-legenda {
     width: 70vw;
     margin-top: 1%;
+    background-color: #1b1b1b;
+    border-radius: 30px;
     font-family: 'Montserrat';
     color: white;
 }
@@ -249,6 +252,13 @@ label #btn {
 .box-legenda h1 {
     text-align: center;
     margin-top: 1%;
+}
+
+.conteudo-legenda {
+    /* border: solid 2px greenyellow; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .conteudo-legenda .hardware {
@@ -276,9 +286,9 @@ label #btn {
     /* border: solid 3px red; */
     margin-top: 2%;
     height: 30vh;
-    width: 70VW;
+    width: 70vw;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -296,7 +306,7 @@ label #btn {
     width: 88%;
     justify-content: space-between;
     display: flex;
-    border: solid 2px rebeccapurple;
+    /* border: solid 2px rebeccapurple; */
     align-items: center;
 }
 
@@ -359,8 +369,7 @@ label #btn {
     width: 70%;
     height: 100%;
     background: #1b1b1b;
-    margin-right: 15px;
-    margin-left: 15px;
+    margin: 0 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -373,6 +382,7 @@ label #btn {
     width: 60%;
     height: 100%;
     background: #1b1b1b;
+    margin: 0 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -384,7 +394,6 @@ label #btn {
 .box-container .box,
 .box-texto, .box-terceiro, .listaDados, .conteudo-legenda  {
     border: #1b1b1be5 2px solid;
-    border-radius: 10px;
     background: #1b1b1b;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
@@ -418,6 +427,7 @@ label #btn {
     background: #1b1b1b;
     border-radius: 10px;
     padding: 5px;
+    margin: 0 5px;
     color: white;
     display: flex;
     flex-direction: column;
