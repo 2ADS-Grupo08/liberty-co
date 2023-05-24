@@ -1,10 +1,10 @@
-var medidaModel = require("../models/medidaModel");
+var dashboardModel = require("../models/dashboardModel");
 
 function medidaIdealComponentes(req, res) {
 
     var idMaquina = req.params.idMaquina;
 
-    medidaModel.medidaIdealComponentes(idMaquina).then(function (resultado) {
+    dashboardModel.medidaIdealComponentes(idMaquina).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

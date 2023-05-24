@@ -1,10 +1,10 @@
 var express = require("express");
 var router = express.Router();
 
-var medidaController = require("../controllers/medidaController");
+var dashboardController = require("../controllers/dashboardController");
 
 router.get("/medidaIdealComponentes/:idMaquina", function (req,res){
-    medidaController.medidaIdealComponentes(req, res)
+    dashboardController.medidaIdealComponentes(req, res)
 });
 
 module.exports = router;
