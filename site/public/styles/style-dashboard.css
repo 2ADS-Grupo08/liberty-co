@@ -129,12 +129,37 @@
 }
 
 .sidebar a img {
+    /* border: solid 2px goldenrod; */
     width: 40px;
     display: block;
     display: flex;
     padding: 12px;
     margin: 0px 0px 0px 250px;
     animation: animate 1s linear infinite;
+}
+
+.sidebar a .cpu {
+    position: absolute;
+    top: 155px;
+    display: none;
+}
+
+.sidebar a .ram {
+    position: absolute;
+    top: 220px;
+    display: none;
+}
+
+.sidebar a .disco {
+    position: absolute;
+    top: 285px;
+    display: none;
+}
+
+.sidebar a .janela {
+    position: absolute;
+    top: 350px;
+    display: none;
 }
 
 /* Isso anima o alerta */
@@ -259,7 +284,7 @@ label #btn {
 
 .box-container {
     /* border: solid 3px red; */
-    /* margin-top: 2%; */
+    margin-top: 2%;
     height: 30vh;
     width: 70vw;
     display: flex;
@@ -342,7 +367,7 @@ label #btn {
 
 .box {
     width: 70%;
-    height: 75%;
+    height: 100%;
     background: #1b1b1b;
     margin: 0 5px;
     display: flex;
@@ -355,7 +380,7 @@ label #btn {
 
 .box-terceiro {
     width: 60%;
-    height: 75%;
+    height: 100%;
     background: #1b1b1b;
     margin: 0 5px;
     display: flex;
@@ -381,7 +406,6 @@ label #btn {
     margin-top: 4%;
 }
 
-
 .box-container2 .box {
     border: #1b1b1be5 2px solid;
     /* margin-bottom: 5%; */
@@ -398,7 +422,7 @@ label #btn {
 
 .box-texto {
     width: 30%;
-    height: 75%;
+    height: 100%;
     text-align: center;
     background: #1b1b1b;
     border-radius: 10px;
