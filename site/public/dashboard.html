@@ -67,26 +67,26 @@
                     <div class="hardware">
                         <div class="box-hardware">
                             <h3>Disco Rígido</h3>
-                            <p>Até: xGB</p>
+                            <p>Até: <span id="discoIdeal"></span>GB</p>
                         </div>
                         <div class="linha-vertical"></div>
                         <div class="box-hardware">
                             <h3>Memória RAM</h3>
-                            <p>Até: xGB</p>
+                            <p>Até: <span id="ramIdeal"></span>GB</p>
                         </div>
                         <div class="linha-vertical"></div>
                         <div class="box-hardware">
                             <h3>CPU</h3>
-                            <p>Até: xGHz</p>
+                            <p>Até: <span id="cpuIdeal"></span>GHz</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="box-container">
                 <div class="box-texto">
+                    <p>Informação do Disco:</p>
                     <h2>Espaço disponível:</h2>
-                    <h3>193,5<b>GB</b></h3>
-                    <p>Informação do Disco</p>
+                    <h3><span>193,5</span><b>GB</b></h3>
                 </div>
                 <div class="box">
                     <div class="graficos">
@@ -109,14 +109,14 @@
             <div class="parte2">
                 <div class="box-graficos2">
                     <div class="box-container2">
-                        <div class="box">
+                        <div class="semanal">
                             <div class="graficos">
                                 <canvas id="line_mediaRam" style="height: 25vh; width: 30vw;"></canvas>
                             </div>
                         </div>
                     </div>
                     <div class="box-container2">
-                        <div class="box">
+                        <div class="semanal">
                             <div>
                                 <canvas id="line_mediaCpu" style="height: 25vh; width: 30vw;"></canvas>
                             </div>
@@ -165,10 +165,11 @@
     function medidaIdealComponentes() {
         // var idMaquina = sessionStorage.idMaquina;
         var idMaquina = 3;
-        fetch(`/medidas/medidaIdealComponentes/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashboard/medidaIdealComponentes/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    console.log(resposta);
+                    calculoMedidaIdeal(resposta);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -177,6 +178,23 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
+    }
+
+    function calculoMedidaIdeal(resposta) {
+        for (let index = 0; index < resposta.length; index++) {
+            var aux = ((resposta[index].total * resposta[index].nivelAlerta) / 100).toFixed(2);
+            if (resposta[index].nomeComponente == "Disco Rígido") {
+                discoIdeal.innerHTML = aux;
+                console.log(discoIdeal);
+            } else if (resposta[index].nomeComponente == "Processador") {
+                cpuIdeal.innerHTML = aux;
+                console.log(cpuIdeal);
+            } else if (resposta[index].nomeComponente == "Memória RAM") {
+                ramIdeal.innerHTML = aux;
+            } else {
+                console.log("Componente não encontrado");
+            }
+        }
     }
 </script>
 
@@ -307,7 +325,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire(
-                    
+
                 )
             }
         })

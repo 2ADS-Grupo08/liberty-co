@@ -7,4 +7,8 @@ router.get("/medidaIdealComponentes/:idMaquina", function (req,res){
     dashboardController.medidaIdealComponentes(req, res)
 });
 
+router.get("/espacoDisponivelComponentesVisaoGeral/:idMaquina", function (req,res){
+    dashboardController.medidaIdealComponentes(req, res)
+});
+
 module.exports = router;
