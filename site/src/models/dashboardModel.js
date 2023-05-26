@@ -23,6 +23,31 @@ function medidaIdealComponentes(idMaquina) {
     return database.executar(instrucaoSql);
 }
 
+function espacoDisponivelComponentesVisaoGeral(idMaquina) {
+
+    instrucaoSql = '';
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT TOP 1
+                            Componente.idComponente, 
+                            Componente.total, 
+                            Log.emUso,
+                            Log.idLog  
+                                FROM Componente 
+                                    JOIN Log 
+                                        ON idComponente = fkComponente
+                                WHERE Componente.fkMaquina = ${idMaquina}
+                                AND nomeComponente = 'Disco Rígido'
+                                    ORDER BY idLog desc;`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 // function buscarUltimasMedidas(idAquario, limite_linhas) {
 
 //     instrucaoSql = ''
@@ -86,5 +111,6 @@ function medidaIdealComponentes(idMaquina) {
 
 
 module.exports = {
-    medidaIdealComponentes
+    medidaIdealComponentes,
+    espacoDisponivelComponentesVisaoGeral
 }

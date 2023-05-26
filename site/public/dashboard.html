@@ -15,7 +15,7 @@
 
 </head>
 
-<body onload="medidaIdealComponentes()">
+<body onload="medidaIdealComponentes(), espacoDisponivelComponentesVisaoGeral()">
     <div class="content">
 
         <!-- faça tudo da dash aqui -->
@@ -86,7 +86,7 @@
                 <div class="box-texto">
                     <p>Informação do Disco:</p>
                     <h2>Espaço disponível:</h2>
-                    <h3><span>193,5</span><b>GB</b></h3>
+                    <h3><span id="discoDisponivel"></span><b>GB</b></h3>
                 </div>
                 <div class="box">
                     <div class="graficos">
@@ -161,6 +161,8 @@
 </body>
 
 </html>
+
+<!-- Legenda da "MEDIDA IDEAL" -->
 <script>
     function medidaIdealComponentes() {
         // var idMaquina = sessionStorage.idMaquina;
@@ -194,6 +196,37 @@
             } else {
                 console.log("Componente não encontrado");
             }
+        }
+    }
+</script>
+
+<!-- Espaço disponível do Disco -->
+<script>
+    function espacoDisponivelComponentesVisaoGeral() {
+        // var idMaquina = sessionStorage.idMaquina;
+        var idMaquina = 3;
+        fetch(`/dashboard/espacoDisponivelComponentesVisaoGeral/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(resposta);
+                    calculoEspacoDisponivelVisaoGeral(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function calculoEspacoDisponivelVisaoGeral(resposta) {
+        if (resposta.length > 0) {
+            var totalDisco = resposta[0].total;
+            var discoEmUso = resposta[0].emUso;
+            
+            var disponivel = (totalDisco - discoEmUso).toFixed(1);
+            discoDisponivel.innerHTML = disponivel.replace(".",",");
         }
     }
 </script>
