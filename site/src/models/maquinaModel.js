@@ -6,7 +6,7 @@ function cadastrarMaquina(hostName, nomeDono, ultimoNomeDono, sistemaOperacional
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO Maquina (hostName, nomeDono, ultimoNomeDono, sistemaOperacional, status, fkGestor) VALUES (
+        INSERT INTO Maquina (hostName, nomeDono, sobrenomeDono, sistemaOperacional, status, fkGestor) VALUES (
         '${hostName}', '${nomeDono}', '${ultimoNomeDono}', '${sistemaOperacional}', ${status}, ${idGestor});
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -71,7 +71,7 @@ function editarMaquina(novoHostName, novoNomeDono, novoUltimoNomeDono, novoSO, n
     }
 
     var instrucao = `
-        UPDATE Maquina SET hostName = '${novoHostName}', nomeDono = '${novoNomeDono}', ultimoNomeDono = '${novoUltimoNomeDono}', sistemaOperacional = '${novoSO}', status = ${atividade} WHERE idMaquina = ${idMaquina};
+        UPDATE Maquina SET hostName = '${novoHostName}', nomeDono = '${novoNomeDono}', sobrenomeDono = '${novoUltimoNomeDono}', sistemaOperacional = '${novoSO}', status = ${atividade} WHERE idMaquina = ${idMaquina};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

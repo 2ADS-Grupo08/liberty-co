@@ -210,7 +210,7 @@ function getDadosMaquina(idMaquina) {
                                         </div>
                                         <div class="input-label">
                                             <label for="ultimoNomeDono">Último Nome</label>
-                                            <input type="text" name="" id="ultimoNomeDono" value="${resposta[0].ultimoNomeDono}">
+                                            <input type="text" name="" id="ultimoNomeDono" value="${resposta[0].sobrenomeDono}">
                                         </div>
                                         <div class="input-label">
                                             <label for="SO">Sistema Operacional</label>
@@ -306,8 +306,9 @@ function deletarMaquina(idMaquina) {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sim, eu tenho!'
-      }).then((result) => {
+        confirmButtonText: 'Sim, eu tenho!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
         if (result.isConfirmed) {
             fetch(`/maquinas/deletarMaquina/${idMaquina}`, {
                 method: "DELETE",
@@ -320,7 +321,7 @@ function deletarMaquina(idMaquina) {
                         'Deletada!',
                         'Sua Máquina foi deletada com sucesso.',
                         'success'
-                      )
+                    )
                     setTimeout(() => {
                         listarMaquinasInativas();
                     }, 5);
@@ -333,7 +334,7 @@ function deletarMaquina(idMaquina) {
                 console.log(`#ERRO: ${resposta}`);
             });
         }
-      })
+    })
 
 }
 
@@ -350,19 +351,19 @@ function criarListaProcessosSeremEncerrados() {
     fecharPopup();
     Swal.fire({
         width: 500,
-        title: `<strong>Lista de executáveis a serem encerrados</strong>`,
+        title: `<strong>Lista de processos a serem encerrados</strong>`,
         html: `<small>PSC: Voce poderá editar isso mais tarde</small>
                 <ul id="executables" class="executables"></ul>`,
-        inputLabel: 'Nome do executável',
-        inputPlaceholder: 'Ex: chrome.exe',
+        inputLabel: 'Nome do processo, Ex: Google Chrome',
+        inputPlaceholder: 'Ex: Google Chrome',
         inputAutoFocus: true,
         input: 'text',
         inputValidator: (value) => {
             return new Promise((resolve) => {
-                if (/\.exe$/.test(value)) {
+                if (/^[^.,]+$/.test(value) && value.length >= 3) {
                     resolve()
                 } else {
-                    resolve('Escreva o nome de um executável!!')
+                    resolve('Escreva apenas o nome do processo.')
                 }
             })
         },
@@ -381,16 +382,25 @@ function criarListaProcessosSeremEncerrados() {
             for (let index = 0; index <= processos.length; index++) {
                 if (processos.indexOf(result.value) == - 1) {
                     processos.push(result.value);
-                    executables.innerHTML += `
-                        <li id="executable" class="executable">
-                            ${processos}, 
-                        </li>`;
                     break;
                 } else {
-                    alert("janela já cadastrada");
+                    alert("Processo já cadastrado!")
                     break;
                 }
             }
+            var resultado = "";
+            for (var i = 0; i < processos.length; i++) {
+                resultado += processos[i];
+                if (i !== processos.length - 1) {
+                    resultado += ", ";
+                } else {
+                    resultado += ".";
+                }
+            }
+            executables.innerHTML += `
+            <li id="executable" class="executable">
+                ${resultado} 
+            </li>`;
         } else if (result.isDenied) {
             cadastrarMaquina(processos);
             processos = [];
@@ -413,7 +423,7 @@ function cadastrarProcessosSeremEncerrados(processos, idMaquina) {
             })
         }).then(function (resposta) {
             console.log("resposta: ", resposta);
-    
+
             if (resposta.ok) {
 
                 // setTimeout(function () {
@@ -425,7 +435,7 @@ function cadastrarProcessosSeremEncerrados(processos, idMaquina) {
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
-        
+
     }
     return false;
 }

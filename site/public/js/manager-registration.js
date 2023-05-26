@@ -82,6 +82,7 @@ function atualizarFeed() {
                         <tr class="infos manager">
                             <th>ID</th>
                             <th>Nome</th>
+                            <th>E-mail</th>
                             <th>Cargo</th>
                             <th>Ações</th>
                         </tr>
@@ -92,7 +93,8 @@ function atualizarFeed() {
                                 <tbody class="manager">
                                     <tr class="infos manager">
                                         <td>${resposta[i].idGestor}</td>
-                                        <td>${resposta[i].nome}</td>
+                                        <td>${resposta[i].nome} ${resposta[i].sobrenome}</td>
+                                        <td>${resposta[i].email}</td>
                                         <td>${resposta[i].cargo}</td>
                                         <td class="actions">
                                             <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosGestor(${resposta[i].idGestor})" alt="">
@@ -162,7 +164,7 @@ function getDadosGestor(idGestor) {
                                         </div>
                                         <div class="input-label">
                                             <label for="ultimoNome">Ultimo nome</label>
-                                            <input type="text" name="" id="ultimoNome" value="${resposta[0].ultimoNome}">
+                                            <input type="text" name="" id="ultimoNome" value="${resposta[0].sobrenome}">
                                         </div>
                                         <div class="input-label">
                                             <label for="cargo">Cargo</label>

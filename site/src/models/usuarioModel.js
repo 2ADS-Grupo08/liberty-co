@@ -34,7 +34,7 @@ function cadastrarEmpresa(razaoSoc, cnpj, email, cep, log, bairro, num, comp, se
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO Instituicao (razaoSoc, cnpj, email, cep, numero, complemento, senha) VALUES (
+        INSERT INTO Instituicao (razao_social, cnpj, email, cep, numero, complemento, senha) VALUES (
         '${razaoSoc}', '${cnpj}', '${email}', '${cep}', ${num}, '${comp}', '${senha}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -47,7 +47,7 @@ function cadastrarGestor(nomeGestor, ultimoNome, cargo, email, senha, idEmpresa)
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO Gestor (nome, ultimoNome, cargo, email, senha, fkInstituicao) VALUES (
+        INSERT INTO Gestor (nome, sobrenome, cargo, email, senha, fkInstituicao) VALUES (
         '${nomeGestor}', '${ultimoNome}', '${cargo}', '${email}','${senha}', '${idEmpresa}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -59,7 +59,7 @@ function editarGestor(novoNomeGestor, novoUltimoNome, novoCargo, novoEmail, nova
     
 
     var instrucao = `
-        UPDATE Gestor SET nome = '${novoNomeGestor}', ultimoNome = '${novoUltimoNome}', cargo = '${novoCargo}', email = '${novoEmail}', senha = ${novaSenha} WHERE idGestor = ${idGestor};
+        UPDATE Gestor SET nome = '${novoNomeGestor}', sobrenome = '${novoUltimoNome}', cargo = '${novoCargo}', email = '${novoEmail}', senha = ${novaSenha} WHERE idGestor = ${idGestor};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
