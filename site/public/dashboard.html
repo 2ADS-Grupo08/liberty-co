@@ -5,20 +5,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="styles/style-dashboard.css">
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="shortcut icon" href="styles/assets/logo/logo.png" type="image/jpg" href="/favicon.jpg" />
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11%22%3E"></script>
     <script src="https://kit.fontawesome.com/9763306bd1.js" crossorigin="anonymous"></script>
-    <title>DashBoard - LibertyCo</title>
 
+    <title>DashBoard - LibertyCo</title>
 </head>
 
-<body onload="medidaIdealComponentes(), espacoDisponivelComponentesVisaoGeral()">
+<body
+    onload="medidaIdealComponentes(), espacoDisponivelComponentesVisaoGeral(), ramUltimos3DiasVisaoGeral(), diasCpuLimiteVisaoGeral()">
     <div class="content">
-
-        <!-- faça tudo da dash aqui -->
         <div class="sidebar">
             <header>
                 <div class="logo">
@@ -84,16 +85,26 @@
             </div>
             <div class="box-container">
                 <div class="box-texto">
-                    <p>Informação do Disco:</p>
-                    <h2>Espaço disponível:</h2>
-                    <h3><span id="discoDisponivel"></span><b>GB</b></h3>
+                    <div class="conteudo-texto">
+                        <p>Informação do Disco:</p>
+                        <h2>Espaço disponível:</h2>
+                        <h3><span id="discoDisponivel"></span><b>GB</b></h3>
+                        <div class="box-seta">
+                            <div id="voltar" style="display: none;" onclick="setaVoltar()">
+                                <i class="fa-sharp fa-solid fa-arrow-left"></i>
+                            </div>
+                            <div id="avancar" style="display: none;" onclick="setaAvancar()">
+                                <i class="fa-sharp fa-solid fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="box">
                     <div class="graficos">
                         <canvas id="barras_media3dias" style="width: 20vw; height: 15vh;"></canvas>
                     </div>
                     <div class="legenda">
-                        <p>Uso da memória RAM dos últimos 3 dias</p>
+                        <p>Média de uso da memória RAM dos últimos 3 dias</p>
                     </div>
                 </div>
                 <div class="box-terceiro">
@@ -102,7 +113,7 @@
                     </div>
                     <div class="legenda">
                         <p>Dias em que a CPU atingiu o limite estipulado<br>
-                            (por semana)</p>
+                            (7 dias)</p>
                     </div>
                 </div>
             </div>
@@ -130,12 +141,10 @@
                         </div>
                         <div class="info_dono">
                             <p><b>Nome:</b> Fernanda Caramico</p>
-                            <p><b>Cargo:</b> Arquiteto de Edificações</p>
                         </div>
                         <div class="info_maquina">
                             <h1>Máquina</h1>
                             <p><b>Hostname:</b> FernandaCaramico</p>
-                            <p><b>Marca:</b> Dell</p>
                             <p><b>Sistema Operacional:</b> Windows</p>
                         </div>
                         <div class="info_hardware">
@@ -161,6 +170,8 @@
 </body>
 
 </html>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- Legenda da "MEDIDA IDEAL" -->
 <script>
@@ -202,6 +213,8 @@
 
 <!-- Espaço disponível do Disco -->
 <script>
+    var volumeDisco = [];
+
     function espacoDisponivelComponentesVisaoGeral() {
         // var idMaquina = sessionStorage.idMaquina;
         var idMaquina = 3;
@@ -210,6 +223,7 @@
                 response.json().then(function (resposta) {
                     console.log(resposta);
                     calculoEspacoDisponivelVisaoGeral(resposta);
+                    displaySetas();
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -222,67 +236,197 @@
 
     function calculoEspacoDisponivelVisaoGeral(resposta) {
         if (resposta.length > 0) {
-            var totalDisco = resposta[0].total;
-            var discoEmUso = resposta[0].emUso;
-            
-            var disponivel = (totalDisco - discoEmUso).toFixed(1);
-            discoDisponivel.innerHTML = disponivel.replace(".",",");
+            for (let index = 0; index < resposta.length; index++) {
+                var totalDisco = resposta[index].total;
+                var discoEmUso = resposta[index].emUso;
+
+                var disponivel = ((totalDisco - discoEmUso).toFixed(1)).replace(".", ",");
+                volumeDisco.push(disponivel);
+            }
+            discoDisponivel.innerHTML = volumeDisco[0];
         }
     }
+
+    var posicao = 0;
+
+    function displaySetas() {
+        if (posicao + 1 >= volumeDisco.length) {
+            avancar.style.display = "none";
+        } if (posicao + 1 < volumeDisco.length) {
+            avancar.style.display = "block";
+        } if ((posicao > 0) && (posicao + 1 <= volumeDisco.length)) {
+            voltar.style.display = "block";
+        } if (posicao == 0) {
+            voltar.style.display = "none";
+        }
+    }
+
+    function setaAvancar() {
+        if (volumeDisco.length > posicao + 1) {
+            posicao++;
+            discoDisponivel.innerHTML = volumeDisco[posicao];
+        }
+        displaySetas();
+        console.log(posicao);
+    }
+
+    function setaVoltar() {
+        if (posicao > 0) {
+            posicao--;
+            discoDisponivel.innerHTML = volumeDisco[posicao];
+        }
+        displaySetas();
+        console.log(posicao);
+    }
+
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- média dos ultimos 3 dias da ram -->
 <script>
+    function ramUltimos3DiasVisaoGeral() {
+        // var idMaquina = sessionStorage.idMaquina;
+        var idMaquina = 3;
+        fetch(`/dashboard/ramUltimos3DiasVisaoGeral/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(resposta);
+                    validacaoSemanaDaRam(resposta);
+                    plotarGraficoRamVisaoGeral(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
 
-    //Média diária do uso da memória ram dos últimos 3 dias    
-    var data_mediaRam3dias = {
-        labels: ['Domingo', 'Segunda', 'Terça'],
-        datasets: [{
-            data: [3.4, 12.2, 15.58],
-            borderWidth: 1
-        }]
-    };
-
-    var cfg_mediaRam3Dias = {
-        type: 'bar',
-        data: data_mediaRam3dias,
-        options: {
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+    function validacaoSemanaDaRam(resposta) {
+        for (var i = 0; i < resposta.length; i++) {
+            if (resposta[i].Semana == "Monday") {
+                resposta[i].Semana = "Segunda"
+            } else if (resposta[i].Semana == "Tuesday") {
+                resposta[i].Semana = "Terça"
+            } else if (resposta[i].Semana == "Wednesday") {
+                resposta[i].Semana = "Quarta"
+            } else if (resposta[i].Semana == "Thursday") {
+                resposta[i].Semana = "Quinta"
+            } else if (resposta[i].Semana == "Friday") {
+                resposta[i].Semana = "Sexta"
+            } else if (resposta[i].Semana == "Saturday") {
+                resposta[i].Semana = "Sábado"
+            } else if (resposta[i].Semana == "Sunday") {
+                resposta[i].Semana = "Domingo"
             }
         }
     }
-    //fim
-</script>
-<script>
-    var cfg_analiseDiasDaSemana = {
-        type: 'doughnut',
-        data: {
-            labels: ['Acima', 'Abaixo'],
-            datasets: [{
-                label: 'Dias',
-                backgroundColor: ['rgba(255, 51, 70, 0.753)',
-                    'rgba(0, 204, 255, 0.753)'],
-                data: [2, 8],
-                borderWidth: 0.75
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-            circumference: 180,
-            rotation: -90,
-            cutout: 30
+
+    function plotarGraficoRamVisaoGeral(resposta) {
+        //Média diária do uso da memória ram dos últimos 3 dias
+        var diaSemana = [];
+        var mediaDia = [];
+        for (let i = 0; i < resposta.length; i++) {
+            diaSemana.push(resposta[i].Semana);
+            mediaDia.push(resposta[i].Media);
         }
-    };
+        console.log(diaSemana);
+        console.log(mediaDia);
+
+        var data_mediaRam3dias = {
+            labels: diaSemana,
+            datasets: [{
+                data: mediaDia,
+                borderWidth: 1
+            }]
+        };
+
+        var cfg_mediaRam3Dias = {
+            type: 'bar',
+            data: data_mediaRam3dias,
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        }
+        //fim
+        const barra_mediaDiariaRam = new Chart(
+            document.getElementById('barras_media3dias'),
+            cfg_mediaRam3Dias
+        );
+    }
 </script>
+
+<!-- Dias em que a CPU atingiu o limite estipulado -->
+<script>
+    var ultrapassado = 0;
+    var naoUltrapassado = 0;
+
+    function diasCpuLimiteVisaoGeral() {
+        // var idMaquina = sessionStorage.idMaquina;
+        var idMaquina = 3;
+        fetch(`/dashboard/diasCpuLimiteVisaoGeral/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(resposta);
+                    validacaoDosDiasUltrapassados(resposta);
+                    plotarGraficoCpuVisaoGeral(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function validacaoDosDiasUltrapassados(resposta) {
+        for (var i = 0; i < resposta.length; i++) {
+            if (resposta[i].diasUltrapassados > 0) {
+                ultrapassado++;
+            }
+        }
+        naoUltrapassado = 7 - ultrapassado;
+    }
+
+    function plotarGraficoCpuVisaoGeral(resposta) {
+        var cfg_analiseDiasDaSemana = {
+            type: 'doughnut',
+            data: {
+                labels: ['Acima', 'Abaixo'],
+                datasets: [{
+                    label: 'Dias',
+                    backgroundColor: ['rgba(255, 51, 70, 0.753)',
+                        'rgba(0, 204, 255, 0.753)'],
+                    data: [ultrapassado, naoUltrapassado],
+                    borderWidth: 0.75
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                circumference: 180,
+                rotation: -90,
+                cutout: 30
+            }
+        };
+
+        const dought_analiseDiasDaSemana = new Chart(
+            document.getElementById('dought_diasDaSemana'),
+            cfg_analiseDiasDaSemana
+        );
+    }
+</script>
+
 <script>
     var cfg_mediaRam = {
         type: 'line',
@@ -324,15 +468,7 @@
     };
 </script>
 <script>
-    const barra_mediaDiariaRam = new Chart(
-        document.getElementById('barras_media3dias'),
-        cfg_mediaRam3Dias
-    );
 
-    const dought_analiseDiasDaSemana = new Chart(
-        document.getElementById('dought_diasDaSemana'),
-        cfg_analiseDiasDaSemana
-    );
 
     const line_mediaSemanalRam = new Chart(
         document.getElementById('line_mediaRam'),
@@ -358,11 +494,8 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire(
-
                 )
             }
         })
-
     }
-
 </script>

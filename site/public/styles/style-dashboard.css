@@ -183,49 +183,6 @@ label #btn {
     visibility: hidden;
 }
 
-
-@media(max-width: 860px) {
-    .sidebar {
-        height: auto;
-        width: 70px;
-        left: 0;
-        margin: 100px 0;
-
-    }
-
-    header,
-    #btn {
-        display: none;
-    }
-
-    .sidebar span {
-        position: absolute;
-        margin-left: 23px;
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    .sidebar a {
-        height: 60px;
-    }
-
-    .sidebar a i {
-        margin-left: -10px;
-    }
-
-    .sidebar a:hover {
-        width: 200px;
-        background: inherit;
-    }
-
-    .sidebar a:hover span {
-        opacity: 1;
-        visibility: visible;
-    }
-
-}
-
-
 .saida {
     position: relative;
     /* bottom: -25%; */
@@ -388,7 +345,7 @@ label #btn {
     border-radius: 10px;
     background: #1b1b1b;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
+    
 }
 
 .box-container .box p, .box-terceiro p {
@@ -415,14 +372,24 @@ label #btn {
 .box-texto {
     width: 30%;
     height: 100%;
+    display: flex;
     text-align: center;
     background: #1b1b1b;
     border-radius: 10px;
     padding: 5px;
     color: white;
-    display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+}
+
+.conteudo-texto {
+    /* border: solid 2px firebrick; */
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    justify-content: space-around;
 }
 
 .box-texto h2 {
@@ -445,7 +412,7 @@ label #btn {
 
 .box-texto p {
     font-family: 'Montserrat';
-    margin-bottom: 15%;
+    padding-bottom: 15px;
 }
 
 .semanal {
@@ -458,4 +425,28 @@ label #btn {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.box-seta {
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.box-seta #avancar {
+    margin-left: auto;
+}
+
+.box-seta i{
+    font-size: 23px;
+    margin-right: 16px;
+    color: white;
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+    transition: all .25s ease-in-out;
+}
+
+.box-seta i:hover{
+    color: #1B4364;
 }

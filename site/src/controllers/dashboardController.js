@@ -34,48 +34,41 @@ function espacoDisponivelComponentesVisaoGeral(req, res) {
     });
 }
 
-// function buscarUltimasMedidas(req, res) {
+function ramUltimos3DiasVisaoGeral(req, res) {
+    var idMaquina = req.params.idMaquina;
 
-//     const limite_linhas = 7;
+    dashboardModel.ramUltimos3DiasVisaoGeral(idMaquina).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
 
-//     var idAquario = req.params.idAquario;
+function diasCpuLimiteVisaoGeral(req, res) {
+    var idMaquina = req.params.idMaquina;
 
-//     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
-
-//     medidaModel.buscarUltimasMedidas(idAquario, limite_linhas).then(function (resultado) {
-//         if (resultado.length > 0) {
-//             res.status(200).json(resultado);
-//         } else {
-//             res.status(204).send("Nenhum resultado encontrado!")
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//         console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-//         res.status(500).json(erro.sqlMessage);
-//     });
-// }
-
-
-// function buscarMedidasEmTempoReal(req, res) {
-
-//     var idAquario = req.params.idAquario;
-
-//     console.log(`Recuperando medidas em tempo real`);
-
-//     medidaModel.buscarMedidasEmTempoReal(idAquario).then(function (resultado) {
-//         if (resultado.length > 0) {
-//             res.status(200).json(resultado);
-//         } else {
-//             res.status(204).send("Nenhum resultado encontrado!")
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//         console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-//         res.status(500).json(erro.sqlMessage);
-//     });
-// }
+    dashboardModel.diasCpuLimiteVisaoGeral(idMaquina).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
 
 module.exports = {
     medidaIdealComponentes,
-    espacoDisponivelComponentesVisaoGeral
+    espacoDisponivelComponentesVisaoGeral,
+    ramUltimos3DiasVisaoGeral,
+    diasCpuLimiteVisaoGeral
 }

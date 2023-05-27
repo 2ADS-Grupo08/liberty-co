@@ -28,17 +28,16 @@ function espacoDisponivelComponentesVisaoGeral(idMaquina) {
     instrucaoSql = '';
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `SELECT TOP 1
-                            Componente.idComponente, 
+        instrucaoSql = `SELECT
+                            DISTINCT Componente.idComponente, 
                             Componente.total, 
-                            Log.emUso,
-                            Log.idLog  
+                            COALESCE(Log.emUso, 0) as emUso,
+                            Componente.fkMaquina
                                 FROM Componente 
-                                    JOIN Log 
-                                        ON idComponente = fkComponente
+                                LEFT JOIN Log 
+                                    ON idComponente = fkComponente
                                 WHERE Componente.fkMaquina = ${idMaquina}
-                                AND nomeComponente = 'Disco Rígido'
-                                    ORDER BY idLog desc;`;
+                                    AND nomeComponente = 'Disco Rígido';`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -48,69 +47,61 @@ function espacoDisponivelComponentesVisaoGeral(idMaquina) {
     return database.executar(instrucaoSql);
 }
 
-// function buscarUltimasMedidas(idAquario, limite_linhas) {
+function ramUltimos3DiasVisaoGeral(idMaquina) {
 
-//     instrucaoSql = ''
+    instrucaoSql = '';
 
-//     if (process.env.AMBIENTE_PROCESSO == "producao") {
-//         instrucaoSql = `select top ${limite_linhas}
-//         dht11_temperatura as temperatura, 
-//         dht11_umidade as umidade,  
-//                         momento,
-//                         FORMAT(momento, 'HH:mm:ss') as momento_grafico
-//                     from medida
-//                     where fk_aquario = ${idAquario}
-//                     order by id desc`;
-//     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-//         instrucaoSql = `select 
-//         dht11_temperatura as temperatura, 
-//         dht11_umidade as umidade,
-//                         momento,
-//                         DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico
-//                     from medida
-//                     where fk_aquario = ${idAquario}
-//                     order by id desc limit ${limite_linhas}`;
-//     } else {
-//         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-//         return
-//     }
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT 
+                            AVG(Log.emUso) AS Media,
+                            Log.momentoCaptura,
+                            DATENAME(weekday, Log.momentoCaptura) AS Semana
+                                FROM Componente 
+                                JOIN Log 
+                                    ON idComponente = fkComponente
+                                WHERE Componente.fkMaquina = ${idMaquina}
+                                    AND nomeComponente = 'Memória RAM'
+                                    AND TRY_CONVERT(datetime, Log.momentoCaptura, 103) >= DATEADD(DAY, -3, GETDATE())
+                                GROUP BY momentoCaptura;`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
 
-//     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-//     return database.executar(instrucaoSql);
-// }
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
-// function buscarMedidasEmTempoReal(idAquario) {
+function diasCpuLimiteVisaoGeral(idMaquina) {
 
-//     instrucaoSql = ''
+    instrucaoSql = '';
 
-//     if (process.env.AMBIENTE_PROCESSO == "producao") {
-//         instrucaoSql = `select top 1
-//         dht11_temperatura as temperatura, 
-//         dht11_umidade as umidade,  
-//                         CONVERT(varchar, momento, 108) as momento_grafico, 
-//                         fk_aquario 
-//                         from medida where fk_aquario = ${idAquario} 
-//                     order by id desc`;
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT 
+                            CAST(Log.momentoCaptura AS DATE) AS data, 
+                            COUNT(*) AS diasUltrapassados
+                                FROM Log
+                            JOIN Componente ON 
+                                Componente.idComponente = Log.fkComponente
+                            JOIN NivelAlerta ON 
+                            Componente.idComponente = NivelAlerta.fkComponente
+                                WHERE Log.momentoCaptura >= DATEADD(DAY, -7, GETDATE())
+                                    AND Log.emUso > (NivelAlerta.nivelAlerta * Componente.total / 100)
+                                    AND Componente.nomeComponente = 'Processador'
+                                    AND Componente.fkMaquina = ${idMaquina}
+                                GROUP BY CAST(Log.momentoCaptura AS DATE);`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
 
-//     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-//         instrucaoSql = `select 
-//         dht11_temperatura as temperatura, 
-//         dht11_umidade as umidade,
-//                         DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico, 
-//                         fk_aquario 
-//                         from medida where fk_aquario = ${idAquario} 
-//                     order by id desc limit 1`;
-//     } else {
-//         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-//         return
-//     }
-
-//     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-//     return database.executar(instrucaoSql);
-// }
-
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     medidaIdealComponentes,
-    espacoDisponivelComponentesVisaoGeral
+    espacoDisponivelComponentesVisaoGeral,
+    ramUltimos3DiasVisaoGeral,
+    diasCpuLimiteVisaoGeral
 }

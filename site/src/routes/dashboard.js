@@ -11,8 +11,12 @@ router.get("/espacoDisponivelComponentesVisaoGeral/:idMaquina", function (req,re
     dashboardController.espacoDisponivelComponentesVisaoGeral(req, res)
 });
 
-router.get("/espacoDisponivelComponentesVisaoGeral/:idMaquina", function (req,res){
-    dashboardController.espacoDisponivelComponentesVisaoGeral(req, res)
+router.get("/ramUltimos3DiasVisaoGeral/:idMaquina", function (req,res){
+    dashboardController.ramUltimos3DiasVisaoGeral(req, res)
+});
+
+router.get("/diasCpuLimiteVisaoGeral/:idMaquina", function (req,res){
+    dashboardController.diasCpuLimiteVisaoGeral(req, res)
 });
 
 module.exports = router;
