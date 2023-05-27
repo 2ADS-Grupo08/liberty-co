@@ -18,7 +18,7 @@
 </head>
 
 <body
-    onload="medidaIdealComponentes(), espacoDisponivelComponentesVisaoGeral(), ramUltimos3DiasVisaoGeral(), diasCpuLimiteVisaoGeral()">
+    onload="medidaIdealComponentes(), espacoDisponivelComponentesVisaoGeral(), ramUltimos3DiasVisaoGeral(), diasCpuLimiteVisaoGeral(), mediaUsoRamSemanaVisaoGeral(), mediaUsoCpuSemanaVisaoGeral(), informacoesDonoMaquina()">
     <div class="content">
         <div class="sidebar">
             <header>
@@ -140,22 +140,22 @@
                             <h1>INFORMAÇÕES</h1>
                         </div>
                         <div class="info_dono">
-                            <p><b>Nome:</b> Fernanda Caramico</p>
+                            <p><b>Nome: </b><span id="nome_txt"></span> <span id="sobrenome_txt"></span></p>
                         </div>
                         <div class="info_maquina">
                             <h1>Máquina</h1>
-                            <p><b>Hostname:</b> FernandaCaramico</p>
-                            <p><b>Sistema Operacional:</b> Windows</p>
+                            <p><b>Hostname: </b><span id="hostname_txt"></span></p>
+                            <p><b>Sistema Operacional: </b><span id="so_txt"></span></p>
                         </div>
                         <div class="info_hardware">
                             <h1>Hardware</h1>
                             <h2>- Memória RAM</h2>
-                            <p><b>Total:</b> 16GB</p>
+                            <p><b>Total: </b><span id="totalRam_txt"></span>GB</p>
                             <h2>- CPU</h2>
-                            <p><b>Nome:</b> 10th Gen Intel(R) Core(TM) i7-10700F @ 2.90GHz</p>
+                            <p><b>Nome: </b><span id="nomeCpu_txt"></span></p>
                             <h2>- Disco Rígido</h2>
-                            <p><b>Volume:</b> 1</p>
-                            <p><b>Capacidade Total:</b> 1TB</p>
+                            <p><b>Volume: </b><span id="volume_txt"></span></p>
+                            <p><b>Capacidade Total:</b><span id="totalDisco_txt"></span></p>
                         </div>
                     </div>
                 </div>
@@ -262,7 +262,7 @@
     function setaAvancar() {
         if (volumeDisco.length > posicao + 1) {
             posicao++;
-            if(volumeDisco[posicao] >= 1000) {
+            if (volumeDisco[posicao] >= 1000) {
                 discoDisponivel.innerHTML = volumeDisco[posicao] / 1000;
                 tamanho.innerHTML = 'TB';
             } else {
@@ -277,7 +277,7 @@
     function setaVoltar() {
         if (posicao > 0) {
             posicao--;
-            if(volumeDisco[posicao] >= 1000) {
+            if (volumeDisco[posicao] >= 1000) {
                 discoDisponivel.innerHTML = volumeDisco[posicao] / 1000;
                 tamanho.innerHTML = 'TB';
             } else {
@@ -300,7 +300,7 @@
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(resposta);
-                    validacaoSemanaDaRam(resposta);
+                    validacaoSemana(resposta);
                     plotarGraficoRamVisaoGeral(resposta);
                 });
             } else {
@@ -312,7 +312,7 @@
             });
     }
 
-    function validacaoSemanaDaRam(resposta) {
+    function validacaoSemana(resposta) {
         for (var i = 0; i < resposta.length; i++) {
             if (resposta[i].Semana == "Monday") {
                 resposta[i].Semana = "Segunda"
@@ -437,60 +437,173 @@
     }
 </script>
 
+<!-- média dos ultimos 7 dias da ram -->
 <script>
-    var cfg_mediaRam = {
-        type: 'line',
-        data: {
-            labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+    function mediaUsoRamSemanaVisaoGeral() {
+        // var idMaquina = sessionStorage.idMaquina;
+        var idMaquina = 3;
+        fetch(`/dashboard/mediaUsoRamSemanaVisaoGeral/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(resposta);
+                    validacaoSemana(resposta);
+                    plotarGraficoSemanalRamVisaoGeral(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoSemanalRamVisaoGeral(resposta) {
+        //Média diária do uso da memória ram dos últimos 7 dias
+        var diaSemana = [];
+        var mediaDia = [];
+        for (let i = 0; i < resposta.length; i++) {
+            diaSemana.push(resposta[i].Semana);
+            mediaDia.push(resposta[i].Media);
+        }
+        console.log(diaSemana);
+        console.log(mediaDia);
+
+        var data_mediaRam3dias = {
+            labels: diaSemana,
             datasets: [{
-                label: 'Média de uso da Memória RAM dos dias da semana',
-                data: [12.08, 15.42, 5.07, 5.03, 14.48, 0, 0],
+                data: mediaDia,
                 borderWidth: 1
             }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+        };
+
+
+        var cfg_mediaRam = {
+            type: 'line',
+            data: {
+                labels: diaSemana,
+                datasets: [{
+                    label: 'Média de uso da Memória RAM dos dias da semana',
+                    data: mediaDia,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
+        };
+
+        const line_mediaSemanalRam = new Chart(
+            document.getElementById('line_mediaRam'),
+            cfg_mediaRam
+        );
     };
 </script>
+
+<!-- média dos ultimos 7 dias da cpu -->
 <script>
-    var cfg_mediaCpu = {
-        type: 'line',
-        data: {
-            labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
-            datasets: [{
-                label: 'Média de uso da CPU dos dias da semana',
-                data: [2.58, 2.45, 1.07, 1.03, 1.48, 0, 0],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+    function mediaUsoCpuSemanaVisaoGeral() {
+        // var idMaquina = sessionStorage.idMaquina;
+        var idMaquina = 3;
+        fetch(`/dashboard/mediaUsoCpuSemanaVisaoGeral/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(resposta);
+                    validacaoSemana(resposta);
+                    plotarGraficoSemanalCpuVisaoGeral(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoSemanalCpuVisaoGeral(resposta) {
+        //Média diária do uso da cpu dos últimos 7 dias
+        var diaSemana = [];
+        var mediaDia = [];
+        for (let i = 0; i < resposta.length; i++) {
+            diaSemana.push(resposta[i].Semana);
+            mediaDia.push(resposta[i].Media);
+        }
+        console.log(diaSemana);
+        console.log(mediaDia);
+
+        var cfg_mediaCpu = {
+            type: 'line',
+            data: {
+                labels: diaSemana,
+                datasets: [{
+                    label: 'Média de uso da CPU dos dias da semana',
+                    data: mediaDia,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    };
+        };
+        const line_mediaSemanalCpu = new Chart(
+            document.getElementById('line_mediaCpu'),
+            cfg_mediaCpu
+        );
+
+    }
 </script>
+
+<!-- informações do dono da máquina -->
 <script>
+    function informacoesDonoMaquina() {
+        // var idMaquina = sessionStorage.idMaquina;
+        var idMaquina = 3;
+        fetch(`/dashboard/informacoesDonoMaquina/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(resposta);
+                    substituirTxt(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
 
-
-    const line_mediaSemanalRam = new Chart(
-        document.getElementById('line_mediaRam'),
-        cfg_mediaRam
-    );
-
-    const line_mediaSemanalCpu = new Chart(
-        document.getElementById('line_mediaCpu'),
-        cfg_mediaCpu
-    );
+    var contador = 0;
+    var discoTotal = [];
+    function substituirTxt(resposta) {
+        nome_txt.innerHTML = resposta[0].nomeDono;
+        sobrenome_txt.innerHTML = resposta[0].sobrenomeDono;
+        hostname_txt.innerHTML = resposta[0].hostName;
+        so_txt.innerHTML = resposta[0].sistemaOperacional;
+        for (let i = 0; i < resposta.length; i++) {
+            if (resposta[i].nomeComponente == "Memória RAM") {
+                totalRam_txt.innerHTML = resposta[i].total;
+            } else if (resposta[i].nomeComponente == "Processador") {
+                nomeCpu_txt.innerHTML = resposta[i].modelo;
+            } else if (resposta[i].nomeComponente == "Disco Rígido") {
+                contador++;
+                discoTotal.push(" " + resposta[i].total + " GB");
+            }
+        }
+        volume_txt.innerHTML = contador;
+        totalDisco_txt.innerHTML = discoTotal;
+        console.log(discoTotal);
+    }
 </script>
-
 <script>
     function sair() {
         Swal.fire({

@@ -19,4 +19,16 @@ router.get("/diasCpuLimiteVisaoGeral/:idMaquina", function (req,res){
     dashboardController.diasCpuLimiteVisaoGeral(req, res)
 });
 
+router.get("/mediaUsoRamSemanaVisaoGeral/:idMaquina", function (req,res){
+    dashboardController.mediaUsoRamSemanaVisaoGeral(req, res)
+});
+
+router.get("/mediaUsoCpuSemanaVisaoGeral/:idMaquina", function (req,res){
+    dashboardController.mediaUsoCpuSemanaVisaoGeral(req, res)
+});
+
+router.get("/informacoesDonoMaquina/:idMaquina", function (req,res){
+    dashboardController.informacoesDonoMaquina(req, res)
+});
+
 module.exports = router;
