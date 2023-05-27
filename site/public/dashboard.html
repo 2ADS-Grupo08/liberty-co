@@ -88,7 +88,7 @@
                     <div class="conteudo-texto">
                         <p>Informação do Disco:</p>
                         <h2>Espaço disponível:</h2>
-                        <h3><span id="discoDisponivel"></span><b>GB</b></h3>
+                        <h3><span id="discoDisponivel"></span><b id="tamanho">GB</b></h3>
                         <div class="box-seta">
                             <div id="voltar" style="display: none;" onclick="setaVoltar()">
                                 <i class="fa-sharp fa-solid fa-arrow-left"></i>
@@ -161,8 +161,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 
 
@@ -240,7 +238,7 @@
                 var totalDisco = resposta[index].total;
                 var discoEmUso = resposta[index].emUso;
 
-                var disponivel = ((totalDisco - discoEmUso).toFixed(1)).replace(".", ",");
+                var disponivel = ((totalDisco - discoEmUso).toFixed(1));
                 volumeDisco.push(disponivel);
             }
             discoDisponivel.innerHTML = volumeDisco[0];
@@ -264,7 +262,13 @@
     function setaAvancar() {
         if (volumeDisco.length > posicao + 1) {
             posicao++;
-            discoDisponivel.innerHTML = volumeDisco[posicao];
+            if(volumeDisco[posicao] >= 1000) {
+                discoDisponivel.innerHTML = volumeDisco[posicao] / 1000;
+                tamanho.innerHTML = 'TB';
+            } else {
+                discoDisponivel.innerHTML = volumeDisco[posicao];
+                tamanho.innerHTML = 'GB';
+            }
         }
         displaySetas();
         console.log(posicao);
@@ -273,7 +277,13 @@
     function setaVoltar() {
         if (posicao > 0) {
             posicao--;
-            discoDisponivel.innerHTML = volumeDisco[posicao];
+            if(volumeDisco[posicao] >= 1000) {
+                discoDisponivel.innerHTML = volumeDisco[posicao] / 1000;
+                tamanho.innerHTML = 'TB';
+            } else {
+                discoDisponivel.innerHTML = volumeDisco[posicao];
+                tamanho.innerHTML = 'GB';
+            }
         }
         displaySetas();
         console.log(posicao);
