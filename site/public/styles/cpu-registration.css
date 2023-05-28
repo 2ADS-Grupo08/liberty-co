@@ -1,7 +1,47 @@
 .content .container {
-    display: flex;
     width: 80%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+}
+
+.actions .edit-pencil {
+    background: teal;
+}
+
+.actions .trash {
+    background: firebrick;
+}
+
+.metrics {
+    width: 70vw;
+    height: 15vh;
+    display: flex;
+    align-items: center;
     justify-content: center;
+    box-shadow: #041727 0px 0px 5px 0px;
+    background-color: #D7E6F2;
+}
+
+.metrics .container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.metrics .container .alert {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.metrics .container .alert img {
+    width: 50px;
 }
 
 .list {
@@ -14,13 +54,13 @@
 }
 
 .list .container .computers {
-    height: 80vh;
+    height: 70vh;
     width: 100%;
     padding: 10px;
     gap: 30px;
     display: flex;
     flex-flow: row wrap;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-around;
     overflow: auto;
 }
@@ -55,14 +95,6 @@
     padding: 5px;
     cursor: pointer;
     border-radius: 5px;
-}
-
-.list .container .computers .actions .edit-pencil {
-    background: teal;
-}
-
-.list .container .computers .actions .trash {
-    background: firebrick;
 }
 
 .list .container .computers .activity {
@@ -143,7 +175,8 @@
     align-items: center;
 }
 
-.formularioCadastro p, .formularioLogin p{
+.formularioCadastro p,
+.formularioLogin p {
     font-size: 12px;
     display: block;
 }
@@ -279,4 +312,28 @@ input {
     background-color: #E7E7E7;
     border: none;
     border-radius: 10px;
+}
+
+.saved-executables {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 20px;
+}
+
+.saved-executables .saved-executable {
+    border-bottom: solid 1px black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    width: 40%;
+}
+
+.saved-executable .actions img {
+    width: 15px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
 }

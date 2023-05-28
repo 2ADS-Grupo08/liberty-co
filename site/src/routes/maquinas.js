@@ -35,4 +35,13 @@ router.delete("/deletarMaquina/:idMaquina", function (req, res) {
     maquinaController.deletarMaquina(req, res);
 });
 
+router.get("/getJanelasSeremEncerradas/:idMaquina", function (req, res) {
+    maquinaController.getJanelasSeremEncerradas(req, res);
+});
+
+
+router.delete("/deletarJanela/:idJanela", function (req, res) {
+    maquinaController.deletarJanela(req, res);
+});
+
 module.exports = router;

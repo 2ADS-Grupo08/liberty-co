@@ -17,7 +17,7 @@ function cadastrarProcessosSeremEncerrados(processo, idMaquina) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarProcessosSeremEncerrados():", processo, idMaquina);
 
     var instrucao = `
-        INSERT INTO Processo (nomeProcesso, fkMaquina) VALUES (
+        INSERT INTO Janela (nomeJanela, fkMaquina) VALUES (
         '${processo}', ${idMaquina});
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -27,7 +27,7 @@ function cadastrarProcessosSeremEncerrados(processo, idMaquina) {
 function getIdMaquinaCadastrada(idGestor) {
     console.log("ACESSEI O MAQUINA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function getDadosMaquinaCadastrada()");
     var instrucao = `
-        SELECT idMaquina FROM Maquina WHERE fkGestor = ${idGestor} ORDER BY idMaquina DESC LIMIT 1;
+        SELECT TOP 1 idMaquina FROM Maquina WHERE fkGestor = 1 ORDER BY idMaquina DESC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -86,6 +86,24 @@ function deletarMaquina(idMaquina) {
     return database.executar(instrucao);
 }
 
+function getJanelasSeremEncerradas(idMaquina) {
+    console.log("ACESSEI O MAQUINA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function getJanelasSeremEncerradas()");
+    var instrucao = `
+        SELECT * FROM Janela WHERE fkMaquina = '${idMaquina}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function deletarJanela(idJanela){
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletarJanela():", idJanela);
+    var instrucao = `
+        DELETE FROM Janela WHERE idJanela = ${idJanela};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     getIdMaquinaCadastrada,
     cadastrarMaquina,
@@ -94,5 +112,7 @@ module.exports = {
     listarMaquinasInativas,
     getDadosMaquina,
     editarMaquina,
-    deletarMaquina
+    deletarMaquina,
+    getJanelasSeremEncerradas,
+    deletarJanela
 };

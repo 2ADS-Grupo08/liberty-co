@@ -11,6 +11,67 @@ function fecharPopup() {
     // body.style.overflowY = "visible";
 }
 
+var processos = [];
+function criarListaProcessosSeremEncerrados() {
+    var hostName = inp_host.value;
+    var nomeDono = inp_nome_dono.value;
+    var ultimoNomeDono = inp_ultimo_nome_dono.value;
+    var sistemaOperacional = inp_SO.value;
+    if (hostName == "" || nomeDono == "" || ultimoNomeDono == "" || sistemaOperacional == "") {
+        alert("Preencha todos os campos");
+        return false;
+    }
+    fecharPopup();
+    Swal.fire({
+        width: 500,
+        title: `<strong>Lista de processos a serem encerrados</strong>`,
+        html: `<small>PSC: Voce poderá editar isso mais tarde</small>
+                <ul id="executables" class="executables"></ul>`,
+        inputLabel: 'Nome do processo, Ex: Google Chrome',
+        inputPlaceholder: 'Ex: Google Chrome',
+        inputAutoFocus: true,
+        input: 'text',
+        inputValidator: (value) => {
+            return new Promise((resolve) => {
+                if (/^[^.,]+$/.test(value) && value.length >= 3) {
+                    resolve()
+                } else {
+                    resolve('Escreva apenas o nome do processo.')
+                }
+            })
+        },
+        showCloseButton: true,
+        showCancelButton: true,
+        showDenyButton: true,
+        focusConfirm: false,
+        denyButtonColor: '#008CFF',
+        confirmButtonColor: '#2778c4',
+        cancelButtonText: 'Cancelar',
+        denyButtonText: 'Finalizar',
+        confirmButtonText: 'Adicionar a lista',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            criarListaProcessosSeremEncerrados();
+            for (let index = 0; index <= processos.length; index++) {
+                if (processos.indexOf(result.value) == - 1) {
+                    processos.push(result.value);
+                    break;
+                } else {
+                    alert("Processo já cadastrado!")
+                    break;
+                }
+            }
+            executables.innerHTML += `
+            <li id="executable" class="executable">
+                ${processos} 
+            </li>`;
+        } else if (result.isDenied) {
+            cadastrarMaquina(processos);
+            processos = [];
+        }
+    })
+}
+
 function cadastrarMaquina(processos) {
     var idGestor = sessionStorage.ID_GESTOR;
     var hostName = inp_host.value;
@@ -42,10 +103,8 @@ function cadastrarMaquina(processos) {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-            alert("Cadastro realizado com sucesso!");
-
             getIdMaquinaCadastrada(idGestor, processos);
-
+            alert("Cadastro realizado com sucesso!");
             setTimeout(function () {
                 window.location.reload();
             }, 10);
@@ -74,6 +133,32 @@ function getIdMaquinaCadastrada(idGestor, processos) {
     }).catch(function (resposta) {
         console.error(resposta);
     });
+}
+
+function cadastrarProcessosSeremEncerrados(processos, idMaquina) {
+    for (let i = 0; i < processos.length; i++) {
+        console.log(processos[i])
+        fetch(`/maquinas/cadastrarProcessosSeremEncerrados/${idMaquina}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                processoServer: processos[i],
+            })
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+            if (!resposta.ok) {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    }
+    return false;
 }
 
 function listarMaquinas() {
@@ -262,7 +347,7 @@ function getDadosMaquina(idMaquina) {
                         }
                     },
                     preDeny: () => {
-                        Swal.fire('Any fool can use a computer')
+                        getJanelasSeremEncerradas(resposta[0].idMaquina)
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -335,107 +420,89 @@ function deletarMaquina(idMaquina) {
             });
         }
     })
-
 }
 
-var processos = [];
-function criarListaProcessosSeremEncerrados() {
-    var hostName = inp_host.value;
-    var nomeDono = inp_nome_dono.value;
-    var ultimoNomeDono = inp_ultimo_nome_dono.value;
-    var sistemaOperacional = inp_SO.value;
-    if (hostName == "" || nomeDono == "" || ultimoNomeDono == "" || sistemaOperacional == "") {
-        alert("Preencha todos os campos");
-        return false;
-    }
-    fecharPopup();
-    Swal.fire({
-        width: 500,
-        title: `<strong>Lista de processos a serem encerrados</strong>`,
-        html: `<small>PSC: Voce poderá editar isso mais tarde</small>
-                <ul id="executables" class="executables"></ul>`,
-        inputLabel: 'Nome do processo, Ex: Google Chrome',
-        inputPlaceholder: 'Ex: Google Chrome',
-        inputAutoFocus: true,
-        input: 'text',
-        inputValidator: (value) => {
-            return new Promise((resolve) => {
-                if (/^[^.,]+$/.test(value) && value.length >= 3) {
-                    resolve()
-                } else {
-                    resolve('Escreva apenas o nome do processo.')
+function getJanelasSeremEncerradas(idMaquina) {
+    console.log(idMaquina);
+
+    fetch(`/maquinas/getJanelasSeremEncerradas/${idMaquina}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                throw "Nenhum resultado encontrado!!";
+            }
+            resposta.json().then(function (resposta) {
+                Swal.fire({
+                    width: 500,
+                    title: `<strong>Edicão de processos a serem encerrados</strong>`,
+                    html: `<ul id="saved-executables" class="saved-executables"></ul>`,
+                    inputLabel: 'Nome do processo, Ex: Google Chrome',
+                    inputPlaceholder: 'Ex: Google Chrome',
+                    inputAutoFocus: true,
+                    input: 'text',
+                    inputValidator: (value) => {
+                        return new Promise((resolve) => {
+                            if (/^[^.,]+$/.test(value) && value.length >= 3) {
+                                resolve()
+                            } else {
+                                resolve('Escreva apenas o nome do processo.')
+                            }
+                        })
+                    },
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    showDenyButton: true,
+                    focusConfirm: false,
+                    denyButtonColor: '#008CFF',
+                    confirmButtonColor: '#2778c4',
+                    cancelButtonText: 'Cancelar',
+                    denyButtonText: 'Finalizar',
+                    confirmButtonText: 'Adicionar a lista',
+                });
+                for (let index = 0; index < resposta.length; index++) {
+                    document.getElementById("saved-executables").innerHTML +=`
+                        <li id="saved-executable" class="saved-executable">
+                            ${resposta[index].nomeJanela}
+                            <div class="actions">
+                                <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="deletarJanela(${resposta[index].idJanela})" alt="">
+                            </div>
+                        </li>`;                    
                 }
-            })
-        },
-        showCloseButton: true,
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+}
+
+function deletarJanela(idJanela) {
+    Swal.fire({
+        title: 'Tem certeza que quer deletar essa janela?',
+        icon: 'warning',
         showCancelButton: true,
-        showDenyButton: true,
-        focusConfirm: false,
-        denyButtonColor: '#008CFF',
-        confirmButtonColor: '#2778c4',
-        cancelButtonText: 'Cancelar',
-        denyButtonText: 'Finalizar',
-        confirmButtonText: 'Adicionar a lista',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, eu tenho!',
+        cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            criarListaProcessosSeremEncerrados();
-            for (let index = 0; index <= processos.length; index++) {
-                if (processos.indexOf(result.value) == - 1) {
-                    processos.push(result.value);
-                    break;
-                } else {
-                    alert("Processo já cadastrado!")
-                    break;
+            fetch(`/maquinas/deletarJanela/${idJanela}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
                 }
-            }
-            var resultado = "";
-            for (var i = 0; i < processos.length; i++) {
-                resultado += processos[i];
-                if (i !== processos.length - 1) {
-                    resultado += ", ";
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    getJanelasSeremEncerradas(idMaquina);
+                } else if (resposta.status == 404) {
+                    window.alert("Deu 404!");
                 } else {
-                    resultado += ".";
+                    throw ("Houve um erro ao tentar deletar a Janela! Código da resposta: " + resposta.status);
                 }
-            }
-            executables.innerHTML += `
-            <li id="executable" class="executable">
-                ${resultado} 
-            </li>`;
-        } else if (result.isDenied) {
-            cadastrarMaquina(processos);
-            processos = [];
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
         }
     })
-}
-
-function cadastrarProcessosSeremEncerrados(processos, idMaquina) {
-    for (let i = 0; i < processos.length; i++) {
-        console.log(processos[i])
-        fetch(`/maquinas/cadastrarProcessosSeremEncerrados/${idMaquina}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                processoServer: processos[i],
-            })
-        }).then(function (resposta) {
-            console.log("resposta: ", resposta);
-
-            if (resposta.ok) {
-
-                // setTimeout(function () {
-                //     window.location.reload();
-                // }, 10);
-            } else {
-                throw ("Houve um erro ao tentar realizar o cadastro!");
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-
-    }
-    return false;
 }
