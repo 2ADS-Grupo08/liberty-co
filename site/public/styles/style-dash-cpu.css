@@ -234,11 +234,6 @@ label #btn {
     /* bottom: -25%; */
 }
 
-.conteudo-legenda h1 {
-    text-align: center;
-    margin-top: 1%;
-}
-
 .conteudo-legenda {
     display: flex;
     flex-direction: column;
@@ -250,11 +245,26 @@ label #btn {
     color: white;
 }
 
+.conteudo-legenda h1 {
+    text-align: center; 
+    margin-top: 1%;
+    /* border: #00ccff 2px solid; */
+}
+
 .conteudo-legenda .hardware {
     display: flex;
     justify-content: space-around;
     /* border: solid 2px khaki; */
     width: 100%;
+    align-items: center;
+}
+
+.conteudo-legenda .hardware .box-hardware {
+    /* border: darkred 2px solid; */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
@@ -379,6 +389,7 @@ label #btn {
 .box-container .box, .box2,
 .box-texto, .box-terceiro, .listaDados, .conteudo-legenda  {
     border: #1b1b1be5 2px solid;
+    border-radius: 10px;
     background: #1b1b1b;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
@@ -410,7 +421,6 @@ label #btn {
     /* border: white 2px solid; */
     border-radius: 3px;
     margin-top: 2%;
-    margin-left: 42%;
     width:3vw;
     height:2vh;
 }

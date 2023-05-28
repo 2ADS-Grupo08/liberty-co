@@ -31,4 +31,12 @@ router.get("/informacoesDonoMaquina/:idMaquina", function (req,res){
     dashboardController.informacoesDonoMaquina(req, res)
 });
 
+router.get("/informacoesLegenda/:idMaquina", function (req,res){
+    dashboardController.informacoesLegenda(req, res)
+});
+
+router.get("/cpuEmTempoReal/:idMaquina", function (req,res){
+    dashboardController.cpuEmTempoReal(req, res)
+});
+
 module.exports = router;

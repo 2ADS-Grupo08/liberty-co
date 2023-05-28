@@ -244,7 +244,7 @@ label #btn {
     width: 70vw;
     margin-top: 1%;
     background-color: #1b1b1b;
-    border-radius: 30px;
+    border-radius: 10px;
     font-family: 'Montserrat';
     color: white;
 }
@@ -266,6 +266,15 @@ label #btn {
     justify-content: space-around;
     /* border: solid 2px khaki; */
     width: 100%;
+    align-items: center;
+}
+
+.conteudo-legenda .hardware .box-hardware {
+    /* border: darkred 2px solid; */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
@@ -388,6 +397,7 @@ label #btn {
 .box-container .box,
 .box-texto, .box-terceiro, .listaDados, .conteudo-legenda  {
     border: #1b1b1be5 2px solid;
+    border-radius: 10px;
     background: #1b1b1b;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
@@ -418,7 +428,6 @@ label #btn {
     /* border: white 2px solid; */
     border-radius: 3px;
     margin-top: 2%;
-    margin-left: 42%;
     width:3vw;
     height:2vh;
 }

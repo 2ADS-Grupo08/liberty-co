@@ -270,6 +270,15 @@ label #btn {
     align-items: center;
 }
 
+.conteudo-legenda .hardware .box-hardware {
+    /* border: darkred 2px solid; */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .hardware .box-hardware {
     width: 100%;
     text-align: center;
@@ -386,6 +395,7 @@ label #btn {
 .box-container .box,
 .box-texto, .box-terceiro, .listaDados, .conteudo-legenda {
     border: #1b1b1be5 2px solid;
+    border-radius: 10px;
     background: #1b1b1b;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
@@ -417,7 +427,6 @@ label #btn {
     /* border: white 2px solid; */
     border-radius: 3px;
     margin-top: 2%;
-    margin-left: 42%;
     width:3vw;
     height:2vh;
 }

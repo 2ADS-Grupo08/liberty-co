@@ -114,6 +114,38 @@ function informacoesDonoMaquina(req, res) {
     });
 }
 
+function informacoesLegenda(req, res) {
+    var idMaquina = req.params.idMaquina;
+
+    dashboardModel.informacoesLegenda(idMaquina).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function cpuEmTempoReal(req, res) {
+    var idMaquina = req.params.idMaquina;
+
+    dashboardModel.cpuEmTempoReal(idMaquina).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
     medidaIdealComponentes,
     espacoDisponivelComponentesVisaoGeral,
@@ -121,5 +153,7 @@ module.exports = {
     diasCpuLimiteVisaoGeral,
     mediaUsoRamSemanaVisaoGeral,
     mediaUsoCpuSemanaVisaoGeral,
-    informacoesDonoMaquina
+    informacoesDonoMaquina,
+    informacoesLegenda,
+    cpuEmTempoReal
 }

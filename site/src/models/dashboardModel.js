@@ -106,15 +106,14 @@ function mediaUsoRamSemanaVisaoGeral(idMaquina) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `SELECT 
                             AVG(Log.emUso) AS Media,
-                            Log.momentoCaptura,
-                            DATENAME(weekday, Log.momentoCaptura) AS Semana
-                                FROM Componente 
-                                JOIN Log 
+                            CONVERT(date, Log.momentoCaptura),
+                            DATENAME(weekday, CONVERT(date, Log.momentoCaptura)) AS Semana
+                                FROM Componente JOIN Log 
                                     ON idComponente = fkComponente
                                 WHERE Componente.fkMaquina = ${idMaquina}
                                     AND nomeComponente = 'Memória RAM'
-                                    AND TRY_CONVERT(datetime, Log.momentoCaptura, 103) >= DATEADD(DAY, -7, GETDATE())
-                                GROUP BY momentoCaptura;`;
+                                    AND CONVERT(date, Log.momentoCaptura) >= DATEADD(DAY, -7, GETDATE())
+                                GROUP BY CONVERT(date, Log.momentoCaptura);`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -131,15 +130,15 @@ function mediaUsoCpuSemanaVisaoGeral(idMaquina) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `SELECT 
                             AVG(Log.emUso) AS Media,
-                            Log.momentoCaptura,
-                            DATENAME(weekday, Log.momentoCaptura) AS Semana
+                            CONVERT(date, Log.momentoCaptura),
+                            DATENAME(weekday, CONVERT(date, Log.momentoCaptura)) AS Semana
                                 FROM Componente 
                                 JOIN Log 
                                     ON idComponente = fkComponente
                                 WHERE Componente.fkMaquina = ${idMaquina}
                                     AND nomeComponente = 'Processador'
-                                    AND TRY_CONVERT(datetime, Log.momentoCaptura, 103) >= DATEADD(DAY, -7, GETDATE())
-                                GROUP BY momentoCaptura;`;
+                                    AND CONVERT(date, Log.momentoCaptura) >= DATEADD(DAY, -7, GETDATE())
+                                GROUP BY CONVERT(date, Log.momentoCaptura);`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -163,7 +162,50 @@ function informacoesDonoMaquina(idMaquina) {
                             Componente.total,
                             Componente.modelo
                                 FROM Maquina JOIN Componente on idMaquina = fkMaquina
-                                    WHERE Maquina.idMaquina = 3;`;
+                                    WHERE Maquina.idMaquina = ${idMaquina};`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function informacoesLegenda(idMaquina) {
+    instrucaoSql = '';
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT 
+                            Componente.nomeComponente, 
+                            Componente.total, 
+                            NivelAlerta.nivelAlerta 
+                        FROM Componente JOIN NivelAlerta ON
+                            idComponente = fkComponente
+                        WHERE Componente.fkMaquina = ${idMaquina}
+                        AND Componente.nomeComponente = 'Processador';`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function cpuEmTempoReal(idMaquina) {
+    instrucaoSql = '';
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT TOP 8
+                            Log.emUso,
+                                FORMAT(Log.momentoCaptura, 'hh:mm:ss') AS horario
+                                FROM Componente 
+                                JOIN Log 
+                                    ON idComponente = fkComponente
+                                WHERE Componente.fkMaquina = ${idMaquina}
+                                    AND nomeComponente = 'Processador'
+                                ORDER BY idLog desc;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -180,5 +222,7 @@ module.exports = {
     diasCpuLimiteVisaoGeral,
     mediaUsoRamSemanaVisaoGeral,
     mediaUsoCpuSemanaVisaoGeral,
-    informacoesDonoMaquina
+    informacoesDonoMaquina,
+    informacoesLegenda,
+    cpuEmTempoReal
 }

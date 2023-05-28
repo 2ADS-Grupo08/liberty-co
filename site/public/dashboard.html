@@ -78,7 +78,7 @@
                         <div class="linha-vertical"></div>
                         <div class="box-hardware">
                             <h3>CPU</h3>
-                            <p>Até: <span id="cpuIdeal"></span>GHz</p>
+                            <p>Até: <span id="cpuIdeal"></span>%</p>
                         </div>
                     </div>
                 </div>
@@ -193,15 +193,15 @@
 
     function calculoMedidaIdeal(resposta) {
         for (let index = 0; index < resposta.length; index++) {
-            var aux = ((resposta[index].total * resposta[index].nivelAlerta) / 100).toFixed(2);
+            var aux = ((resposta[index].total * resposta[index].nivelAlerta) / 100) * 0.8;
             if (resposta[index].nomeComponente == "Disco Rígido") {
-                discoIdeal.innerHTML = aux;
+                discoIdeal.innerHTML = aux.toFixed(2);
                 console.log(discoIdeal);
             } else if (resposta[index].nomeComponente == "Processador") {
-                cpuIdeal.innerHTML = aux;
+                cpuIdeal.innerHTML = resposta[index].nivelAlerta * 0.8;
                 console.log(cpuIdeal);
             } else if (resposta[index].nomeComponente == "Memória RAM") {
-                ramIdeal.innerHTML = aux;
+                ramIdeal.innerHTML = aux.toFixed(2);
             } else {
                 console.log("Componente não encontrado");
             }
@@ -604,6 +604,7 @@
         console.log(discoTotal);
     }
 </script>
+
 <script>
     function sair() {
         Swal.fire({

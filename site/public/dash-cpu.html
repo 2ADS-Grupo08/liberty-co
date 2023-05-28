@@ -14,68 +14,68 @@
   <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 </head>
 
-<body>
+<body onload="informacoesLegenda(), mediaUsoCpuSemanaVisaoGeral(), cpuEmTempoReal(), informacoesDonoMaquina()">
   <div class="content">
     <div class="sidebar">
       <header>
-          <div class="logo">
-              <img src="styles/assets/logo/logo_side.png" alt="LogoLibertyCo">
-          </div>
+        <div class="logo">
+          <img src="styles/assets/logo/logo_side.png" alt="LogoLibertyCo">
+        </div>
       </header>
       <a href="dashboard.html">
-          <i class="fas fa-stream"></i>
-          <span>Visão geral </span>
+        <i class="fas fa-stream"></i>
+        <span>Visão geral </span>
       </a>
       <a href="dash-cpu.html" class="agora">
-          <i class="fas fa-microchip"></i>
-          <span>CPU</span>
-          <img class="alerta cpu" src="styles/assets/icone/alerta.png" alt="">
+        <i class="fas fa-microchip"></i>
+        <span>CPU</span>
+        <img class="alerta cpu" src="styles/assets/icone/alerta.png" alt="">
       </a>
       <a href="dash-ram.html">
-          <i class="fas fa-sliders-h"></i>
-          <span>RAM</span>
-          <img class="alerta ram" src="styles/assets/icone/alerta.png" alt="">
+        <i class="fas fa-sliders-h"></i>
+        <span>RAM</span>
+        <img class="alerta ram" src="styles/assets/icone/alerta.png" alt="">
       </a>
       <a href="dash-armazenamento.html">
-          <i class="fas fa-hard-drive"></i>
-          <span>Armazenamento</span>
-          <img class="alerta disco" src="styles/assets/icone/alerta.png" alt="">
+        <i class="fas fa-hard-drive"></i>
+        <span>Armazenamento</span>
+        <img class="alerta disco" src="styles/assets/icone/alerta.png" alt="">
       </a>
       <a href="dash-janela.html">
-          <i class="fas fa-window-restore"></i>
-          <span>Janela</span>
-          <img class="alerta janela" src="styles/assets/icone/alerta.png" alt="">
+        <i class="fas fa-window-restore"></i>
+        <span>Janela</span>
+        <img class="alerta janela" src="styles/assets/icone/alerta.png" alt="">
       </a>
       <a href="dash-contato.html">
-          <i class="fas fa-envelope"></i>
-          <span>Contato</span>
+        <i class="fas fa-envelope"></i>
+        <span>Contato</span>
       </a>
       <div class="saida">
-          <a onclick="sair()">
-              <i class="fas fa-right-from-bracket"></i>
-              <span>Sair</span>
-          </a>
+        <a onclick="sair()">
+          <i class="fas fa-right-from-bracket"></i>
+          <span>Sair</span>
+        </a>
       </div>
-  </div>
+    </div>
     <div class="container">
       <div class="conteudo-legenda">
-        <h1>ANÁLISE</h1>
+        <h1>LEGENDA</h1>
         <div class="hardware">
           <div class="box-hardware">
             <h3>Ideal</h3>
-            <p>Até: X</p>
+            <p>Até: <span id="cpu_ideal"></span>%</p>
             <div class="box-analytics" id="blue"></div>
           </div>
           <div class="linha-vertical"></div>
           <div class="box-hardware">
             <h3>Urgência</h3>
-            <p>De: X - Até: X</p>
+            <p>De: <span id="cpu_ideal2"></span>% - Até: <span id="cpu_urgencia"></span>%</p>
             <div class="box-analytics" id="yellow"></div>
           </div>
           <div class="linha-vertical"></div>
           <div class="box-hardware">
             <h3>Crítico</h3>
-            <p>De: X - Até: X</p>
+            <p>Acima de: <span id="cpu_urgencia2"></span>%</p>
             <div class="box-analytics" id="red"></div>
           </div>
         </div>
@@ -84,7 +84,7 @@
         <div class="primeiro-grafico box">
           <div class="graficos">
             <div>
-              <canvas id="myChart" style="height: 25vh; width: 35vw;"></canvas>
+              <canvas id="bar_mediaCpu" style="height: 25vh; width: 35vw;"></canvas>
             </div>
 
           </div>
@@ -116,24 +116,22 @@
               <h1>INFORMAÇÕES</h1>
             </div>
             <div class="info_dono">
-              <p><b>Nome:</b> Fernanda Caramico</p>
-              <p><b>Cargo:</b> Arquiteto de Edificações</p>
+              <p><b>Nome: </b><span id="nome_txt"></span> <span id="sobrenome_txt"></span></p>
             </div>
             <div class="info_maquina">
               <h1>Máquina</h1>
-              <p><b>Hostname:</b> FernandaCaramico</p>
-              <p><b>Marca:</b> Dell</p>
-              <p><b>Sistema Operacional:</b> Windows</p>
+              <p><b>Hostname: </b><span id="hostname_txt"></span></p>
+              <p><b>Sistema Operacional: </b><span id="so_txt"></span></p>
             </div>
             <div class="info_hardware">
               <h1>Hardware</h1>
               <h2>- Memória RAM</h2>
-              <p><b>Total:</b> 16GB</p>
+              <p><b>Total: </b><span id="totalRam_txt"></span>GB</p>
               <h2>- CPU</h2>
-              <p><b>Nome:</b> 10th Gen Intel(R) Core(TM) i7-10700F @ 2.90GHz</p>
+              <p><b>Nome: </b><span id="nomeCpu_txt"></span></p>
               <h2>- Disco Rígido</h2>
-              <p><b>Volume:</b> 1</p>
-              <p><b>Capacidade Total:</b> 1TB</p>
+              <p><b>Volume: </b><span id="volume_txt"></span></p>
+              <p><b>Capacidade Total:</b><span id="totalDisco_txt"></span></p>
             </div>
           </div>
         </div>
@@ -143,105 +141,293 @@
   </div>
   </div>
 </body>
-<!-- gráfico 1 -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  const ctx = document.getElementById('myChart');
+</html>
 
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo', 'Segunda', 'Terça'],
-      datasets: [{
-        label: '',
-        data: [12, 10, 3, 5, 9, 3, 1],
-        borderWidth: 1,
-        backgroundColor: ['rgba(255, 51, 70, 0.753)', 'rgba(241, 232, 70, 0.8)',
-          'rgba(0, 204, 255, 0.753)', 'rgba(0, 204, 255, 0.753)', 'rgba(241, 232, 70, 0.8)', 'rgba(0, 204, 255, 0.753)', 'rgba(0, 204, 255, 0.753)'],
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- legenda -->
+<script>
+  function informacoesLegenda() {
+    // var idMaquina = sessionStorage.idMaquina;
+    var idMaquina = 3;
+    fetch(`/dashboard/informacoesLegenda/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(resposta);
+          validacaoLegenda(resposta);
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+  var nivelCritico = 0;
+  var nivelUrgencia = 0;
+  var nivelIdeal = 0;
+
+  function validacaoLegenda(resposta) {
+    nivelCritico = resposta[0].nivelAlerta;
+    nivelIdeal = nivelCritico * 0.8;
+    nivelUrgencia = nivelCritico * 0.9;
+
+    cpu_ideal.innerHTML = nivelIdeal;
+    cpu_ideal2.innerHTML = nivelIdeal;
+    cpu_urgencia.innerHTML = nivelUrgencia;
+    cpu_urgencia2.innerHTML = nivelUrgencia;
+  }
+</script>
+
+<!-- média dos ultimos 7 dias da cpu -->
+<script>
+  function mediaUsoCpuSemanaVisaoGeral() {
+    // var idMaquina = sessionStorage.idMaquina;
+    var idMaquina = 3;
+    fetch(`/dashboard/mediaUsoCpuSemanaVisaoGeral/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(resposta);
+          validacaoSemana(resposta);
+          plotarGraficoSemanalCpuVisaoGeral(resposta);
+          diasCpuLimite();
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function plotarGraficoSemanalCpuVisaoGeral(resposta) {
+    //Média diária do uso da cpu dos últimos 7 dias
+    var diaSemana = [];
+    var mediaDia = [];
+    var cores = [];
+    for (let i = 0; i < resposta.length; i++) {
+      diaSemana.push(resposta[i].Semana);
+      mediaDia.push(resposta[i].Media);
+      if (resposta[i].Media > nivelUrgencia) {
+        diasCritico++;
+        cores.push('rgba(255, 51, 70, 0.753)');
+      } else if (resposta[i].Media > nivelIdeal) {
+        diasUrgencia++;
+        cores.push('rgba(241, 232, 70, 0.8)');
+      } else {
+        diasIdeal++;
+        cores.push('rgba(0, 204, 255, 0.753)');
       }
     }
-  });
-</script>
 
-<!-- gráfico 2 -->
-
-<script>
-  var cfg_analiseDiasDaSemana = {
-    type: 'doughnut',
-    data: {
-      labels: ['Ideal', 'Urgência', 'Crítico'],
-      datasets: [{
-        label: 'Dias',
-        backgroundColor: ['rgba(0, 204, 255, 0.753)', 'rgba(241, 232, 70, 0.8)', 'rgba(255, 51, 70, 0.753)'],
-        data: [2, 1, 3],
-        borderWidth: 0.75
-      }]
-    },
-    options: {
-      maintainAspectRatio: false,
-      circumference: 180,
-      rotation: -90,
-      cutout: 30
-    }
-  };
-</script>
-<script>      const dought_analiseDiasDaSemana = new Chart(
-    document.getElementById('dought_diasDaSemana'),
-    cfg_analiseDiasDaSemana
-  );
-</script>
-<!-- grafico 3 -->
-<script>
-  const ctx3 = document.getElementById('myChart3');
-
-  new Chart(ctx3, {
-    type: 'line',
-    data: {
-      labels: ['12:21:00', '12:21:30', '12:22:00', '12:22:30', '12:23:00', '12:23:30'],
-      datasets: [{
-        label: '',
-        data: [1, 6, 3, 1, 8, 10],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false
+    var cfg_mediaCpu = {
+      type: 'bar',
+      data: {
+        labels: diaSemana,
+        datasets: [{
+          label: '',
+          data: mediaDia,
+          borderWidth: 1,
+          backgroundColor: cores,
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false
+          }
         },
-        title: {
-          display: true,
-          position: 'bottom',
-          text: 'Uso da CPU em tempo real (a cada 30s)',
-          color: 'white',
-          padding: {
-            top: 40
-          },
-          font: {
-            weight: 'normal',
-            size: 18
+        scales: {
+          y: {
+            beginAtZero: true
           }
         }
-      },
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+      }
+    };
+
+    const bar_mediaSemanalCpu = new Chart(
+      document.getElementById('bar_mediaCpu'),
+      cfg_mediaCpu
+    );
+
+  }
+
+  function validacaoSemana(resposta) {
+    for (var i = 0; i < resposta.length; i++) {
+      if (resposta[i].Semana == "Monday") {
+        resposta[i].Semana = "Segunda"
+      } else if (resposta[i].Semana == "Tuesday") {
+        resposta[i].Semana = "Terça"
+      } else if (resposta[i].Semana == "Wednesday") {
+        resposta[i].Semana = "Quarta"
+      } else if (resposta[i].Semana == "Thursday") {
+        resposta[i].Semana = "Quinta"
+      } else if (resposta[i].Semana == "Friday") {
+        resposta[i].Semana = "Sexta"
+      } else if (resposta[i].Semana == "Saturday") {
+        resposta[i].Semana = "Sábado"
+      } else if (resposta[i].Semana == "Sunday") {
+        resposta[i].Semana = "Domingo"
       }
     }
-  });
+  }
 </script>
 
-</html>
+<!-- Dias que o uso da CPU ultrapassou o limite (por semana) -->
+<script>
+  var diasCritico = 0;
+  var diasUrgencia = 0;
+  var diasIdeal = 0;
+  var vt_dias = [];
+
+  function diasCpuLimite() {
+    vt_dias.push(diasIdeal);
+    vt_dias.push(diasUrgencia);
+    vt_dias.push(diasCritico);
+
+    var cfg_analiseDiasDaSemana = {
+      type: 'doughnut',
+      data: {
+        labels: ['Ideal', 'Urgência', 'Crítico'],
+        datasets: [{
+          label: 'Dias',
+          backgroundColor: ['rgba(0, 204, 255, 0.753)', 'rgba(241, 232, 70, 0.8)', 'rgba(255, 51, 70, 0.753)'],
+          data: vt_dias,
+          borderWidth: 0.75
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        circumference: 180,
+        rotation: -90,
+        cutout: 30
+      }
+    };
+
+    const dought_analiseDiasDaSemana = new Chart(
+      document.getElementById('dought_diasDaSemana'),
+      cfg_analiseDiasDaSemana
+    );
+  }
+
+</script>
+
+<!-- Uso da CPU em tempo real (a cada 30s) -->
+<script>
+  function cpuEmTempoReal() {
+    // var idMaquina = sessionStorage.idMaquina;
+    var idMaquina = 3;
+    fetch(`/dashboard/cpuEmTempoReal/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(resposta);
+          plotarGraficoCpuTempoReal(resposta);
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function plotarGraficoCpuTempoReal(resposta) {
+    var hora = [];
+    var log = [];
+
+    for (let i = 0; i < resposta.length; i++) {
+      hora.push(resposta[i].horario);
+      log.push(resposta[i].emUso);
+    }
+
+    var cfg_analiseCpuDiasDaSemana = {
+      type: 'line',
+      data: {
+        labels: hora,
+        datasets: [{
+          label: '',
+          data: log,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false
+          },
+          title: {
+            display: true,
+            position: 'bottom',
+            text: 'Uso da CPU em tempo real (a cada 30s)',
+            color: 'white',
+            padding: {
+              top: 40
+            },
+            font: {
+              weight: 'normal',
+              size: 18
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    const line_analiseDiasDaSemana = new Chart(
+      document.getElementById('myChart3'),
+      cfg_analiseCpuDiasDaSemana
+    );
+  }
+</script>
+
+<!-- informações do dono da máquina -->
+<script>
+  function informacoesDonoMaquina() {
+      // var idMaquina = sessionStorage.idMaquina;
+      var idMaquina = 3;
+      fetch(`/dashboard/informacoesDonoMaquina/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+          if (response.ok) {
+              response.json().then(function (resposta) {
+                  console.log(resposta);
+                  substituirTxt(resposta);
+              });
+          } else {
+              console.error('Nenhum dado encontrado ou erro na API');
+          }
+      })
+          .catch(function (error) {
+              console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+          });
+  }
+
+  var contador = 0;
+  var discoTotal = [];
+
+  function substituirTxt(resposta) {
+      nome_txt.innerHTML = resposta[0].nomeDono;
+      sobrenome_txt.innerHTML = resposta[0].sobrenomeDono;
+      hostname_txt.innerHTML = resposta[0].hostName;
+      so_txt.innerHTML = resposta[0].sistemaOperacional;
+      for (let i = 0; i < resposta.length; i++) {
+          if (resposta[i].nomeComponente == "Memória RAM") {
+              totalRam_txt.innerHTML = resposta[i].total;
+          } else if (resposta[i].nomeComponente == "Processador") {
+              nomeCpu_txt.innerHTML = resposta[i].modelo;
+          } else if (resposta[i].nomeComponente == "Disco Rígido") {
+              contador++;
+              discoTotal.push(" " + resposta[i].total + " GB");
+          }
+      }
+      volume_txt.innerHTML = contador;
+      totalDisco_txt.innerHTML = discoTotal;
+      console.log(discoTotal);
+  }
+</script>
