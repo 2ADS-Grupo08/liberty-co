@@ -120,19 +120,19 @@ function getIdMaquinaCadastrada(req, res) {
     var idGestor = req.params.idGestor;
 
     maquinaModel.getIdMaquinaCadastrada(idGestor)
-    .then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(
-        function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        }
-    );
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
 }
 
 function getDadosMaquina(req, res) {
@@ -196,6 +196,44 @@ function deletarMaquina(req, res) {
             }
         );
 }
+
+function getJanelasSeremEncerradas(req, res) {
+    var idMaquina = req.params.idMaquina;
+
+    maquinaModel.getJanelasSeremEncerradas(idMaquina)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function deletarJanela(req, res) {
+    var idJanela = req.params.idJanela;
+
+    maquinaModel.deletarJanela(idJanela)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     getIdMaquinaCadastrada,
     cadastrarMaquina,
@@ -204,5 +242,7 @@ module.exports = {
     listarMaquinasInativas,
     getDadosMaquina,
     editarMaquina,
-    deletarMaquina
+    deletarMaquina,
+    getJanelasSeremEncerradas,
+    deletarJanela
 }

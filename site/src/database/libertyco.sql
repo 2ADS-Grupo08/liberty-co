@@ -38,7 +38,7 @@ CREATE TABLE Maquina (
 	idMaquina INT PRIMARY KEY AUTO_INCREMENT,
     hostName VARCHAR(45),
     nomeDono VARCHAR(45),
-    ultimoNomeDono VARCHAR(45),
+    sobrenomeDono VARCHAR(45),
     sistemaOperacional VARCHAR(45),
     status BOOLEAN,	
     fkGestor INT, FOREIGN KEY (fkGestor) REFERENCES Gestor(idGestor)
