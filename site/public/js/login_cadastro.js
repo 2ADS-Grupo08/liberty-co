@@ -233,10 +233,10 @@ function entrarGestor() {
                 console.log(JSON.stringify(json));
 
                 sessionStorage.ID_GESTOR = json.idGestor;
-                sessionStorage.NOME = json.nome;
-                sessionStorage.ULTIMO_NOME = json.ultimoNome;
-                sessionStorage.CARGO = json.cargo;
                 sessionStorage.ID_EMPRESA = json.fkInstituicao;
+                sessionStorage.NOME = json.nome;
+                sessionStorage.ULTIMO_NOME = json.sobrenome;
+                sessionStorage.CARGO = json.cargo;
                 
                 setTimeout(function () {
                         window.location = "./cpu-registration.html";

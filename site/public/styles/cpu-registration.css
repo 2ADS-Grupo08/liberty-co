@@ -102,10 +102,12 @@
 }
 
 .list .container .computers .cardFooter {
+    width: 100%;
+    gap: 10px;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
 }
 
 .computers .monitor {

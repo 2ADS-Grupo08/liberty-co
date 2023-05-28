@@ -186,7 +186,7 @@ function listarMaquinas() {
                                     <small>${situacao}</small>
                                 </div>
                             </div>
-                            <div class="cardFooter">
+                            <div class="cardFooter" onclick="abrirDashboard(${resposta[i].idMaquina})">
                                 <img src="styles/assets/icone/monitor2.png" alt="">
                                 <span>ID: ${resposta[i].idMaquina}</span>
                                 <span>hostname: ${resposta[i].hostName}</span>
@@ -505,4 +505,11 @@ function deletarJanela(idJanela) {
             });
         }
     })
+}
+
+function abrirDashboard(idMaquina) {
+    sessionStorage.ID_MAQUINA = idMaquina;
+    setTimeout(function () {
+        window.location = "./dashboard.html";
+    }, 1000);
 }
