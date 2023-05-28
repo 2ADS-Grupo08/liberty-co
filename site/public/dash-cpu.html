@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 </head>
 
-<body onload="informacoesLegenda(), mediaUsoCpuSemanaVisaoGeral(), cpuEmTempoReal(), informacoesDonoMaquina()">
+<body onload="informacoesLegendaCpu(), mediaUsoCpuSemanaVisaoGeral(), cpuEmTempoReal(), informacoesDonoMaquina()">
   <div class="content">
     <div class="sidebar">
       <header>
@@ -147,10 +147,10 @@
 
 <!-- legenda -->
 <script>
-  function informacoesLegenda() {
+  function informacoesLegendaCpu() {
     // var idMaquina = sessionStorage.idMaquina;
     var idMaquina = 3;
-    fetch(`/dashboard/informacoesLegenda/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+    fetch(`/dashboard/informacoesLegendaCpu/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
           console.log(resposta);
