@@ -123,12 +123,12 @@ function atualizarFeed() {
     });
 }
 
-function editarGestor(idGestor, nomeGestor, ultimoNome, cargo, email, senha) {
+function editarGestor(idGestor, nomeGestor, ultimoNome, cargo, email, senha, status) {
     console.log(nomeGestor,
         ultimoNome,
         cargo,
         email,
-        senha)
+        senha, status)
 
     fetch(`/usuarios/editarGestor/${idGestor}`, {
         method: "PUT",
@@ -140,7 +140,8 @@ function editarGestor(idGestor, nomeGestor, ultimoNome, cargo, email, senha) {
             ultimoNomeServer: ultimoNome,
             cargoServer: cargo,
             emailServer: email,
-            senhaServer: senha
+            senhaServer: senha,
+            statusServer: status
         })
     })
     setTimeout(() => {
@@ -160,7 +161,14 @@ function getDadosGestor(idGestor) {
             resposta.json().then(function (resposta) {
                 // console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-
+                let situacao = null;
+                if (resposta[0].status == 1) {
+                    situacao = "Ativo"
+                    valor = "ativo"
+                } else if (resposta[0].status == 0) {
+                    situacao = "Inativo"
+                    valor = "inativo"
+                }
                 Swal.fire({
                     title: '<strong>Edição de Gestor</strong>',
                     html:
@@ -188,6 +196,14 @@ function getDadosGestor(idGestor) {
                                             <label for="senha">Senha</label>
                                             <input type="text" name="" id="senha" value="${resposta[0].senha}">
                                         </div>
+                                        <div class="input-label">
+                                        <label for="status">Status do monitoramento</label>
+                                            <select name="" id="status">
+                                                <option selected disabled value="${valor}">Situação: ${situacao}</option>
+                                                <option value="ativo">Ativo</option>
+                                                <option value="inativo">Inativo</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="computer-infos-right">
                                         <img class="monitor" src="styles/assets/icone/monitor2.png">
@@ -212,8 +228,10 @@ function getDadosGestor(idGestor) {
                         cargo = Swal.getPopup().querySelector('#cargo').value;
                         email = Swal.getPopup().querySelector('#email').value;
                         senha = Swal.getPopup().querySelector('#senha').value;
+                        status = Swal.getPopup().querySelector('#status').value;
 
-                        if (!nomeGestor || !ultimoNome || !cargo || !email || !senha) {
+
+                        if (!nomeGestor || !ultimoNome || !cargo || !email || !senha || !status) {
                             Swal.showValidationMessage(`Por favor, preencha todos os campos.`)
                         }
 
@@ -222,7 +240,8 @@ function getDadosGestor(idGestor) {
                             ultimoNome: ultimoNome,
                             cargo: cargo,
                             email: email,
-                            senha: senha
+                            senha: senha,
+                            status: status
                         }
                     },
                     preDeny: () => {
@@ -230,7 +249,7 @@ function getDadosGestor(idGestor) {
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        editarGestor(idGestor, nomeGestor, ultimoNome, cargo, email, senha);
+                        editarGestor(idGestor, nomeGestor, ultimoNome, cargo, email, senha, status);
                     }
                 });
             });

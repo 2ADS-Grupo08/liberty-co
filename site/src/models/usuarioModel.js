@@ -54,12 +54,12 @@ function cadastrarGestor(nomeGestor, ultimoNome, cargo, email, senha, status, id
     return database.executar(instrucao);
 }
 
-function editarGestor(novoNomeGestor, novoUltimoNome, novoCargo, novoEmail, novaSenha, idGestor) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novoNomeGestor, novoUltimoNome, novoCargo, novoEmail, novaSenha, idGestor);
+function editarGestor(novoNomeGestor, novoUltimoNome, novoCargo, novoEmail, novaSenha, novoStatus, idGestor) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novoNomeGestor, novoUltimoNome, novoCargo, novoEmail, novaSenha, novoStatus, idGestor);
     
 
     var instrucao = `
-        UPDATE Gestor SET nome = '${novoNomeGestor}', sobrenome = '${novoUltimoNome}', cargo = '${novoCargo}', email = '${novoEmail}', senha = ${novaSenha} WHERE idGestor = ${idGestor};
+        UPDATE Gestor SET nome = '${novoNomeGestor}', sobrenome = '${novoUltimoNome}', cargo = '${novoCargo}', email = '${novoEmail}', senha = ${novaSenha}, status = ${novoStatus} WHERE idGestor = ${idGestor};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
