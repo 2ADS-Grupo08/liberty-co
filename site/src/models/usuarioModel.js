@@ -41,25 +41,31 @@ function cadastrarEmpresa(razaoSoc, cnpj, email, cep, log, bairro, num, comp, se
     return database.executar(instrucao);
 }
 
-function cadastrarGestor(nomeGestor, ultimoNome, cargo, email, senha, status, idEmpresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nomeGestor, ultimoNome, cargo, email, senha, status, idEmpresa);
+function cadastrarGestor(nomeGestor, sobrenome, cargo, email, senha, status, idEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nomeGestor, sobrenome, cargo, email, senha, status, idEmpresa);
 
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
         INSERT INTO Gestor (nome, sobrenome, cargo, email, senha, status, fkInstituicao) VALUES (
-        '${nomeGestor}', '${ultimoNome}', '${cargo}', '${email}','${senha}', '${status}', '${idEmpresa}');
+        '${nomeGestor}', '${sobrenome}', '${cargo}', '${email}','${senha}', '${status}', '${idEmpresa}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function editarGestor(novoNomeGestor, novoUltimoNome, novoCargo, novoEmail, novaSenha, novoStatus, idGestor) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novoNomeGestor, novoUltimoNome, novoCargo, novoEmail, novaSenha, novoStatus, idGestor);
+function editarGestor(novoNomeGestor, novoSobrenome, novoCargo, novoEmail, novaSenha, novoStatus, idGestor) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novoNomeGestor, novoSobrenome, novoCargo, novoEmail, novaSenha, novoStatus, idGestor);
     
+    let atividade = null;
+    if (novoStatus == "ativo") {
+        atividade = 1
+    } else if (novoStatus == "inativo") {
+        atividade = 0
+    }
 
     var instrucao = `
-        UPDATE Gestor SET nome = '${novoNomeGestor}', sobrenome = '${novoUltimoNome}', cargo = '${novoCargo}', email = '${novoEmail}', senha = ${novaSenha}, status = ${novoStatus} WHERE idGestor = ${idGestor};
+        UPDATE Gestor SET nome = '${novoNomeGestor}', sobrenome = '${novoSobrenome}', cargo = '${novoCargo}', email = '${novoEmail}', senha = ${novaSenha}, status = ${atividade} WHERE idGestor = ${idGestor};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

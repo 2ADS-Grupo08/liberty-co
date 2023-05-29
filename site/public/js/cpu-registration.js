@@ -78,7 +78,7 @@ function cadastrarMaquina(processos) {
     var nomeDono = inp_nome_dono.value;
     var ultimoNomeDono = inp_ultimo_nome_dono.value;
     var sistemaOperacional = inp_SO.value;
-    var status = 1;
+    var statusVar = 1;
 
     if (hostName == "" || nomeDono == "" || ultimoNomeDono == "" || sistemaOperacional == "") {
         alert("Preencha todos os campos");
@@ -97,7 +97,7 @@ function cadastrarMaquina(processos) {
             nomeDonoServer: nomeDono,
             ultimoNomeDonoServer: ultimoNomeDono,
             sistemaOperacionalServer: sistemaOperacional,
-            statusServer: status
+            statusServer: statusVar
         })
     }).then(function (resposta) {
         console.log("resposta: ", resposta);

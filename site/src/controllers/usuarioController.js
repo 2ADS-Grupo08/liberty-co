@@ -159,16 +159,16 @@ function cadastrarGestor(req, res) {
     idEmpresa = req.params.idEmpresa;
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nomeGestor = req.body.nomeServer;
-    var ultimoNome = req.body.ultimoNomeServer;
+    var sobrenome = req.body.sobrenomeServer;
     var cargo = req.body.cargoServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var status = req.body.statusVar;
+    var status = req.body.statusServer;
 
     // Faça as validações dos valores
     if (nomeGestor == undefined) {
         res.status(400).send("o nome do gestor está undefined!");
-    } else if (ultimoNome == undefined) {
+    } else if (sobrenome == undefined) {
         res.status(400).send("Seu sobrenome está undefined!");
     } else if (cargo == undefined) {
         res.status(400).send("Seu cargo está undefined!");
@@ -181,7 +181,7 @@ function cadastrarGestor(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrarGestor(nomeGestor, ultimoNome, cargo, email, senha, status, idEmpresa)
+        usuarioModel.cadastrarGestor(nomeGestor, sobrenome, cargo, email, senha, status, idEmpresa)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -201,7 +201,7 @@ function cadastrarGestor(req, res) {
 
 function editarGestor(req, res) {
     var novoNomeGestor = req.body.nomeServer;
-    var novoUltimoNome = req.body.ultimoNomeServer;
+    var novoSobrenome = req.body.sobrenomeServer;
     var novoCargo = req.body.cargoServer;
     var novoEmail = req.body.emailServer;
     var novaSenha = req.body.senhaServer;
@@ -209,7 +209,7 @@ function editarGestor(req, res) {
     var idGestor = req.params.idGestor;
 
 
-    usuarioModel.editarGestor(novoNomeGestor, novoUltimoNome, novoCargo, novoEmail, novaSenha, novoStatus, idGestor)
+    usuarioModel.editarGestor(novoNomeGestor, novoSobrenome, novoCargo, novoEmail, novaSenha, novoStatus, idGestor)
         .then(
             function (resultado) {
                 res.json(resultado);

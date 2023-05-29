@@ -19,14 +19,14 @@ function cadastrarGestor() {
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
     var nomeVar = inp_nome.value;
-    var ultimoNomeVar = inp_ultimo_nome.value;
+    var sobrenomeVar = inp_ultimo_nome.value;
     var cargoVar = inp_cargo.value;
     var emailVar = inp_email.value;
     var senhaVar = inp_senha.value;
     var confirmacaoSenhaVar = inp_confirmacao.value;
     var statusVar = 1
 
-    if (nomeVar == "" || ultimoNomeVar == "" || cargoVar == "" || emailVar == "" || senhaVar == ""
+    if (nomeVar == "" || sobrenomeVar == "" || cargoVar == "" || emailVar == "" || senhaVar == ""
         || confirmacaoSenhaVar == "") {
         alert("Preencha todos os campos");
         return false;
@@ -42,7 +42,7 @@ function cadastrarGestor() {
             // crie um atributo que recebe o valor recuperado aqui
             // Agora vá para o arquivo routes/usuario.js
             nomeServer: nomeVar,
-            ultimoNomeServer: ultimoNomeVar,
+            sobrenomeServer: sobrenomeVar,
             cargoServer: cargoVar,
             emailServer: emailVar,
             senhaServer: senhaVar,
@@ -123,12 +123,13 @@ function atualizarFeed() {
     });
 }
 
-function editarGestor(idGestor, nomeGestor, ultimoNome, cargo, email, senha, status) {
+function editarGestor(idGestor, nomeGestor, sobrenome, cargo, email, senha, status) {
     console.log(nomeGestor,
-        ultimoNome,
+        sobrenome,
         cargo,
         email,
-        senha, status)
+        senha,
+        status)
 
     fetch(`/usuarios/editarGestor/${idGestor}`, {
         method: "PUT",
@@ -137,7 +138,7 @@ function editarGestor(idGestor, nomeGestor, ultimoNome, cargo, email, senha, sta
         },
         body: JSON.stringify({
             nomeServer: nomeGestor,
-            ultimoNomeServer: ultimoNome,
+            sobrenomeServer: sobrenome,
             cargoServer: cargo,
             emailServer: email,
             senhaServer: senha,
@@ -181,8 +182,8 @@ function getDadosGestor(idGestor) {
                                             <input type="text" name="" id="nomeGestor" value="${resposta[0].nome}">
                                         </div>
                                         <div class="input-label">
-                                            <label for="ultimoNome">Ultimo nome</label>
-                                            <input type="text" name="" id="ultimoNome" value="${resposta[0].sobrenome}">
+                                            <label for="sobrenome">Sobrenome</label>
+                                            <input type="text" name="" id="sobrenome" value="${resposta[0].sobrenome}">
                                         </div>
                                         <div class="input-label">
                                             <label for="cargo">Cargo</label>
@@ -224,20 +225,20 @@ function getDadosGestor(idGestor) {
                     cancelButtonText: 'Cancelar',
                     preConfirm: () => {
                         nomeGestor = Swal.getPopup().querySelector('#nomeGestor').value;
-                        ultimoNome = Swal.getPopup().querySelector('#ultimoNome').value;
+                        sobrenome = Swal.getPopup().querySelector('#sobrenome').value;
                         cargo = Swal.getPopup().querySelector('#cargo').value;
                         email = Swal.getPopup().querySelector('#email').value;
                         senha = Swal.getPopup().querySelector('#senha').value;
                         status = Swal.getPopup().querySelector('#status').value;
 
 
-                        if (!nomeGestor || !ultimoNome || !cargo || !email || !senha || !status) {
+                        if (!nomeGestor || !sobrenome || !cargo || !email || !senha || !status) {
                             Swal.showValidationMessage(`Por favor, preencha todos os campos.`)
                         }
 
                         return {
                             nomeGestor: nomeGestor,
-                            ultimoNome: ultimoNome,
+                            sobrenome: sobrenome,
                             cargo: cargo,
                             email: email,
                             senha: senha,
@@ -249,7 +250,7 @@ function getDadosGestor(idGestor) {
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        editarGestor(idGestor, nomeGestor, ultimoNome, cargo, email, senha, status);
+                        editarGestor(idGestor, nomeGestor, sobrenome, cargo, email, senha, status);
                     }
                 });
             });
