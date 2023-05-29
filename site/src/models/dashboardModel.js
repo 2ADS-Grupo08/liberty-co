@@ -172,7 +172,7 @@ function informacoesDonoMaquina(idMaquina) {
     return database.executar(instrucaoSql);
 }
 
-function informacoesLegenda(idMaquina) {
+function informacoesLegendaCpu(idMaquina) {
     instrucaoSql = '';
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
@@ -215,6 +215,27 @@ function cpuEmTempoReal(idMaquina) {
     return database.executar(instrucaoSql);
 }
 
+function informacoesLegendaRam(idMaquina) {
+    instrucaoSql = '';
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT 
+                            Componente.nomeComponente, 
+                            Componente.total, 
+                            NivelAlerta.nivelAlerta 
+                        FROM Componente JOIN NivelAlerta ON
+                            idComponente = fkComponente
+                        WHERE Componente.fkMaquina = ${idMaquina}
+                        AND Componente.nomeComponente = 'Memória RAM';`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     medidaIdealComponentes,
     espacoDisponivelComponentesVisaoGeral,
@@ -223,6 +244,7 @@ module.exports = {
     mediaUsoRamSemanaVisaoGeral,
     mediaUsoCpuSemanaVisaoGeral,
     informacoesDonoMaquina,
-    informacoesLegenda,
-    cpuEmTempoReal
+    informacoesLegendaCpu,
+    cpuEmTempoReal,
+    informacoesLegendaRam
 }

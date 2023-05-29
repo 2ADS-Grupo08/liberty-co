@@ -31,12 +31,16 @@ router.get("/informacoesDonoMaquina/:idMaquina", function (req,res){
     dashboardController.informacoesDonoMaquina(req, res)
 });
 
-router.get("/informacoesLegenda/:idMaquina", function (req,res){
-    dashboardController.informacoesLegenda(req, res)
+router.get("/informacoesLegendaCpu/:idMaquina", function (req,res){
+    dashboardController.informacoesLegendaCpu(req, res)
 });
 
 router.get("/cpuEmTempoReal/:idMaquina", function (req,res){
     dashboardController.cpuEmTempoReal(req, res)
+});
+
+router.get("/informacoesLegendaRam/:idMaquina", function (req,res){
+    dashboardController.informacoesLegendaRam(req, res)
 });
 
 module.exports = router;
