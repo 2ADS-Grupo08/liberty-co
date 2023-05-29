@@ -205,10 +205,11 @@ function editarGestor(req, res) {
     var novoCargo = req.body.cargoServer;
     var novoEmail = req.body.emailServer;
     var novaSenha = req.body.senhaServer;
+    var novoStatus = req.body.statusServer;
     var idGestor = req.params.idGestor;
 
 
-    usuarioModel.editarGestor(novoNomeGestor, novoUltimoNome, novoCargo, novoEmail, novaSenha, idGestor)
+    usuarioModel.editarGestor(novoNomeGestor, novoUltimoNome, novoCargo, novoEmail, novaSenha, novoStatus, idGestor)
         .then(
             function (resultado) {
                 res.json(resultado);
