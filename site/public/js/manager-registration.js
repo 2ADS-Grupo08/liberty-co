@@ -73,7 +73,7 @@ function atualizarFeed() {
     fetch(`/usuarios/listarGestores/${idEmpresa}`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
-                throw "Nenhum resultado encontrado!!";
+                throw "Nenhum resultado encontrados!!";
             }
             resposta.json().then(function (resposta) {
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
@@ -123,7 +123,11 @@ function atualizarFeed() {
     });
 }
 
+<<<<<<< HEAD
 function editarGestor(idGestor, nomeGestor, sobrenome, cargo, email, senha, status) {
+=======
+function editarGestor(idGestor, nomeGestor, ultimoNome, cargo, email, senha, status) {
+>>>>>>> 83814d98fef8dab752bd12d2fff62173e8e21adf
     console.log(nomeGestor,
         sobrenome,
         cargo,
@@ -231,8 +235,12 @@ function getDadosGestor(idGestor) {
                         senha = Swal.getPopup().querySelector('#senha').value;
                         status = Swal.getPopup().querySelector('#status').value;
 
+<<<<<<< HEAD
 
                         if (!nomeGestor || !sobrenome || !cargo || !email || !senha || !status) {
+=======
+                        if (!nomeGestor || !ultimoNome || !cargo || !email || !senha || !status) {
+>>>>>>> 83814d98fef8dab752bd12d2fff62173e8e21adf
                             Swal.showValidationMessage(`Por favor, preencha todos os campos.`)
                         }
 
@@ -250,7 +258,11 @@ function getDadosGestor(idGestor) {
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
+<<<<<<< HEAD
                         editarGestor(idGestor, nomeGestor, sobrenome, cargo, email, senha, status);
+=======
+                        editarGestor(idGestor, nomeGestor, ultimoNome, cargo, email, senha, status);
+>>>>>>> 83814d98fef8dab752bd12d2fff62173e8e21adf
                     }
                 });
             });
