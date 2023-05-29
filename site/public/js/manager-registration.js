@@ -24,6 +24,7 @@ function cadastrarGestor() {
     var emailVar = inp_email.value;
     var senhaVar = inp_senha.value;
     var confirmacaoSenhaVar = inp_confirmacao.value;
+    var statusVar = 1
 
     if (nomeVar == "" || ultimoNomeVar == "" || cargoVar == "" || emailVar == "" || senhaVar == ""
         || confirmacaoSenhaVar == "") {
@@ -44,7 +45,8 @@ function cadastrarGestor() {
             ultimoNomeServer: ultimoNomeVar,
             cargoServer: cargoVar,
             emailServer: emailVar,
-            senhaServer: senhaVar
+            senhaServer: senhaVar,
+            statusServer: statusVar
         })
     }).then(function (resposta) {
 
@@ -67,7 +69,6 @@ function cadastrarGestor() {
 
 function atualizarFeed() {
     let idEmpresa = sessionStorage.ID_EMPRESA
-
     //aguardar();
     fetch(`/usuarios/listarGestores/${idEmpresa}`).then(function (resposta) {
         if (resposta.ok) {
@@ -76,7 +77,6 @@ function atualizarFeed() {
             }
             resposta.json().then(function (resposta) {
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
-
                 managers.innerHTML = `
                     <thead class="manager">
                         <tr class="infos manager">
@@ -84,11 +84,20 @@ function atualizarFeed() {
                             <th>Nome</th>
                             <th>E-mail</th>
                             <th>Cargo</th>
+                            <th>Status</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     `
                 for (let i = 0; i < resposta.length; i++) {
+                    let situacao = null;
+                    if (resposta[i].status == 1) {
+                        situacao = "Ativo"
+                        valor = "ativo"
+                    } else if (resposta[i].status == 0) {
+                        situacao = "Inativo"
+                        valor = "inativo"
+                    }
                     managers.innerHTML += `
                                 <tbody class="manager">
                                     <tr class="infos manager">
@@ -96,6 +105,7 @@ function atualizarFeed() {
                                         <td>${resposta[i].nome} ${resposta[i].sobrenome}</td>
                                         <td>${resposta[i].email}</td>
                                         <td>${resposta[i].cargo}</td>
+                                        <td>${situacao}</td>
                                         <td class="actions">
                                             <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosGestor(${resposta[i].idGestor})" alt="">
                                             <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="teste()"alt="">
@@ -231,4 +241,3 @@ function getDadosGestor(idGestor) {
         console.error(resposta);
     });
 }
-

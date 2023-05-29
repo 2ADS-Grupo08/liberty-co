@@ -41,14 +41,14 @@ function cadastrarEmpresa(razaoSoc, cnpj, email, cep, log, bairro, num, comp, se
     return database.executar(instrucao);
 }
 
-function cadastrarGestor(nomeGestor, ultimoNome, cargo, email, senha, idEmpresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nomeGestor, ultimoNome, cargo, email, senha, idEmpresa);
+function cadastrarGestor(nomeGestor, ultimoNome, cargo, email, senha, status, idEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nomeGestor, ultimoNome, cargo, email, senha, status, idEmpresa);
 
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO Gestor (nome, sobrenome, cargo, email, senha, fkInstituicao) VALUES (
-        '${nomeGestor}', '${ultimoNome}', '${cargo}', '${email}','${senha}', '${idEmpresa}');
+        INSERT INTO Gestor (nome, sobrenome, cargo, email, senha, status, fkInstituicao) VALUES (
+        '${nomeGestor}', '${ultimoNome}', '${cargo}', '${email}','${senha}', '${status}', '${idEmpresa}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

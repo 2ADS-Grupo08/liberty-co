@@ -163,6 +163,7 @@ function cadastrarGestor(req, res) {
     var cargo = req.body.cargoServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
+    var status = req.body.statusVar;
 
     // Faça as validações dos valores
     if (nomeGestor == undefined) {
@@ -175,10 +176,12 @@ function cadastrarGestor(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
+    } else if (status == undefined) {
+        res.status(400).send("Seu status está undefined!");
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrarGestor(nomeGestor, ultimoNome, cargo, email, senha, idEmpresa)
+        usuarioModel.cadastrarGestor(nomeGestor, ultimoNome, cargo, email, senha, status, idEmpresa)
             .then(
                 function (resultado) {
                     res.json(resultado);
