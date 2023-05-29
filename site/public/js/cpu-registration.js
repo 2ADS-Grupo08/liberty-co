@@ -161,7 +161,7 @@ function cadastrarProcessosSeremEncerrados(processos, idMaquina) {
     return false;
 }
 
-function listarMaquinas() {
+function listarMaquinas(json) {
     computers.innerHTML = "";
     document.getElementById("listarMaquinasId").style.display = "none";
     document.getElementById("listarMaquinasInativasId").style.display = "flex";
@@ -176,11 +176,31 @@ function listarMaquinas() {
             }
             resposta.json().then(function (resposta) {
                 for (let i = 0; i < resposta.length; i++) {
+
+                    // alert(`maquina ${resposta[i].idMaquina} com ${json[i].QtdComponentes} erros`);
+                    if (resposta[i].idMaquina == json[i].fkMaquina) {
+                        if (resposta[i].idMaquina == json[i].fkMaquina && json[i].QtdComponentes == 1) {
+                            alert(`maquina ${resposta[i].idMaquina} com ${json[i].QtdComponentes} erros`);
+
+                        } else if (resposta[i].idMaquina == json[i].fkMaquina && json[i].QtdComponentes == 2) {
+                            alert(`maquina ${resposta[i].idMaquina} com ${json[i].QtdComponentes} erros`);
+
+                        } else {
+                            alert(`maquina ${resposta[i].idMaquina} com ${json[i].QtdComponentes} erros`);
+                            // construirMaquina()
+                        }
+                    } else {
+                        alert("sem erros");
+                    }
+
                     computers.innerHTML += `
                         <div class="computer" id="computer">
                             <div class="cardHeader">
                                 <div class="actions">
                                     <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
+                                </div>
+                                <div class="actions">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/OOjs_UI_icon_alert-yellow.svg/800px-OOjs_UI_icon_alert-yellow.svg.png?20190809012623" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
                                 </div>
                                 <div class="activity" id="activity" style="color: ${color};">
                                     <small>${situacao}</small>
@@ -201,11 +221,33 @@ function listarMaquinas() {
     }).catch(function (resposta) {
         console.error(resposta);
         computers.innerHTML +=
-            `
+        `
             <div class="title">
                 <h1>NENHUMA MÁQUINA ATIVA</h1>
             </div>
         `
+    });
+}
+
+function listarAlertas() {
+    fetch(`/maquinas/listarAlertas/`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }).then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            resposta.json().then((json) => {
+                console.log(JSON.stringify(json));
+                listarMaquinas(json);
+            });
+        } else {
+            throw "Houve um erro ao tentar realizar a listagem!";
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
     });
 }
 
@@ -459,13 +501,13 @@ function getJanelasSeremEncerradas(idMaquina) {
                     confirmButtonText: 'Adicionar a lista',
                 });
                 for (let index = 0; index < resposta.length; index++) {
-                    document.getElementById("saved-executables").innerHTML +=`
+                    document.getElementById("saved-executables").innerHTML += `
                         <li id="saved-executable" class="saved-executable">
                             ${resposta[index].nomeJanela}
                             <div class="actions">
                                 <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="deletarJanela(${resposta[index].idJanela})" alt="">
                             </div>
-                        </li>`;                    
+                        </li>`;
                 }
             });
         } else {

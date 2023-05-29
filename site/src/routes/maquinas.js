@@ -39,6 +39,9 @@ router.get("/getJanelasSeremEncerradas/:idMaquina", function (req, res) {
     maquinaController.getJanelasSeremEncerradas(req, res);
 });
 
+router.get("/listarAlertas/", function (req, res) {
+    maquinaController.listarAlertas(req, res);
+});
 
 router.delete("/deletarJanela/:idJanela", function (req, res) {
     maquinaController.deletarJanela(req, res);
