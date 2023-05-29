@@ -73,7 +73,7 @@ function atualizarFeed() {
     fetch(`/usuarios/listarGestores/${idEmpresa}`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
-                throw "Nenhum resultado encontrado!!";
+                throw "Nenhum resultado encontrados!!";
             }
             resposta.json().then(function (resposta) {
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
