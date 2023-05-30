@@ -207,7 +207,7 @@ function getDadosGestor(idGestor) {
                                         </div>
                                     </div>
                                     <div class="computer-infos-right">
-                                        <img class="monitor" src="styles/assets/icone/monitor2.png">
+                                        <img class="monitor" src="styles/assets/icone/Gestor.png" width="200">
                                         <span>ID da Máquina: </span><span id="idMaquina">${resposta[0].idGestor}</span>
                                     </div>
                                 </div>
