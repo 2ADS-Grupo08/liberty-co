@@ -209,11 +209,7 @@ function editarGestor(req, res) {
     var idGestor = req.params.idGestor;
 
 
-<<<<<<< HEAD
     usuarioModel.editarGestor(novoNomeGestor, novoSobrenome, novoCargo, novoEmail, novaSenha, novoStatus, idGestor)
-=======
-    usuarioModel.editarGestor(novoNomeGestor, novoUltimoNome, novoCargo, novoEmail, novaSenha, novoStatus, idGestor)
->>>>>>> 83814d98fef8dab752bd12d2fff62173e8e21adf
         .then(
             function (resultado) {
                 res.json(resultado);
