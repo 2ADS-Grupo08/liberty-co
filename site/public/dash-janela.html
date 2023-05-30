@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/style-dashboard.css">
+    <link rel="stylesheet" href="styles/style-dash-janela.css">
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="shortcut icon" href="styles/assets/logo/logo.png" type="image/jpg" href="/favicon.jpg" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -61,103 +61,18 @@
             </div>
         </div>
         <div class="container">
-            <div class="box-legenda">
-                <div class="conteudo-legenda">
-                    <h1>MEDIDAS IDEAIS</h1>
-                    <div class="hardware">
-                        <div class="box-hardware">
-                            <h3>Disco Rígido</h3>
-                            <p>Até: <span id="discoIdeal"></span>GB</p>
-                        </div>
-                        <div class="linha-vertical"></div>
-                        <div class="box-hardware">
-                            <h3>Memória RAM</h3>
-                            <p>Até: <span id="ramIdeal"></span>GB</p>
-                        </div>
-                        <div class="linha-vertical"></div>
-                        <div class="box-hardware">
-                            <h3>CPU</h3>
-                            <p>Até: <span id="cpuIdeal"></span>GHz</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="box">
+                
             </div>
-            <div class="box-container">
-                <div class="box-texto">
-                    <h2>Espaço disponível:</h2>
-                    <h3>193,5<b>GB</b></h3>
-                    <p>Informação do Disco</p>
-                </div>
-                <div class="box">
-                    <div class="graficos">
-                        <canvas id="barras_media3dias" style="width: 20vw; height: 15vh;"></canvas>
-                    </div>
-                    <div class="legenda">
-                        <p>Uso da memória RAM dos últimos 3 dias</p>
-                    </div>
-                </div>
-                <div class="box-terceiro">
-                    <div class="graficos">
-                        <canvas id="dought_diasDaSemana" style="width: 20vw; height: 15vh;"></canvas>
-                    </div>
-                    <div class="legenda">
-                        <p>Dias em que a CPU atingiu o limite estipulado<br>
-                            (por semana)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="parte2">
-                <div class="box-graficos2">
-                    <div class="box-container2">
-                        <div class="semanal">
-                            <div class="graficos">
-                                <canvas id="line_mediaRam" style="height: 25vh; width: 30vw;"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-container2">
-                        <div class="semanal">
-                            <div>
-                                <canvas id="line_mediaCpu" style="height: 25vh; width: 30vw;"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="listaDados">
-                    <div class="conteudo">
-                        <div class="titulo">
-                            <h1>INFORMAÇÕES</h1>
-                        </div>
-                        <div class="info_dono">
-                            <p><b>Nome:</b> Fernanda Caramico</p>
-                            <p><b>Cargo:</b> Arquiteto de Edificações</p>
-                        </div>
-                        <div class="info_maquina">
-                            <h1>Máquina</h1>
-                            <p><b>Hostname:</b> FernandaCaramico</p>
-                            <p><b>Marca:</b> Dell</p>
-                            <p><b>Sistema Operacional:</b> Windows</p>
-                        </div>
-                        <div class="info_hardware">
-                            <h1>Hardware</h1>
-                            <h2>- Memória RAM</h2>
-                            <p><b>Total:</b> 16GB</p>
-                            <h2>- CPU</h2>
-                            <p><b>Nome:</b> 10th Gen Intel(R) Core(TM) i7-10700F @ 2.90GHz</p>
-                            <h2>- Disco Rígido</h2>
-                            <p><b>Volume:</b> 1</p>
-                            <p><b>Capacidade Total:</b> 1TB</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="box">
+                
             </div>
         </div>
 
 
-    </div>
-
 
     </div>
+   
 </body>
 
 </html>
@@ -307,7 +222,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire(
-                    
+
                 )
             }
         })
