@@ -108,7 +108,6 @@ function atualizarFeed() {
                                         <td>${situacao}</td>
                                         <td class="actions">
                                             <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosGestor(${resposta[i].idGestor})" alt="">
-                                            <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="teste()"alt="">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -173,10 +172,11 @@ function getDadosGestor(idGestor) {
                 Swal.fire({
                     title: '<strong>Edição de Gestor</strong>',
                     html:
-                        ` <div class="edit-gestor">
+                        
+                        ` <div class="edit-computer">
                             <div class="container">
                                 <div class="edit-body">
-                                    <div class="gestor-infos-left">
+                                    <div class="computer-infos-left">
                                         <div class="input-label">
                                             <label for="nomeGestor">Primeiro nome</label>
                                             <input type="text" name="" id="nomeGestor" value="${resposta[0].nome}">
@@ -187,7 +187,7 @@ function getDadosGestor(idGestor) {
                                         </div>
                                         <div class="input-label">
                                             <label for="cargo">Cargo</label>
-                                            <input type="text" name="" id="cargo" value="${resposta[0].cargo}">
+                                            <input type="text" cargo="" id="cargo" value="${resposta[0].cargo}">
                                         </div>
                                         <div class="input-label">
                                             <label for="Email">Email</label>
@@ -208,7 +208,7 @@ function getDadosGestor(idGestor) {
                                     </div>
                                     <div class="computer-infos-right">
                                         <img class="monitor" src="styles/assets/icone/monitor2.png">
-                                        <span>ID do Gestor: </span><span id="idGestor">${resposta[0].idGestor}</span>
+                                        <span>ID da Máquina: </span><span id="idMaquina">${resposta[0].idGestor}</span>
                                     </div>
                                 </div>
                             </div>

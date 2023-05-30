@@ -189,3 +189,333 @@
         opacity: 1;
     }
 }
+
+.actions .edit-pencil {
+    background: teal;
+}
+
+.actions .trash {
+    background: firebrick;
+}
+
+.metrics {
+    width: 70vw;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: #041727 0px 0px 5px 0px;
+    background-color: #D7E6F2;
+}
+
+.metrics .container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.metrics .container .alert {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.metrics .container .alert img {
+    width: 50px;
+}
+
+.list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: large;
+}
+
+.list .container .computers {
+    height: 70vh;
+    width: 100%;
+    padding: 10px;
+    gap: 30px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: space-around;
+    overflow: auto;
+}
+
+.list .container .computers .computer {
+    box-shadow: #041727 0px 0px 5px 0px;
+    padding: 10px;
+    gap: 10px;
+    width: 20vw;
+    background-color: #D7E6F2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.list .container .computers .cardHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 0px 5px 0px;
+    align-items: center;
+    border-bottom: solid 1px black;
+}
+
+.list .container .computers .actions {
+    display: flex;
+    gap: 10px;
+}
+
+.list .container .computers .actions img {
+    width: 26px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.list .container .computers .activity {
+    color: #019710;
+}
+
+.list .container .computers .cardFooter {
+    width: 100%;
+    gap: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.computers .exclamation {
+    position: relative;
+    top: -18vh;
+}
+
+.computer small {
+    font-weight: 700;
+}
+
+.popup {
+    font-family: 'Montserrat';
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: black;
+}
+
+.popup_conteudo {
+    border-radius: 10px;
+    background-color: white;
+    margin: 5% auto;
+    width: 50%;
+    height: 70%;
+    box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.17), 0px 7px 20px 0 rgba(0, 0, 0, 0.17);
+    animation-name: abrindoPopup;
+    animation-duration: 0.5s;
+}
+
+.popup_fechar {
+    position: absolute;
+    top: 6vw;
+    right: 27vw;
+    color: black;
+    font-size: 40px;
+    transition: 0.1s;
+}
+
+.popup_fechar:hover {
+    color: #061F36;
+    cursor: pointer;
+    transition: 0.1s;
+    text-decoration: none;
+}
+
+.telaCadastro {
+    margin: 0;
+    display: flex;
+    height: 100%;
+}
+
+.formularioCadastro {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.formularioCadastro p,
+.formularioLogin p {
+    font-size: 12px;
+    display: block;
+}
+
+.formularioCadastro h1 {
+    font-family: 'Share Tech';
+    font-weight: 500;
+    font-size: 2rem;
+    text-align: center;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.inputCadastro {
+    width: 100%;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+}
+
+.formularioCadastro input {
+    width: 80%;
+    padding: 15px;
+    font-size: 15px;
+    color: black;
+    background-color: #E7E7E7;
+    border: none;
+    border-radius: 10px;
+}
+
+.conteudoCadastro {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.conteudoCadastro p {
+    margin-top: 20px;
+}
+
+.conteudoCadastro a {
+    color: black;
+    cursor: pointer;
+}
+
+.botaoCadastrar {
+    font-family: "Montserrat";
+    background-color: #00d9ff;
+    font-size: 20px;
+    border: none;
+    width: 170px;
+    height: 45px;
+    border-radius: 10px;
+    transition: 0.25s;
+}
+
+.botaoCadastrar:hover {
+    background-color: #008cff;
+    transition: 0.25s;
+    box-shadow: 0px 1px 5px black;
+    cursor: pointer;
+}
+
+#clique_login:hover {
+    cursor: pointer;
+}
+
+@keyframes abrindoPopup {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.executables {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    padding: 20px;
+}
+
+.executables .executable {
+    border-bottom: solid 1px black;
+    width: 100%;
+}
+
+.edit-computer .edit-body {
+    display: flex;
+    justify-content: space-around;
+}
+
+.edit-computer .edit-body .computer-infos-left {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 15px;
+    text-align: justify;
+}
+
+.edit-computer .computer-infos-left .input-label {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.edit-computer .edit-body .computer-infos-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+input {
+    padding: 10px;
+    font-size: 15px;
+    color: black;
+    background-color: #E7E7E7;
+    border: none;
+    border-radius: 10px;
+}
+
+.edit-computer select {
+    padding: 10px;
+    font-size: 15px;
+    color: black;
+    background-color: #E7E7E7;
+    border: none;
+    border-radius: 10px;
+}
+
+.saved-executables {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 20px;
+}
+
+.saved-executables .saved-executable {
+    border-bottom: solid 1px black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    width: 40%;
+}
+
+.saved-executable .actions img {
+    width: 15px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
