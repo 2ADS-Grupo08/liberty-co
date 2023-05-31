@@ -161,7 +161,7 @@ function cadastrarProcessosSeremEncerrados(processos, idMaquina) {
     return false;
 }
 
-function listarMaquinas(json) {
+function listarMaquinas() {
     computers.innerHTML = "";
     document.getElementById("listarMaquinasId").style.display = "none";
     document.getElementById("listarMaquinasInativasId").style.display = "flex";
@@ -175,25 +175,10 @@ function listarMaquinas(json) {
                 throw "Nenhum resultado encontrado!!";
             }
             resposta.json().then(function (resposta) {
+                console.log(resposta);
                 for (let i = 0; i < resposta.length; i++) {
-
-                    // alert(`maquina ${resposta[i].idMaquina} com ${json[i].QtdComponentes} erros`);
-                    if (resposta[i].idMaquina == json[i].fkMaquina) {
-                        if (resposta[i].idMaquina == json[i].fkMaquina && json[i].QtdComponentes == 1) {
-                            alert(`maquina ${resposta[i].idMaquina} com ${json[i].QtdComponentes} erros`);
-
-                        } else if (resposta[i].idMaquina == json[i].fkMaquina && json[i].QtdComponentes == 2) {
-                            alert(`maquina ${resposta[i].idMaquina} com ${json[i].QtdComponentes} erros`);
-
-                        } else {
-                            alert(`maquina ${resposta[i].idMaquina} com ${json[i].QtdComponentes} erros`);
-                            // construirMaquina()
-                        }
-                    } else {
-                        alert("sem erros");
-                    }
-
-                    computers.innerHTML += `
+                    if (resposta[i].QtdComponentes == 1) {
+                        computers.innerHTML += `
                         <div class="computer" id="computer">
                             <div class="cardHeader">
                                 <div class="actions">
@@ -213,6 +198,55 @@ function listarMaquinas(json) {
                             </div>
                         </div>
                     `;
+                    } else if (resposta[i].QtdComponentes == 2) {
+                        
+                        computers.innerHTML += `
+                        <div class="computer" id="computer">
+                            <div class="cardHeader">
+                                <div class="actions">
+                                    <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
+                                </div>
+                                <div class="actions">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/OOjs_UI_icon_alert-warning.svg/800px-OOjs_UI_icon_alert-warning.svg.png?20180610093752" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
+                                </div>
+                                <div class="activity" id="activity" style="color: ${color};">
+                                    <small>${situacao}</small>
+                                </div>
+                            </div>
+                            <div class="cardFooter" onclick="abrirDashboard(${resposta[i].idMaquina})">
+                                <img src="styles/assets/icone/monitor2.png" alt="">
+                                <span>ID: ${resposta[i].idMaquina}</span>
+                                <span>hostname: ${resposta[i].hostName}</span>
+                            </div>
+                        </div>
+                    `;
+                    } else {
+                        
+                        computers.innerHTML += `
+                        <div class="computer" id="computer">
+                            <div class="cardHeader">
+                                <div class="actions">
+                                    <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
+                                </div>
+                                <div class="actions">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/OOjs_UI_icon_alert-destructive.svg/800px-OOjs_UI_icon_alert-destructive.svg.png?20190810063048
+                                    
+                                    
+                                    
+                                    " class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
+                                </div>
+                                <div class="activity" id="activity" style="color: ${color};">
+                                    <small>${situacao}</small>
+                                </div>
+                            </div>
+                            <div class="cardFooter" onclick="abrirDashboard(${resposta[i].idMaquina})">
+                                <img src="styles/assets/icone/monitor2.png" alt="">
+                                <span>ID: ${resposta[i].idMaquina}</span>
+                                <span>hostname: ${resposta[i].hostName}</span>
+                            </div>
+                        </div>
+                    `;
+                    }
                 }
             });
         } else {
@@ -226,28 +260,6 @@ function listarMaquinas(json) {
                 <h1>NENHUMA MÁQUINA ATIVA</h1>
             </div>
         `
-    });
-}
-
-function listarAlertas() {
-    fetch(`/maquinas/listarAlertas/`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    }).then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-            resposta.json().then((json) => {
-                console.log(JSON.stringify(json));
-                listarMaquinas(json);
-            });
-        } else {
-            throw "Houve um erro ao tentar realizar a listagem!";
-        }
-    }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
     });
 }
 
