@@ -36,23 +36,20 @@ function getIdMaquinaCadastrada(idGestor) {
 function listarMaquinas(idGestor) {
     console.log("ACESSEI O MAQUINA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucao = `
-    SELECT m.*, c.QtdComponentes
-        FROM Maquina m 
-        JOIN (
+        SELECT m.*, c.QtdComponentes
+        FROM Maquina m
+        LEFT JOIN (
             SELECT c.fkMaquina, COUNT(DISTINCT c.idComponente) AS QtdComponentes
-            FROM Componente c 
-            WHERE EXISTS (
-                SELECT 1
-                FROM Log l
-                JOIN NivelAlerta na ON l.fkComponente = na.fkComponente
-                WHERE l.fkComponente = c.idComponente
-                    AND l.emUso > (na.nivelAlerta * c.total / 100) * 0.8
-                    AND l.momentoCaptura >= DATEADD(DAY, -10, GETDATE()
-            )
-        ) GROUP BY c.fkMaquina
-    ) c ON m.idMaquina = c.fkMaquina
-    WHERE m.fkGestor = ${idGestor}
-        AND m.STATUS = 1;
+            FROM Componente c
+            JOIN Log l ON l.fkComponente = c.idComponente
+            JOIN NivelAlerta na ON na.fkComponente = c.idComponente
+            WHERE l.emUso > (na.nivelAlerta * c.total / 100) * 0.8
+                AND l.momentoCaptura >= DATEADD(DAY, -10, GETDATE())
+            GROUP BY c.fkMaquina
+        ) c ON m.idMaquina = c.fkMaquina
+        WHERE m.fkGestor = ${idGestor}
+            AND m.STATUS = 1
+        ORDER BY c.QtdComponentes DESC;    
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -78,7 +75,7 @@ function getDadosMaquina(idMaquina) {
 
 function editarMaquina(novoHostName, novoNomeDono, novoUltimoNomeDono, novoSO, novoStatus, idMaquina) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novoHostName, novoNomeDono, novoUltimoNomeDono, novoSO, novoStatus, idMaquina);
-    
+
     let atividade = null;
     if (novoStatus == "ativo") {
         atividade = 1
@@ -111,7 +108,7 @@ function getJanelasSeremEncerradas(idMaquina) {
     return database.executar(instrucao);
 }
 
-function deletarJanela(idJanela){
+function deletarJanela(idJanela) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletarJanela():", idJanela);
     var instrucao = `
         DELETE FROM Janela WHERE idJanela = ${idJanela};

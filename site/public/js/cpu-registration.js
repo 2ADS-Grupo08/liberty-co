@@ -165,9 +165,8 @@ function listarMaquinas() {
     computers.innerHTML = "";
     document.getElementById("listarMaquinasId").style.display = "none";
     document.getElementById("listarMaquinasInativasId").style.display = "flex";
-    let idGestor = sessionStorage.ID_GESTOR;
-    let situacao = "Ativo";
-    let color = "green";
+    var idGestor = sessionStorage.ID_GESTOR;
+    var situacao = "Ativo";
     //aguardar();
     fetch(`/maquinas/listarMaquinas/${idGestor}`).then(function (resposta) {
         if (resposta.ok) {
@@ -177,75 +176,23 @@ function listarMaquinas() {
             resposta.json().then(function (resposta) {
                 console.log(resposta);
                 for (let i = 0; i < resposta.length; i++) {
+                    var nivelAlerta = null;
+                    var corAlerta = null;
                     if (resposta[i].QtdComponentes == 1) {
-                        computers.innerHTML += `
-                        <div class="computer" id="computer">
-                            <div class="cardHeader">
-                                <div class="actions">
-                                    <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
-                                </div>
-                                <div class="actions">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/OOjs_UI_icon_alert-yellow.svg/800px-OOjs_UI_icon_alert-yellow.svg.png?20190809012623" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
-                                </div>
-                                <div class="activity" id="activity" style="color: ${color};">
-                                    <small>${situacao}</small>
-                                </div>
-                            </div>
-                            <div class="cardFooter" onclick="abrirDashboard(${resposta[i].idMaquina})">
-                                <img src="styles/assets/icone/monitor2.png" alt="">
-                                <span>ID: ${resposta[i].idMaquina}</span>
-                                <span>hostname: ${resposta[i].hostName}</span>
-                            </div>
-                        </div>
-                    `;
+                        corAlerta = "yellow";
+                        nivelAlerta = `https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/OOjs_UI_icon_alert-yellow.svg/800px-OOjs_UI_icon_alert-yellow.svg.png?20190809012623`
+                        construirMaquina(resposta[i].idMaquina, situacao, nivelAlerta, corAlerta, resposta[i].hostName);
                     } else if (resposta[i].QtdComponentes == 2) {
-                        
-                        computers.innerHTML += `
-                        <div class="computer" id="computer">
-                            <div class="cardHeader">
-                                <div class="actions">
-                                    <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
-                                </div>
-                                <div class="actions">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/OOjs_UI_icon_alert-warning.svg/800px-OOjs_UI_icon_alert-warning.svg.png?20180610093752" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
-                                </div>
-                                <div class="activity" id="activity" style="color: ${color};">
-                                    <small>${situacao}</small>
-                                </div>
-                            </div>
-                            <div class="cardFooter" onclick="abrirDashboard(${resposta[i].idMaquina})">
-                                <img src="styles/assets/icone/monitor2.png" alt="">
-                                <span>ID: ${resposta[i].idMaquina}</span>
-                                <span>hostname: ${resposta[i].hostName}</span>
-                            </div>
-                        </div>
-                    `;
-                    } else {
-                        
-                        computers.innerHTML += `
-                        <div class="computer" id="computer">
-                            <div class="cardHeader">
-                                <div class="actions">
-                                    <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
-                                </div>
-                                <div class="actions">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/OOjs_UI_icon_alert-destructive.svg/800px-OOjs_UI_icon_alert-destructive.svg.png?20190810063048
-                                    
-                                    
-                                    
-                                    " class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
-                                </div>
-                                <div class="activity" id="activity" style="color: ${color};">
-                                    <small>${situacao}</small>
-                                </div>
-                            </div>
-                            <div class="cardFooter" onclick="abrirDashboard(${resposta[i].idMaquina})">
-                                <img src="styles/assets/icone/monitor2.png" alt="">
-                                <span>ID: ${resposta[i].idMaquina}</span>
-                                <span>hostname: ${resposta[i].hostName}</span>
-                            </div>
-                        </div>
-                    `;
+                        corAlerta = "orange";
+                        nivelAlerta = `https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/OOjs_UI_icon_alert-warning.svg/800px-OOjs_UI_icon_alert-warning.svg.png?20180610093752`
+                        construirMaquina(resposta[i].idMaquina, situacao, nivelAlerta, corAlerta, resposta[i].hostName);
+                    } else if (resposta[i].QtdComponentes == 3){
+                        corAlerta = "red";
+                        nivelAlerta = `https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/OOjs_UI_icon_alert-destructive.svg/800px-OOjs_UI_icon_alert-destructive.svg.png?20190810063048`
+                        construirMaquina(resposta[i].idMaquina, situacao, nivelAlerta, corAlerta, resposta[i].hostName);
+                    } else if (resposta[i].QtdComponentes == null) {
+                        console.log(resposta[i].QtdComponentes)
+                        construirMaquina(resposta[i].idMaquina, situacao, nivelAlerta, corAlerta, resposta[i].hostName);
                     }
                 }
             });
@@ -263,14 +210,52 @@ function listarMaquinas() {
     });
 }
 
+function construirMaquina(idMaquina, situacao, nivelAlerta, corAlerta, hostName) {
+    console.log(nivelAlerta, corAlerta)
+    if (nivelAlerta == null || corAlerta == null) {
+        computers.innerHTML += `
+            <div class="computer" id="computer">
+                <div class="cardHeader">
+                    <div class="actions">
+                        <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${idMaquina})" alt="">
+                    </div>
+                    <div class="activity" id="activity" style="color: green;">
+                        <small>${situacao}</small>
+                    </div>
+                </div>
+                <div class="cardFooter" onclick="abrirDashboard(${idMaquina})">
+                    <img src="styles/assets/icone/monitor2.png" alt="">
+                    <span>ID: ${idMaquina}</span>
+                    <span>hostname: ${hostName}</span>
+                </div>
+            </div>
+        `;
+    } else {
+        computers.innerHTML += `
+        <div class="computer" id="computer">
+            <div class="cardHeader">
+                <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${idMaquina})" alt="">
+                <div class="activity" id="activity" >
+                    <small style="color: green;">${situacao}</small>
+                </div>
+            </div>
+            <img src="${nivelAlerta}" class="alert ${corAlerta}" onclick="abrirDashboard(${idMaquina})">
+            <div class="cardFooter with-alert" onclick="abrirDashboard(${idMaquina})">
+                <img src="styles/assets/icone/monitor2.png" alt="">
+                <span>ID: ${idMaquina}</span>
+                <span>hostname: ${hostName}</span>
+            </div>
+        </div>
+    `;
+    }
+}
+
 function listarMaquinasInativas() {
     computers.innerHTML = "";
     document.getElementById("listarMaquinasInativasId").style.display = "none";
     document.getElementById("listarMaquinasId").style.display = "flex";
     let idGestor = sessionStorage.ID_GESTOR;
     let situacao = "Inativo";
-    let color = "red";
-
     fetch(`/maquinas/listarMaquinasInativas/${idGestor}`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
@@ -286,7 +271,7 @@ function listarMaquinasInativas() {
                                     <img src="styles/assets/icone/edit-pencil.png" class="edit-pencil" onclick="getDadosMaquina(${resposta[i].idMaquina})" alt="">
                                     <img src="styles/assets/icone/icon-trash.png" class="trash" onclick="deletarMaquina(${resposta[i].idMaquina})"alt="">
                                 </div>
-                                <div class="activity" id="activity" style="color: ${color};">
+                                <div class="activity" id="activity" style="color: red;">
                                     <small>${situacao}</small>
                                 </div>
                             </div>

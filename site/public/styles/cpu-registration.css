@@ -6,12 +6,12 @@
     align-items: center;
 }
 
-.actions .edit-pencil {
-    background: teal;
-}
-
 .actions .trash {
     background: firebrick;
+    width: 26px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 .metrics {
@@ -85,20 +85,40 @@
     border-bottom: solid 1px black;
 }
 
-.list .container .computers .actions {
-    display: flex;
-    gap: 10px;
-}
-
-.list .container .computers .actions img {
+.list .container .computers .edit-pencil {
+    background: teal;
     width: 26px;
     padding: 5px;
     cursor: pointer;
     border-radius: 5px;
 }
 
-.list .container .computers .activity {
-    color: #019710;
+@keyframes blink-animation {
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.list .container .computers .alert {
+    cursor: pointer;
+    margin-top: 35px;
+    width: 60px;
+}
+
+.list .container .computers .alert.yellow {
+    animation: blink-animation 1.5s steps(50, start) infinite;
+}
+
+.list .container .computers .alert.orange {
+    animation: blink-animation 1s steps(50, start) infinite;
+}
+
+.list .container .computers .alert.red {
+    animation: blink-animation 0.5s steps(50, start) infinite;
 }
 
 .list .container .computers .cardFooter {
@@ -110,13 +130,16 @@
     align-items: center;
 }
 
-.computers .monitor {
-    width: 164px;
+.list .container .computers .cardFooter.with-alert {
+    margin-top: -100px;
 }
 
-.computers .exclamation {
-    position: relative;
-    top: -18vh;
+.list .container .computers .activity {
+    color: #019710;
+}
+
+.computers .monitor {
+    width: 164px;
 }
 
 .computer small {

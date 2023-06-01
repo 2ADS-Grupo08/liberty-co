@@ -7,23 +7,20 @@
     font-size: 4rem;
     font-weight: 700;
     width: 70%;
-    /* border: solid 2px firebrick; */
 }
 
 .phrase {
     font-size: 1.5rem;
     width: 70%;
-    /* border: solid 2px firebrick; */
 }
 
 .banner {
-    height: 100vh;
+    height: 90vh;
     background-image: url(../styles/assets/background/banner-v2.png);
     background-size: cover;
     background-position-x: center;
     background-position-y: center;
     background-repeat: no-repeat;
-    height: 90vh;
     color: white;
 }
 
@@ -132,7 +129,6 @@
     justify-content: space-around;
     height: 100%;
 }
-
 
 .container-card .card .icon {
     border-radius: 4px;
