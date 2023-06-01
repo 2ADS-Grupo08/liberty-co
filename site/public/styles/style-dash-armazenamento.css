@@ -226,6 +226,27 @@ label #btn {
 
 }
 
+.teste-legenda i {
+    /* border: solid 2px greenyellow; */
+    width: 30px;
+    height: 30px;
+    margin: auto;
+    font-size: 30px;
+    cursor: pointer;
+    transition: all .25s ease-in-out;
+}
+
+.teste-legenda #voltar{
+    margin-left: 20px;
+}
+
+.teste-legenda #avancar{
+    margin-right: 20px;
+}
+
+.teste-legenda i:hover {
+    color: #1B4364;
+}
 
 .saida {
     position: relative;
@@ -245,9 +266,16 @@ label #btn {
     width: 70vw;
     margin-top: 1%;
     background-color: #1b1b1b;
-    border-radius: 30px;
+    border-radius: 10px;
     font-family: 'Montserrat';
     color: white;
+}
+
+.teste-legenda{
+    /* border: solid 2px gold; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .box-legenda h1 {
@@ -256,13 +284,13 @@ label #btn {
 }
 
 .conteudo-legenda {
-    /* border: solid 2px greenyellow; */
+    /* border: solid 2px purple; */
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.conteudo-legenda .hardware {
+.analytics {
     display: flex;
     justify-content: space-around;
     /* border: solid 2px khaki; */
@@ -393,7 +421,7 @@ label #btn {
 }
 
 .box-container .box,
-.box-texto, .box-terceiro, .listaDados, .conteudo-legenda {
+.box-texto, .box-terceiro, .listaDados, .box-legenda {
     border: #1b1b1be5 2px solid;
     border-radius: 10px;
     background: #1b1b1b;
@@ -421,6 +449,10 @@ label #btn {
     flex-direction: column;
     justify-content: center;
     font-family: 'Montserrat';
+}
+
+.box-texto h1 {
+    margin-bottom: 10%;
 }
 
 .box-analytics{

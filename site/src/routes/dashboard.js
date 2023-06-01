@@ -43,4 +43,16 @@ router.get("/informacoesLegendaRam/:idMaquina", function (req,res){
     dashboardController.informacoesLegendaRam(req, res)
 });
 
+router.get("/ramEmTempoReal/:idMaquina", function (req,res){
+    dashboardController.ramEmTempoReal(req, res)
+});
+
+router.get("/informacoesLegendaDisco/:idMaquina", function (req,res){
+    dashboardController.informacoesLegendaDisco(req, res)
+});
+
+router.get("/mediaUsoDiscoSemana/:idMaquina", function (req,res){
+    dashboardController.mediaUsoDiscoSemana(req, res)
+});
+
 module.exports = router;

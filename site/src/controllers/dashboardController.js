@@ -6,6 +6,7 @@ function medidaIdealComponentes(req, res) {
 
     dashboardModel.medidaIdealComponentes(idMaquina).then(function (resultado) {
         if (resultado.length > 0) {
+            console.log(resultado)
             res.status(200).json(resultado);
         } else {
             res.status(204).send("Nenhum resultado encontrado!")
@@ -162,6 +163,54 @@ function informacoesLegendaRam(req, res) {
     });
 }
 
+function ramEmTempoReal(req, res) {
+    var idMaquina = req.params.idMaquina;
+
+    dashboardModel.ramEmTempoReal(idMaquina).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function informacoesLegendaDisco(req, res) {
+    var idMaquina = req.params.idMaquina;
+
+    dashboardModel.informacoesLegendaDisco(idMaquina).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function mediaUsoDiscoSemana(req, res) {
+    var idMaquina = req.params.idMaquina;
+
+    dashboardModel.mediaUsoDiscoSemana(idMaquina).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
     medidaIdealComponentes,
     espacoDisponivelComponentesVisaoGeral,
@@ -172,5 +221,8 @@ module.exports = {
     informacoesDonoMaquina,
     informacoesLegendaCpu,
     cpuEmTempoReal,
-    informacoesLegendaRam
+    informacoesLegendaRam,
+    ramEmTempoReal,
+    informacoesLegendaDisco,
+    mediaUsoDiscoSemana
 }
