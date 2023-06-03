@@ -19,7 +19,7 @@
 
 </head>
 
-<body onload="informacoesLegendaDisco()">
+<body onload="informacoesLegendaDisco(), informacoesDonoMaquina()">
   <div class="content">
     <div class="sidebar">
       <header>
@@ -108,7 +108,8 @@
         </div>
 
         <div class="box">
-          <div class="graficos" style="height: 25vh; width: 35vw; display: flex; flex-direction: column; align-items: center;">
+          <div class="graficos"
+            style="height: 25vh; width: 35vw; display: flex; flex-direction: column; align-items: center">
             <canvas id="myChart2"></canvas>
           </div>
           <div class="legenda">
@@ -121,7 +122,7 @@
       <div class="parte2">
         <div class="box2">
           <div class="graficos">
-            <canvas id="myChart3" style="height: 40vh; width: 40vw;"></canvas>
+            <canvas id="myChart3" style="height: 20vh; width: 20vw;"></canvas>
           </div>
         </div>
 
@@ -131,24 +132,22 @@
               <h1>INFORMAÇÕES</h1>
             </div>
             <div class="info_dono">
-              <p><b>Nome:</b> Fernanda Caramico</p>
-              <p><b>Cargo:</b> Arquiteto de Edificações</p>
+              <p><b>Nome: </b><span id="nome_txt"></span> <span id="sobrenome_txt"></span></p>
             </div>
             <div class="info_maquina">
               <h1>Máquina</h1>
-              <p><b>Hostname:</b> FernandaCaramico</p>
-              <p><b>Marca:</b> Dell</p>
-              <p><b>Sistema Operacional:</b> Windows</p>
+              <p><b>Hostname: </b><span id="hostname_txt"></span></p>
+              <p><b>Sistema Operacional: </b><span id="so_txt"></span></p>
             </div>
             <div class="info_hardware">
               <h1>Hardware</h1>
               <h2>- Memória RAM</h2>
-              <p><b>Total:</b> 16GB</p>
+              <p><b>Total: </b><span id="totalRam_txt"></span>GB</p>
               <h2>- CPU</h2>
-              <p><b>Nome:</b> 10th Gen Intel(R) Core(TM) i7-10700F @ 2.90GHz</p>
+              <p><b>Nome: </b><span id="nomeCpu_txt"></span></p>
               <h2>- Disco Rígido</h2>
-              <p><b>Volume:</b> 1</p>
-              <p><b>Capacidade Total:</b> 1TB</p>
+              <p><b>Volume: </b><span id="volume_txt"></span></p>
+              <p><b>Capacidade Total:</b><span id="totalDisco_txt"></span></p>
             </div>
           </div>
         </div>
@@ -174,6 +173,7 @@
           validacaoLegenda();
           DefinirEspacoDisponivel();
           mediaUsoDiscoSemana();
+          plotarEspacoDisponivel();
         });
       } else {
         console.error('Nenhum dado encontrado ou erro na API');
@@ -223,19 +223,13 @@
     nivelIdeal = nivelCritico * 0.8;
     nivelUrgencia = nivelCritico * 0.9;
 
-    disco_ideal.innerHTML = nivelIdeal.toFixed(2);
-    disco_ideal2.innerHTML = nivelIdeal.toFixed(2);
-    disco_urgencia.innerHTML = nivelUrgencia.toFixed(2);
-    disco_urgencia2.innerHTML = nivelUrgencia.toFixed(2);
     validacaoLegenda();
 
-    disponivel = volumeDisco[disco].total - volumeDisco[disco].emUso;
-    espacoDisponivel.innerHTML = disponivel.toFixed(2);
-    porcentagem = volumeDisco[disco].emUso * 100 / volumeDisco[disco].total;
-    porcentagemUso.innerHTML = porcentagem.toFixed(1);
     DefinirEspacoDisponivel();
 
     plotarGraficoMediaUsoDiscoSemanal();
+
+    plotarEspacoDisponivel()
   }
 
   function setaAvancar() {
@@ -244,19 +238,13 @@
     nivelIdeal = nivelCritico * 0.8;
     nivelUrgencia = nivelCritico * 0.9;
 
-    disco_ideal.innerHTML = nivelIdeal.toFixed(2);
-    disco_ideal2.innerHTML = nivelIdeal.toFixed(2);
-    disco_urgencia.innerHTML = nivelUrgencia.toFixed(2);
-    disco_urgencia2.innerHTML = nivelUrgencia.toFixed(2);
     validacaoLegenda();
 
-    disponivel = volumeDisco[disco].total - volumeDisco[disco].emUso;
-    espacoDisponivel.innerHTML = disponivel.toFixed(2);
-    porcentagem = volumeDisco[disco].emUso * 100 / volumeDisco[disco].total;
-    porcentagemUso.innerHTML = porcentagem.toFixed(1);
     DefinirEspacoDisponivel();
 
     plotarGraficoMediaUsoDiscoSemanal();
+
+    plotarEspacoDisponivel();
   }
 </script>
 
@@ -264,9 +252,9 @@
 <script>
   function DefinirEspacoDisponivel() {
     disponivel = volumeDisco[disco].total - volumeDisco[disco].emUso;
-    espacoDisponivel.innerHTML = disponivel.toFixed(2);
+    espacoDisponivel.innerHTML = disponivel.toFixed(3);
     porcentagem = volumeDisco[disco].emUso * 100 / volumeDisco[disco].total;
-    porcentagemUso.innerHTML = porcentagem.toFixed(1);
+    porcentagemUso.innerHTML = porcentagem.toFixed(2);
   }
 
 </script>
@@ -359,55 +347,87 @@
     );
   }
 </script>
+
 <!-- grafico 3 -->
 <script>
-  const ctx3 = document.getElementById('myChart3');
+  dataDisco = [];
 
-  new Chart(ctx3, {
-    type: 'line',
-    data: {
-      labels: ['12:21:00', '12:21:30', '12:22:00', '12:22:30', '12:23:00', '12:23:30'],
-      datasets: [
-        {
-          label: 'Leitura',
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1,
-          borderColor: 'rgba(255, 51, 70, 0.753)',
-          backgroundColor: 'rgba(255, 51, 70, 0.753)',
-        },
-        {
-          label: 'Escrita',
-          data: [5, 15, 20, 10, 15, 16],
-          borderColor: 'rgba(0, 204, 255, 0.753)',
-          borderWidth: 1,
-          backgroundColor: 'rgba(0, 204, 255, 0.753)',
-        }
-      ]
-    },
+  pie = new Chart()
 
-    options: {
-      plugins: {
-        title: {
-          display: true,
-          position: 'bottom',
-          text: 'Leitura e escrita do disco em tempo real (a cada 30s)',
-          color: 'white',
-          padding: {
-            top: 40
-          },
-          font: {
-            weight: 'normal',
-            size: 18
-          }
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+  function plotarEspacoDisponivel() {
+  dataDisco = [];
+    pie.destroy();
+    var totalDisponivel = 0;
+    var totalEmUso = 0;
+    totalDisponivel = volumeDisco[disco].total - volumeDisco[disco].emUso;
+    totalEmUso = volumeDisco[disco].emUso;
+    dataDisco.push(totalDisponivel);
+    dataDisco.push(totalEmUso);
+
+    var cfg_plotarEspacoDisponivel = {
+      type: 'pie',
+      data: {
+        labels: ['Disponível', 'Não Disponível'],
+        datasets: [{
+          label: 'em GB',
+          data: dataDisco,
+          borderWidth: 0.75,
+          backgroundColor: ['#07a0c7', '#c62c3b'],
+        }]
       }
-    }
-  });
+    };
+
+    pie = new Chart(
+      document.getElementById('myChart3'),
+      cfg_plotarEspacoDisponivel
+    );
+
+  }
+
+</script>
+
+<!-- informações do dono da máquina -->
+<script>
+  function informacoesDonoMaquina() {
+      // var idMaquina = sessionStorage.idMaquina;
+      var idMaquina = 3;
+      fetch(`/dashboard/informacoesDonoMaquina/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+          if (response.ok) {
+              response.json().then(function (resposta) {
+                  console.log(resposta);
+                  substituirTxt(resposta);
+              });
+          } else {
+              console.error('Nenhum dado encontrado ou erro na API');
+          }
+      })
+          .catch(function (error) {
+              console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+          });
+  }
+
+  var contador = 0;
+  var discoTotal = [];
+
+  function substituirTxt(resposta) {
+      nome_txt.innerHTML = resposta[0].nomeDono;
+      sobrenome_txt.innerHTML = resposta[0].sobrenomeDono;
+      hostname_txt.innerHTML = resposta[0].hostName;
+      so_txt.innerHTML = resposta[0].sistemaOperacional;
+      for (let i = 0; i < resposta.length; i++) {
+          if (resposta[i].nomeComponente == "Memória RAM") {
+              totalRam_txt.innerHTML = resposta[i].total;
+          } else if (resposta[i].nomeComponente == "Processador") {
+              nomeCpu_txt.innerHTML = resposta[i].modelo;
+          } else if (resposta[i].nomeComponente == "Disco Rígido") {
+              contador++;
+              discoTotal.push(" " + resposta[i].total + " GB");
+          }
+      }
+      volume_txt.innerHTML = contador;
+      totalDisco_txt.innerHTML = discoTotal;
+      console.log(discoTotal);
+  }
 </script>
 <script src="https://kit.fontawesome.com/49bc71d446.js" crossorigin="anonymous"></script>
 

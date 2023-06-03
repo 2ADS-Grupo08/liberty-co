@@ -61,15 +61,14 @@ function ramUltimos3DiasVisaoGeral(idMaquina) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `SELECT 
                             AVG(Log.emUso) AS Media,
-                            Log.momentoCaptura,
-                            DATENAME(weekday, Log.momentoCaptura) AS Semana
-                                FROM Componente 
-                                JOIN Log 
+                            CONVERT(date, Log.momentoCaptura),
+                            DATENAME(weekday, CONVERT(date, Log.momentoCaptura)) AS Semana
+                                FROM Componente JOIN Log 
                                     ON idComponente = fkComponente
                                 WHERE Componente.fkMaquina = ${idMaquina}
                                     AND nomeComponente = 'Memória RAM'
-                                    AND TRY_CONVERT(datetime, Log.momentoCaptura, 103) >= DATEADD(DAY, -3, GETDATE())
-                                GROUP BY momentoCaptura;`;
+                                    AND CONVERT(date, Log.momentoCaptura) >= CONVERT(date, DATEADD(DAY, -3, GETDATE()))
+                                GROUP BY CONVERT(date, Log.momentoCaptura);`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -117,9 +116,9 @@ function mediaUsoRamSemanaVisaoGeral(idMaquina) {
                             DATENAME(weekday, CONVERT(date, Log.momentoCaptura)) AS Semana
                                 FROM Componente JOIN Log 
                                     ON idComponente = fkComponente
-                                WHERE Componente.fkMaquina = ${idMaquina}
+                                WHERE Componente.fkMaquina = ${idMaquina} 
                                     AND nomeComponente = 'Memória RAM'
-                                    AND CONVERT(date, Log.momentoCaptura) >= DATEADD(DAY, -7, GETDATE())
+                                    AND CONVERT(date, Log.momentoCaptura) >= CONVERT(date, DATEADD(DAY, -7, GETDATE()))
                                 GROUP BY CONVERT(date, Log.momentoCaptura);`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -144,7 +143,7 @@ function mediaUsoCpuSemanaVisaoGeral(idMaquina) {
                                     ON idComponente = fkComponente
                                 WHERE Componente.fkMaquina = ${idMaquina}
                                     AND nomeComponente = 'Processador'
-                                    AND CONVERT(date, Log.momentoCaptura) >= DATEADD(DAY, -7, GETDATE())
+                                    AND CONVERT(date, Log.momentoCaptura) >= CONVERT(date, DATEADD(DAY, -7, GETDATE()))
                                 GROUP BY CONVERT(date, Log.momentoCaptura);`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
