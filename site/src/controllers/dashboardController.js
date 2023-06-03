@@ -211,6 +211,54 @@ function mediaUsoDiscoSemana(req, res) {
     });
 }
 
+function totalJanelasEncerradas(req, res) {
+    var idMaquina = req.params.idMaquina;
+
+    dashboardModel.totalJanelasEncerradas(idMaquina).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function historicoJanelaEncerrada(req, res) {
+    var idMaquina = req.params.idMaquina;
+
+    dashboardModel.historicoJanelaEncerrada(idMaquina).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function rankingJanelaEncerrada(req, res) {
+    var idMaquina = req.params.idMaquina;
+
+    dashboardModel.rankingJanelaEncerrada(idMaquina).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
     medidaIdealComponentes,
     espacoDisponivelComponentesVisaoGeral,
@@ -224,5 +272,8 @@ module.exports = {
     informacoesLegendaRam,
     ramEmTempoReal,
     informacoesLegendaDisco,
-    mediaUsoDiscoSemana
+    mediaUsoDiscoSemana,
+    totalJanelasEncerradas,
+    historicoJanelaEncerrada,
+    rankingJanelaEncerrada
 }

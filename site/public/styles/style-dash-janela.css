@@ -257,7 +257,7 @@ label #btn {
 .header .header-title {
     text-align: center;
     /* border: solid 2px firebrick; */
-    font-size: 35px;
+    font-size: 40px;
 }
 
 .header .header-subtitle {
@@ -307,17 +307,18 @@ label #btn {
 }
 
 .title .text {
-    width: 60%;
+    width: 65%;
     text-align: end;
     font-size: 20px;
-
+    height: 60px;
 }
 
 .title .totalJanela {
-    width: 30%;
+    width: 25%;
     text-align: center;
     font-weight: 900;
     font-size: 50px;
+    height: 70px;
 }
 
 .line {
@@ -330,6 +331,7 @@ label #btn {
     font-size: 22px;
     font-weight: 800;
     margin-bottom: 20px;
+    width: auto;
 }
 
 .cabecalho {

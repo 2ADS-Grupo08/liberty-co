@@ -15,7 +15,7 @@
 
 </head>
 
-<body onload="medidaIdealComponentes()">
+<body onload="totalJanelasEncerradas(), historicoJanelaEncerrada(), rankingJanelaEncerrada()">
     <div class="content">
 
         <!-- faça tudo da dash aqui -->
@@ -64,39 +64,31 @@
             <div class="header">
                 <h1 class="header-title">Histórico de Janelas Encerradas</h1>
                 <h2 class="header-subtitle">(2 semanas)</h1>
-                <div class="box-content">
-                    <div class="box">
-                        <div class="limit">
-                            <div class="title">
-                                <h1 class="text">Total de janelas encerradas nas últimas 2 semanas:</h1>
-                                <h1 class="totalJanela" id="total">32</h1>
+                    <div class="box-content">
+                        <div class="box">
+                            <div class="limit" id="limit">
+                                <div class="title">
+                                    <h1 class="text">Total de janelas encerradas nas últimas 2 semanas:</h1>
+                                    <h1 class="totalJanela" id="total"></h1>
+                                </div>
+                                <div class="line"></div>
+                                <h1 class="title-list">Histórico de Encerramento</h1>
+                                <div class="cabecalho">
+                                    <div class="name"> NOME </div>
+                                    <div class="dateTime"> DATA E HORA </div>
+                                </div>
+
                             </div>
-                            <div class="line"></div>
-                            <h1 class="title-list">Histórico de Encerramento</h1>
-                            <div class="cabecalho">
-                                <div class="name" > NOME </div>
-                                <div class="dateTime" > DATA E HORA </div>
-                            </div>
-                            <div class="list">
-                                <div class="name" id="nome"> Google Chrome </div>
-                                <div class="dateTime" id="dataHora">03-06-2023</div>
+                        </div>
+                        <div class="box">
+                            <div class="limit" id="limit2">
+                                <div class="title">
+                                    <h1 class="ranking">RANKING DE JANELAS MAIS FECHADAS</h1>
+                                </div>
+                                <div class="line"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="box">
-                        <div class="limit">
-                            <div class="title">
-                                <h1 class="ranking">RANKING DE JANELAS MAIS FECHADAS</h1>
-                            </div>
-                            <div class="line"></div>
-                            <div class="list">
-                                <div class="position" id="posicao">1 º </div>
-                                <div class="name" id="nome"> Google Chrome </div>
-                                <div class="dateTime" id="dataHora">12x</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -108,14 +100,16 @@
 </body>
 
 </html>
+
 <script>
-    function medidaIdealComponentes() {
+    function totalJanelasEncerradas() {
         // var idMaquina = sessionStorage.idMaquina;
         var idMaquina = 3;
-        fetch(`/medidas/medidaIdealComponentes/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/dashboard/totalJanelasEncerradas/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    console.log(resposta);
+                    total.innerHTML = resposta[0].quantidade;
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -127,138 +121,89 @@
     }
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-
-    //Média diária do uso da memória ram dos últimos 3 dias    
-    var data_mediaRam3dias = {
-        labels: ['Domingo', 'Segunda', 'Terça'],
-        datasets: [{
-            data: [3.4, 12.2, 15.58],
-            borderWidth: 1
-        }]
-    };
-
-    var cfg_mediaRam3Dias = {
-        type: 'bar',
-        data: data_mediaRam3dias,
-        options: {
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    }
-    //fim
-</script>
-<script>
-    var cfg_analiseDiasDaSemana = {
-        type: 'doughnut',
-        data: {
-            labels: ['Acima', 'Abaixo'],
-            datasets: [{
-                label: 'Dias',
-                backgroundColor: ['rgba(255, 51, 70, 0.753)',
-                    'rgba(0, 204, 255, 0.753)'],
-                data: [2, 8],
-                borderWidth: 0.75
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-            circumference: 180,
-            rotation: -90,
-            cutout: 30
-        }
-    };
-</script>
-<script>
-    var cfg_mediaRam = {
-        type: 'line',
-        data: {
-            labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
-            datasets: [{
-                label: 'Média de uso da Memória RAM dos dias da semana',
-                data: [12.08, 15.42, 5.07, 5.03, 14.48, 0, 0],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    };
-</script>
-<script>
-    var cfg_mediaCpu = {
-        type: 'line',
-        data: {
-            labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
-            datasets: [{
-                label: 'Média de uso da CPU dos dias da semana',
-                data: [2.58, 2.45, 1.07, 1.03, 1.48, 0, 0],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    };
-</script>
-<script>
-    const barra_mediaDiariaRam = new Chart(
-        document.getElementById('barras_media3dias'),
-        cfg_mediaRam3Dias
-    );
-
-    const dought_analiseDiasDaSemana = new Chart(
-        document.getElementById('dought_diasDaSemana'),
-        cfg_analiseDiasDaSemana
-    );
-
-    const line_mediaSemanalRam = new Chart(
-        document.getElementById('line_mediaRam'),
-        cfg_mediaRam
-    );
-
-    const line_mediaSemanalCpu = new Chart(
-        document.getElementById('line_mediaCpu'),
-        cfg_mediaCpu
-    );
-</script>
-
-<script>
-    function sair() {
-        Swal.fire({
-            title: 'Tem certeza que deseja sair ?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            confirmButtonText: `<a href="index.html" onclick="sair()" >
-                    <i class="fas fa-right-from-bracket"></i>
-                    <span>Sair</span>
-                </a>`
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire(
-
-                )
+    function historicoJanelaEncerrada() {
+        // var idMaquina = sessionStorage.idMaquina;
+        var idMaquina = 3;
+        fetch(`/dashboard/historicoJanelaEncerrada/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(resposta);
+                    plotagemHistorico(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
             }
         })
-
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
+    function plotagemHistorico(resposta) {
+        for (let i = 0; i < resposta.length; i++) {
+            var divList = document.createElement("div");
+            divList.setAttribute("class", "list");
+
+            var divName = document.createElement("div");
+            divName.setAttribute("class", "name");
+            divName.innerHTML = resposta[i].nomeJanela;
+
+            var divDateTime = document.createElement("div");
+            divDateTime.setAttribute("class", "dateTime");
+            divDateTime.innerHTML = resposta[i].dataHoraEncerrado;
+
+            divList.appendChild(divName);
+            divList.appendChild(divDateTime);
+
+            var divLimit = document.getElementById("limit");
+
+            divLimit.appendChild(divList);
+        }
+    }
+
+    function rankingJanelaEncerrada() {
+        // var idMaquina = sessionStorage.idMaquina;
+        var idMaquina = 3;
+        fetch(`/dashboard/rankingJanelaEncerrada/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(resposta);
+                    plotagemRanking(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotagemRanking(resposta) {
+        for (let i = 0; i < resposta.length; i++) {
+            var divList = document.createElement("div");
+            divList.setAttribute("class", "list");
+
+            var divPosition = document.createElement("div");
+            divPosition.setAttribute("class", "position");
+            divPosition.innerHTML = resposta[i].posicao + `º`;
+
+            var divName = document.createElement("div");
+            divName.setAttribute("class", "name");
+            divName.innerHTML = resposta[i].nomeJanela;
+
+            var divQuantidade = document.createElement("div");
+            divQuantidade.setAttribute("class", "amount");
+            divQuantidade.innerHTML = resposta[i].quantidade + `x`;
+
+            divList.appendChild(divPosition);
+            divList.appendChild(divName);
+            divList.appendChild(divQuantidade);
+
+            var divLimit = document.getElementById("limit2");
+
+            divLimit.appendChild(divList);
+        }
+    }
 </script>

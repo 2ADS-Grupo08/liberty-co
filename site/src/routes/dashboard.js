@@ -55,4 +55,17 @@ router.get("/mediaUsoDiscoSemana/:idMaquina", function (req,res){
     dashboardController.mediaUsoDiscoSemana(req, res)
 });
 
+router.get("/totalJanelasEncerradas/:idMaquina", function (req,res){
+    dashboardController.totalJanelasEncerradas(req, res)
+});
+
+router.get("/historicoJanelaEncerrada/:idMaquina", function (req,res){
+    dashboardController.historicoJanelaEncerrada(req, res)
+});
+
+router.get("/rankingJanelaEncerrada/:idMaquina", function (req,res){
+    dashboardController.rankingJanelaEncerrada(req, res)
+});
+
+
 module.exports = router;

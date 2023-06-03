@@ -322,6 +322,68 @@ function mediaUsoDiscoSemana(idMaquina) {
     return database.executar(instrucaoSql);
 }
 
+function totalJanelasEncerradas(idMaquina) {
+
+    instrucaoSql = '';
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT 
+                            COUNT(idJanelaEncerrada) as quantidade
+                        FROM JanelaEncerrada 
+                        WHERE fkMaquina = ${idMaquina}
+                            AND momentoEncerrado >= DATEADD(WEEK, -2, GETDATE());`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function historicoJanelaEncerrada(idMaquina) {
+
+    instrucaoSql = '';
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT 
+                            nomeJanela,
+                            CONVERT(varchar(19), momentoEncerrado, 120) AS dataHoraEncerrado
+                        FROM JanelaEncerrada 
+                        WHERE fkMaquina = ${idMaquina}
+                            AND momentoEncerrado >= DATEADD(WEEK, -2, GETDATE());`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function rankingJanelaEncerrada(idMaquina) {
+
+    instrucaoSql = '';
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT
+                            ROW_NUMBER() OVER (ORDER BY COUNT(*) DESC) AS posicao,
+                            nomeJanela,
+                            COUNT(*) AS quantidade
+                        FROM JanelaEncerrada
+                        WHERE fkMaquina = ${idMaquina}
+                            AND momentoEncerrado >= DATEADD(WEEK, -2, GETDATE())
+                        GROUP BY nomeJanela
+                        ORDER BY posicao;`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     medidaIdealComponentes,
     espacoDisponivelComponentesVisaoGeral,
@@ -335,5 +397,8 @@ module.exports = {
     informacoesLegendaRam,
     ramEmTempoReal,
     informacoesLegendaDisco,
-    mediaUsoDiscoSemana
+    mediaUsoDiscoSemana,
+    totalJanelasEncerradas,
+    historicoJanelaEncerrada,
+    rankingJanelaEncerrada
 }
