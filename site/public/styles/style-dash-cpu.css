@@ -187,48 +187,6 @@ label #btn {
 }
 
 
-@media(max-width: 860px) {
-    .sidebar {
-        height: auto;
-        width: 70px;
-        left: 0;
-        margin: 100px 0;
-
-    }
-
-    header,
-    #btn {
-        display: none;
-    }
-
-    .sidebar span {
-        position: absolute;
-        margin-left: 23px;
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    .sidebar a {
-        height: 60px;
-    }
-
-    .sidebar a i {
-        margin-left: -10px;
-    }
-
-    .sidebar a:hover {
-        width: 200px;
-        background: inherit;
-    }
-
-    .sidebar a:hover span {
-        opacity: 1;
-        visibility: visible;
-    }
-
-}
-
-
 .saida {
     position: relative;
     /* bottom: -25%; */

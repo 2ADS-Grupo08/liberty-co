@@ -384,6 +384,29 @@ function rankingJanelaEncerrada(idMaquina) {
     return database.executar(instrucaoSql);
 }
 
+function alerta(idMaquina) {
+
+    instrucaoSql = '';
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT
+                            Componente.nomeComponente
+                        FROM Componente
+                        JOIN NivelAlerta ON Componente.idComponente = NivelAlerta.fkComponente
+                        JOIN Log ON Componente.idComponente = Log.fkComponente
+                        WHERE Componente.fkMaquina = ${idMaquina}
+                            AND Log.emUso > (Componente.total * NivelAlerta.nivelAlerta / 100 * 0.8)
+                            AND Log.momentoCaptura >= DATEADD(WEEK, -1, GETDATE())
+                        GROUP BY Componente.nomeComponente;`
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     medidaIdealComponentes,
     espacoDisponivelComponentesVisaoGeral,
@@ -400,5 +423,6 @@ module.exports = {
     mediaUsoDiscoSemana,
     totalJanelasEncerradas,
     historicoJanelaEncerrada,
-    rankingJanelaEncerrada
+    rankingJanelaEncerrada,
+    alerta
 }

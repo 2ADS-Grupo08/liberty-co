@@ -67,5 +67,8 @@ router.get("/rankingJanelaEncerrada/:idMaquina", function (req,res){
     dashboardController.rankingJanelaEncerrada(req, res)
 });
 
+router.get("/alerta/:idMaquina", function (req,res){
+    dashboardController.alerta(req, res)
+});
 
 module.exports = router;

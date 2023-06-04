@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 </head>
 
-<body onload="informacoesLegendaRam(), mediaUsoRamSemanaVisaoGeral(), ramEmTempoReal(), informacoesDonoMaquina()">
+<body onload="informacoesLegendaRam(), mediaUsoRamSemanaVisaoGeral(), ramEmTempoReal(), informacoesDonoMaquina(), alerta()">
   <div class="content">
     <div class="sidebar">
       <header>
@@ -29,17 +29,17 @@
       <a href="dash-cpu.html">
         <i class="fas fa-microchip"></i>
         <span>CPU</span>
-        <img class="alerta cpu" src="styles/assets/icone/alerta.png" alt="">
+        <img class="alerta cpu" id="cpu_alerta" src="styles/assets/icone/alerta.png" alt="">
       </a>
       <a href="dash-ram.html" class="agora">
         <i class="fas fa-sliders-h"></i>
         <span>RAM</span>
-        <img class="alerta ram" src="styles/assets/icone/alerta.png" alt="">
+        <img class="alerta ram" id="ram_alerta" src="styles/assets/icone/alerta.png" alt="">
       </a>
       <a href="dash-armazenamento.html">
         <i class="fas fa-hard-drive"></i>
         <span>Armazenamento</span>
-        <img class="alerta disco" src="styles/assets/icone/alerta.png" alt="">
+        <img class="alerta disco" id="disco_alerta" src="styles/assets/icone/alerta.png" alt="">
       </a>
       <a href="dash-janela.html">
         <i class="fas fa-window-restore"></i>
@@ -152,6 +152,7 @@
   </div>
   </div>
 </body>
+
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -159,8 +160,8 @@
 <!-- legenda -->
 <script>
   function informacoesLegendaRam() {
-    // var idMaquina = sessionStorage.idMaquina;
-    var idMaquina = 3;
+    var idMaquina = sessionStorage.ID_MAQUINA;
+
     fetch(`/dashboard/informacoesLegendaRam/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
@@ -195,8 +196,8 @@
 <!-- média dos ultimos 7 dias da ram -->
 <script>
   function mediaUsoRamSemanaVisaoGeral() {
-    // var idMaquina = sessionStorage.idMaquina;
-    var idMaquina = 3;
+    var idMaquina = sessionStorage.ID_MAQUINA;
+
     fetch(`/dashboard/mediaUsoRamSemanaVisaoGeral/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
@@ -266,7 +267,7 @@
         }
       }
     }
-    
+
     const bar_mediaSemanalRam = new Chart(
       document.getElementById('bar_mediaCpu'),
       cfg_mediaRam,
@@ -337,8 +338,8 @@
 <!-- Uso da RAM em tempo real (a cada 30s) -->
 <script>
   function ramEmTempoReal(resposta) {
-    // var idMaquina = sessionStorage.idMaquina;
-    var idMaquina = 3;
+    var idMaquina = sessionStorage.ID_MAQUINA;
+
     fetch(`/dashboard/ramEmTempoReal/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
@@ -363,90 +364,118 @@
       log.push(resposta[i].emUso);
     }
 
-  var cfg_analiseRamDiasDaSemana = {
-    type: 'line',
-    data: {
-      labels: hora,
-      datasets: [{
-        label: '',
-        data: log,
-        borderWidth: 1
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false
-        },
-        title: {
-          display: true,
-          position: 'bottom',
-          text: 'Uso da memória RAM em tempo real (a cada 30s)',
-          color: 'white',
-          padding: {
-            top: 40
+    var cfg_analiseRamDiasDaSemana = {
+      type: 'line',
+      data: {
+        labels: hora,
+        datasets: [{
+          label: '',
+          data: log,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false
           },
-          font: {
-            weight: 'normal',
-            size: 18
+          title: {
+            display: true,
+            position: 'bottom',
+            text: 'Uso da memória RAM em tempo real (a cada 30s)',
+            color: 'white',
+            padding: {
+              top: 40
+            },
+            font: {
+              weight: 'normal',
+              size: 18
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
           }
         }
-      },
-      scales: {
-        y: {
-          beginAtZero: true
-        }
       }
-    }
-  };
+    };
 
-  const line_analiseLog = new Chart(
+    const line_analiseLog = new Chart(
       document.getElementById('myChart3'),
       cfg_analiseRamDiasDaSemana
     );
-}
+  }
 </script>
 
 <!-- informações do dono da máquina -->
 <script>
   function informacoesDonoMaquina() {
-      // var idMaquina = sessionStorage.idMaquina;
-      var idMaquina = 3;
-      fetch(`/dashboard/informacoesDonoMaquina/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
-          if (response.ok) {
-              response.json().then(function (resposta) {
-                  console.log(resposta);
-                  substituirTxt(resposta);
-              });
-          } else {
-              console.error('Nenhum dado encontrado ou erro na API');
-          }
-      })
-          .catch(function (error) {
-              console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-          });
+    var idMaquina = sessionStorage.ID_MAQUINA;
+
+    fetch(`/dashboard/informacoesDonoMaquina/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(resposta);
+          substituirTxt(resposta);
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
   }
 
   var contador = 0;
   var discoTotal = [];
 
   function substituirTxt(resposta) {
-      nome_txt.innerHTML = resposta[0].nomeDono;
-      sobrenome_txt.innerHTML = resposta[0].sobrenomeDono;
-      hostname_txt.innerHTML = resposta[0].hostName;
-      so_txt.innerHTML = resposta[0].sistemaOperacional;
-      for (let i = 0; i < resposta.length; i++) {
-          if (resposta[i].nomeComponente == "Memória RAM") {
-              totalRam_txt.innerHTML = resposta[i].total;
-          } else if (resposta[i].nomeComponente == "Processador") {
-              nomeCpu_txt.innerHTML = resposta[i].modelo;
-          } else if (resposta[i].nomeComponente == "Disco Rígido") {
-              contador++;
-              discoTotal.push(" " + resposta[i].total + " GB");
-          }
+    nome_txt.innerHTML = resposta[0].nomeDono;
+    sobrenome_txt.innerHTML = resposta[0].sobrenomeDono;
+    hostname_txt.innerHTML = resposta[0].hostName;
+    so_txt.innerHTML = resposta[0].sistemaOperacional;
+    for (let i = 0; i < resposta.length; i++) {
+      if (resposta[i].nomeComponente == "Memória RAM") {
+        totalRam_txt.innerHTML = resposta[i].total;
+      } else if (resposta[i].nomeComponente == "Processador") {
+        nomeCpu_txt.innerHTML = resposta[i].modelo;
+      } else if (resposta[i].nomeComponente == "Disco Rígido") {
+        contador++;
+        discoTotal.push(" " + resposta[i].total + " GB");
       }
-      volume_txt.innerHTML = contador;
-      totalDisco_txt.innerHTML = discoTotal;
-      console.log(discoTotal);
+    }
+    volume_txt.innerHTML = contador;
+    totalDisco_txt.innerHTML = discoTotal;
+    console.log(discoTotal);
+  }
+</script>
+
+<!-- alerta -->
+<script>
+  function alerta() {
+    var idMaquina = sessionStorage.ID_MAQUINA;
+    fetch(`/dashboard/alerta/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(resposta);
+          for (let i = 0; i < resposta.length; i++) {
+            if (resposta[i].nomeComponente == "Disco Rígido") {
+              disco_alerta.style.display = "block";
+            } else if (resposta[i].nomeComponente == "Memória RAM") {
+              ram_alerta.style.display = "block";
+            } else if (resposta[i].nomeComponente == "Processador") {
+              cpu_alerta.style.display = "block";
+            }
+          }
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
   }
 </script>
