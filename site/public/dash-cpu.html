@@ -325,7 +325,7 @@
       if (response.ok) {
         response.json().then(function (resposta) {
           console.log(resposta);
-          plotarGraficoCpuTempoReal(resposta);
+          plotarGraficoCpuTempoReal(resposta, idMaquina);
         });
       } else {
         console.error('Nenhum dado encontrado ou erro na API');
@@ -336,7 +336,7 @@
       });
   }
 
-  function plotarGraficoCpuTempoReal(resposta) {
+  function plotarGraficoCpuTempoReal(resposta, idMaquina) {
     var hora = [];
     var log = [];
 
@@ -345,16 +345,14 @@
       log.push(resposta[i].emUso);
     }
 
-    var cfg_analiseCpuDiasDaSemana = {
-      type: 'line',
-      data: {
+    var dados = {
         labels: hora,
         datasets: [{
           label: '',
           data: log,
           borderWidth: 1
         }]
-      },
+      ,
       options: {
         plugins: {
           legend: {
@@ -382,10 +380,40 @@
       }
     };
 
-    const line_analiseLog = new Chart(
+    let config = {
+      type: 'line',
+      data: dados,
+    }
+
+    let line_analiseLog = new Chart(
       document.getElementById('myChart3'),
-      cfg_analiseCpuDiasDaSemana
+      config
     );
+
+    setTimeout(() => atualizarGraficoLinhaCPU(idMaquina, dados, line_analiseLog), 30000);
+  }
+
+  function atualizarGraficoLinhaCPU(idMaquina, dados, grafico) {
+    fetch(`/dashboard/cpuEmTempoReal/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          dados.labels.shift();
+          dados.labels.push(resposta[0].horario)
+
+          dados.datasets[0].data.shift()
+          dados.datasets[0].data.push(resposta[0].emUso)
+
+          grafico.update()
+
+          setTimeout(() => atualizarGraficoLinhaCPU(idMaquina, dados, grafico), 30000);
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
   }
 </script>
 

@@ -344,7 +344,7 @@
       if (response.ok) {
         response.json().then(function (resposta) {
           console.log(resposta);
-          plotarGraficoRamTempoReal(resposta);
+          plotarGraficoRamTempoReal(resposta, idMaquina);
         });
       } else {
         console.error('Nenhum dado encontrado ou erro na API');
@@ -355,7 +355,7 @@
       });
   }
 
-  function plotarGraficoRamTempoReal(resposta) {
+  function plotarGraficoRamTempoReal(resposta, idMaquina) {
     var hora = [];
     var log = [];
 
@@ -364,16 +364,13 @@
       log.push(resposta[i].emUso);
     }
 
-    var cfg_analiseRamDiasDaSemana = {
-      type: 'line',
-      data: {
+    var dados = {
         labels: hora,
         datasets: [{
           label: '',
           data: log,
           borderWidth: 1
-        }]
-      },
+        }],
       options: {
         plugins: {
           legend: {
@@ -400,11 +397,43 @@
         }
       }
     };
+    
+    let config = {
+      type: 'line',
+      data: dados,
+    }
 
-    const line_analiseLog = new Chart(
+    let line_analiseLog = new Chart(
       document.getElementById('myChart3'),
-      cfg_analiseRamDiasDaSemana
+      config
     );
+
+    setTimeout(() => atualizarGraficoLinhaRAM(idMaquina, dados, line_analiseLog), 30000);
+  }
+
+  function atualizarGraficoLinhaRAM(idMaquina, dados, grafico) {
+    fetch(`/dashboard/ramEmTempoReal/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(resposta);
+
+          dados.labels.shift();
+          dados.labels.push(resposta[0].horario)
+
+          dados.datasets[0].data.shift()
+          dados.datasets[0].data.push(resposta[0].emUso)
+
+          grafico.update()
+
+          setTimeout(() => atualizarGraficoLinhaCPU(idMaquina, dados, grafico), 30000);
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
   }
 </script>
 
