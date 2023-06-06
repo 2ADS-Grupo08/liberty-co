@@ -67,7 +67,7 @@ function ramUltimos3DiasVisaoGeral(idMaquina) {
                                     ON idComponente = fkComponente
                                 WHERE Componente.fkMaquina = ${idMaquina}
                                     AND nomeComponente = 'Memória RAM'
-                                    AND CONVERT(date, Log.momentoCaptura) >= CONVERT(date, DATEADD(DAY, -3, GETDATE()))
+                                    AND CONVERT(date, Log.momentoCaptura) >= CONVERT(date, DATEADD(DAY, -2, GETDATE()))
                                 GROUP BY CONVERT(date, Log.momentoCaptura);`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
