@@ -55,7 +55,7 @@
         <i class="fas fa-envelope"></i>
         <span>Contato</span>
       </a>
-      <div class="saida">
+      <div class="saida" style="cursor: pointer;">
         <a onclick="sair()">
           <i class="fas fa-right-from-bracket"></i>
           <span>Sair</span>
@@ -197,6 +197,7 @@
   var porcentagem = 0;
 
   function validacaoLegenda() {
+    console.log(volumeDisco)
     if (disco + 1 >= volumeDisco.length) {
       avancar.style.display = "none";
     } if (disco + 1 < volumeDisco.length) {
@@ -223,9 +224,6 @@
 
   function setaVoltar() {
     disco--;
-    nivelCritico = volumeDisco[disco].nivelAlerta * volumeDisco[disco].total / 100;
-    nivelIdeal = nivelCritico * 0.8;
-    nivelUrgencia = nivelCritico * 0.9;
 
     validacaoLegenda();
 
@@ -238,9 +236,6 @@
 
   function setaAvancar() {
     disco++;
-    nivelCritico = volumeDisco[disco].nivelAlerta * volumeDisco[disco].total / 100;
-    nivelIdeal = nivelCritico * 0.8;
-    nivelUrgencia = nivelCritico * 0.9;
 
     validacaoLegenda();
 
@@ -275,6 +270,7 @@
           console.log(resposta);
           var vetorDisco = [];
           var aux = 0;
+          validacaoSemana(resposta);
           for (let i = 0; i < resposta.length; i++) {
             if (i == 0) {
               vetorDisco.push(resposta[0])
@@ -298,6 +294,26 @@
       .catch(function (error) {
         console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
       });
+  }
+
+  function validacaoSemana(resposta) {
+    for (var i = 0; i < resposta.length; i++) {
+      if (resposta[i].Semana == "Monday") {
+        resposta[i].Semana = "Segunda"
+      } else if (resposta[i].Semana == "Tuesday") {
+        resposta[i].Semana = "Terça"
+      } else if (resposta[i].Semana == "Wednesday") {
+        resposta[i].Semana = "Quarta"
+      } else if (resposta[i].Semana == "Thursday") {
+        resposta[i].Semana = "Quinta"
+      } else if (resposta[i].Semana == "Friday") {
+        resposta[i].Semana = "Sexta"
+      } else if (resposta[i].Semana == "Saturday") {
+        resposta[i].Semana = "Sábado"
+      } else if (resposta[i].Semana == "Sunday") {
+        resposta[i].Semana = "Domingo"
+      }
+    }
   }
 
   var bar = new Chart();
@@ -459,5 +475,24 @@
       .catch(function (error) {
         console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
       });
+  }
+</script>
+
+<script>
+  function sair() {
+      Swal.fire({
+          title: 'Tem certeza que deseja sair ?',
+          text: "Confirme para sair!",
+          icon: 'warning',
+          confirmButtonText: `<a href="cpu-registration.html" onclick="sair()" >
+                  <i class="fas fa-right-from-bracket"></i>
+                  <span>Sair</span>
+              </a>`
+      }).then((result) => {
+          if (result.isConfirmed) {
+              Swal.fire(
+              )
+          }
+      })
   }
 </script>
